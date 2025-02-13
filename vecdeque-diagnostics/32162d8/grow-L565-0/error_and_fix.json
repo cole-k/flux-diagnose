@@ -27,6 +27,6 @@
             "fix_type": "additional_refinement",
             "description": "self needs to be refined"
         },
-        "certainty": "y"
+        "certainty": true
     }
 }

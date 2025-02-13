@@ -25,6 +25,6 @@
             "fix_type": "additional_refinement",
             "description": "count(_, _, cap) < cap"
         },
-        "certainty": "y"
+        "certainty": true
     }
 }

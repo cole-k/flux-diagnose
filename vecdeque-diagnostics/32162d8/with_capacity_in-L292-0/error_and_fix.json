@@ -25,6 +25,6 @@
             "fix_type": "additional_refinement",
             "description": "real_capacity(capacity) >= capacity"
         },
-        "certainty": "y"
+        "certainty": true
     }
 }

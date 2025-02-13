@@ -27,6 +27,6 @@
             "fix_type": "additional_refinement",
             "description": "capacity > 1"
         },
-        "certainty": "y"
+        "certainty": true
     }
 }

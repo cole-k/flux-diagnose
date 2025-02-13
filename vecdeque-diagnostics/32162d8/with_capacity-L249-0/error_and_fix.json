@@ -27,6 +27,6 @@
             "fix_type": "additional_refinement",
             "description": "capacity < MAXIMUM_ZST_CAPACITY"
         },
-        "certainty": "y"
+        "certainty": true
     }
 }
