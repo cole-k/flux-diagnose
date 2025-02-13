@@ -149,6 +149,10 @@ def gather_fix_info_from_user(error):
 
     seen_before = input("Have you seen this error before? (y/n): ").strip().lower().startswith("y")
 
+    if seen_before:
+        # Early exit without any additional info
+        return { "seen_before": True }
+    
     certainty = input("Do you know for sure where the error is? (y/n): ").strip().lower().startswith("y")
 
     fix_line = int(input(f"Enter the line number that needs to change to fix the error (press Enter for {error['row']}): ") or error["row"])
