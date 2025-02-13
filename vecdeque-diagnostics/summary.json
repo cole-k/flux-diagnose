@@ -1,0 +1,580 @@
+{
+    "1936442": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 524,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:524:13\n    |\n524 |             self.buffer_write(tail, value);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+                "function_context": {
+                    "start": 514,
+                    "end": 526,
+                    "name": "push_front",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.fluxc"
+                    ]
+                },
+                "unique_name": "push_front-L524-0"
+            },
+            "fix": {
+                "fix_line": 515,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs refining"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "assignment might be unsafe",
+                "file": "src/vec_deque.rs",
+                "row": 547,
+                "col": 9,
+                "raw": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:547:9\n    |\n547 |         self.head = self.wrap_add(self.head, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 540,
+                    "end": 549,
+                    "name": "push_back",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.simp.fluxc"
+                    ]
+                },
+                "unique_name": "push_back-L547-0"
+            },
+            "fix": {
+                "fix_line": 541,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs refining"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 548,
+                "col": 18,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:548:18\n    |\n548 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+                "function_context": {
+                    "start": 540,
+                    "end": 549,
+                    "name": "push_back",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.simp.fluxc"
+                    ]
+                },
+                "unique_name": "push_back-L548-0"
+            },
+            "fix": {
+                "fix_line": 541,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs refining"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "assignment might be unsafe",
+                "file": "src/vec_deque.rs",
+                "row": 521,
+                "col": 9,
+                "raw": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:521:9\n    |\n521 |         self.tail = self.wrap_sub(tail, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 514,
+                    "end": 526,
+                    "name": "push_front",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/1936442/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.fluxc"
+                    ]
+                },
+                "unique_name": "push_front-L521-0"
+            },
+            "fix": {
+                "fix_line": 515,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs refining"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        }
+    ],
+    "32162d8": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 249,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:249:9\n    |\n249 |         Self::with_capacity_in(capacity, Global)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:279:37\n    |\n279 |     #[flux::sig(fn (capacity: usize{capacity < MAXIMUM_ZST_CAPACITY && capacity > 1}, alloc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tai...\n    |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 247,
+                    "end": 250,
+                    "name": "with_capacity",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#0}-with_capacity.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#0}-with_capacity.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.simp.fluxc"
+                    ]
+                },
+                "unique_name": "with_capacity-L249-0"
+            },
+            "fix": {
+                "fix_line": 248,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "capacity < MAXIMUM_ZST_CAPACITY"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 249,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:249:9\n    |\n249 |         Self::with_capacity_in(capacity, Global)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:279:72\n    |\n279 |     #[flux::sig(fn (capacity: usize{capacity < MAXIMUM_ZST_CAPACITY && capacity > 1}, alloc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tai...\n    |                                                                        ^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 247,
+                    "end": 250,
+                    "name": "with_capacity",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#0}-with_capacity.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#0}-with_capacity.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.simp.fluxc"
+                    ]
+                },
+                "unique_name": "with_capacity-L249-1"
+            },
+            "fix": {
+                "fix_line": 248,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "capacity > 1"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "type invariant may not hold (when place is folded)",
+                "file": "src/vec_deque.rs",
+                "row": 565,
+                "col": 13,
+                "raw": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:565:13\n    |\n565 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 553,
+                    "end": 568,
+                    "name": "grow",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.fluxc"
+                    ]
+                },
+                "unique_name": "grow-L565-2"
+            },
+            "fix": {
+                "fix_line": 554,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs to be refined"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 563,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:563:9\n    |\n563 |         assert(new_cap == old_cap * 2);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:598:21\n    |\n598 | #[flux::sig(fn(bool[true]))]\n    |                     ^^^^\n\n",
+                "function_context": {
+                    "start": 553,
+                    "end": 568,
+                    "name": "grow",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.fluxc"
+                    ]
+                },
+                "unique_name": "grow-L563-0"
+            },
+            "fix": {
+                "fix_line": 554,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs to be refined"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "assignment might be unsafe",
+                "file": "src/vec_deque.rs",
+                "row": 520,
+                "col": 9,
+                "raw": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:520:9\n    |\n520 |         self.tail = self.wrap_sub(tail, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 513,
+                    "end": 525,
+                    "name": "push_front",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.fluxc"
+                    ]
+                },
+                "unique_name": "push_front-L520-0"
+            },
+            "fix": {
+                "fix_line": 520,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "wrap_sub needs to preserve vec_deque invariant"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 547,
+                "col": 18,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:547:18\n    |\n547 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+                "function_context": {
+                    "start": 539,
+                    "end": 548,
+                    "name": "push_back",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.simp.fluxc"
+                    ]
+                },
+                "unique_name": "push_back-L547-0"
+            },
+            "fix": {
+                "fix_line": 546,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "wrap_add needs to preserve vec_deque invariant"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 523,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:523:13\n    |\n523 |             self.buffer_write(tail, value);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+                "function_context": {
+                    "start": 513,
+                    "end": 525,
+                    "name": "push_front",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.fluxc"
+                    ]
+                },
+                "unique_name": "push_front-L523-0"
+            },
+            "fix": {
+                "fix_line": 520,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "wrap_sub needs to preserve vec_deque invariant"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "assignment might be unsafe",
+                "file": "src/vec_deque.rs",
+                "row": 546,
+                "col": 9,
+                "raw": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:546:9\n    |\n546 |         self.head = self.wrap_add(self.head, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 539,
+                    "end": 548,
+                    "name": "push_back",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.simp.fluxc"
+                    ]
+                },
+                "unique_name": "push_back-L546-0"
+            },
+            "fix": {
+                "fix_line": 546,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "wrap_add needs to preserve vec_deque refinement"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 565,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:565:13\n    |\n565 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:171:93\n    |\n171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && s.tail < v}) ensures self: VecDeque<T, A>)]\n    |                                                                                             ^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 553,
+                    "end": 568,
+                    "name": "grow",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.fluxc"
+                    ]
+                },
+                "unique_name": "grow-L565-1"
+            },
+            "fix": {
+                "fix_line": 554,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs to be refined"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 565,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:565:13\n    |\n565 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:171:75\n    |\n171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && s.tail < v}) ensures self: VecDeque<T, A>)]\n    |                                                                           ^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 553,
+                    "end": 568,
+                    "name": "grow",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.fluxc"
+                    ]
+                },
+                "unique_name": "grow-L565-0"
+            },
+            "fix": {
+                "fix_line": 554,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs to be refined"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "type invariant may not hold (when place is folded)",
+                "file": "src/vec_deque.rs",
+                "row": 559,
+                "col": 9,
+                "raw": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:559:9\n    |\n559 |         self.buf.reserve_exact(old_cap, old_cap);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 553,
+                    "end": 568,
+                    "name": "grow",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.fluxc"
+                    ]
+                },
+                "unique_name": "grow-L559-0"
+            },
+            "fix": {
+                "fix_line": 554,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "self needs to be refined"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 292,
+                "col": 5,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:292:5\n    |\n292 |     }\n    |     ^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:279:148\n    |\n279 | ...oc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tail == 0 && capacity <= v.cap})]\n    |                                                              ^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 279,
+                    "end": 292,
+                    "name": "with_capacity_in",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.smt2",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.simp.fluxc"
+                    ]
+                },
+                "unique_name": "with_capacity_in-L292-0"
+            },
+            "fix": {
+                "fix_line": 285,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "real_capacity(capacity) >= capacity"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 417,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:417:9\n    |\n417 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:415:56\n    |\n415 |     #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]\n    |                                                        ^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 415,
+                    "end": 418,
+                    "name": "len",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-len.smt2"
+                    ]
+                },
+                "unique_name": "len-L417-0"
+            },
+            "fix": {
+                "fix_line": 417,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "count(_, _, cap) < cap"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        }
+    ],
+    "456f9a5": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/vec_deque.rs",
+                "row": 418,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:418:9\n    |\n418 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:416:56\n    |\n416 |     #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]\n    |                                                        ^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 416,
+                    "end": 419,
+                    "name": "len",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/456f9a5/all_constraints/vecdeque.vec_deque-{impl#3}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/456f9a5/all_constraints/vecdeque.vec_deque-{impl#3}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/456f9a5/all_constraints/vecdeque.vec_deque-{impl#3}-len.smt2"
+                    ]
+                },
+                "unique_name": "len-L418-0"
+            },
+            "fix": {
+                "fix_line": 418,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "count reft is <= size instead of < size"
+                },
+                "certainty": true,
+                "seen_before": false
+            }
+        }
+    ]
+}
