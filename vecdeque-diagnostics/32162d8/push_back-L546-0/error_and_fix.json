@@ -25,6 +25,7 @@
             "fix_type": "additional_refinement",
             "description": "wrap_add needs to preserve vec_deque refinement"
         },
-        "certainty": true
+        "certainty": true,
+        "seen_before": false
     }
 }

@@ -25,6 +25,7 @@
             "fix_type": "additional_refinement",
             "description": "wrap_sub needs to preserve vec_deque invariant"
         },
-        "certainty": true
+        "certainty": true,
+        "seen_before": false
     }
 }
