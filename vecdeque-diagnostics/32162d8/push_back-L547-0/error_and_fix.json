@@ -1,0 +1,30 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/vec_deque.rs",
+        "row": 547,
+        "col": 18,
+        "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:547:18\n    |\n547 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+        "function_context": {
+            "start": 539,
+            "end": 548,
+            "name": "push_back",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.simp.fluxc"
+            ]
+        },
+        "unique_name": "push_back-L547-0"
+    },
+    "fix": {
+        "fix_line": 546,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "wrap_add needs to preserve vec_deque invariant"
+        },
+        "certainty": "y"
+    }
+}

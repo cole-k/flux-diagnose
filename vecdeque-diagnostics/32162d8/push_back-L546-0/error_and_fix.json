@@ -1,0 +1,30 @@
+{
+    "error": {
+        "message": "assignment might be unsafe",
+        "file": "src/vec_deque.rs",
+        "row": 546,
+        "col": 9,
+        "raw": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:546:9\n    |\n546 |         self.head = self.wrap_add(self.head, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 539,
+            "end": 548,
+            "name": "push_back",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.simp.fluxc"
+            ]
+        },
+        "unique_name": "push_back-L546-0"
+    },
+    "fix": {
+        "fix_line": 546,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "wrap_add needs to preserve vec_deque refinement"
+        },
+        "certainty": "y"
+    }
+}

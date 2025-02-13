@@ -1,0 +1,120 @@
+∀ .  
+  false =>  
+    $k0() ~ Goto(bb6) at 336:10: 336:10
+    ∀ a0: int, a1: int, a2: int.  
+      $k1(a0, a1, a2) ~ Goto(bb6) at 336:10: 336:10
+      ∀ a3: T::sort. (a3 = a3) ~ Goto(bb6) at 336:10: 336:10
+      ∀ a3: A::sort. (a3 = a3) ~ Goto(bb6) at 336:10: 336:10
+      (a0 = a0) ~ Goto(bb6) at 336:10: 336:10
+      (a1 = a1) ~ Goto(bb6) at 336:10: 336:10
+      (a2 = a2) ~ Goto(bb6) at 336:10: 336:10
+    ∀ a0: int, a1: int, a2: int.  
+      $k1(a0, a1, a2) =>  
+        ∀ a3: T::sort. (a3 = a3) ~ Goto(bb6) at 336:10: 336:10
+        ∀ a3: A::sort. (a3 = a3) ~ Goto(bb6) at 336:10: 336:10
+        (a0 = a0) ~ Goto(bb6) at 336:10: 336:10
+        (a1 = a1) ~ Goto(bb6) at 336:10: 336:10
+        (a2 = a2) ~ Goto(bb6) at 336:10: 336:10
+  true =>  
+    ∀ a0: int, a1: int, a2: int.  
+      ∀ a3: T::sort.  
+        $k3(a3) ~ Call at 557:23: 557:37
+        (a3 = a3) ~ Call at 557:23: 557:37
+      ∀ a3: A::sort. (a3 = a3) ~ Call at 557:23: 557:37
+      (a0 = a0) ~ Call at 557:23: 557:37
+      (a1 = a1) ~ Call at 557:23: 557:37
+      (a2 = a2) ~ Call at 557:23: 557:37
+      ∀ a3: bool.  
+        ¬a3 => true ~ Call at 335:13: 335:38
+        a3 =>  
+          $k0() ~ Goto(bb6) at 334:43: 336:10
+          ∀ a4: int, a5: int, a6: int.  
+            $k1(a4, a5, a6) ~ Goto(bb6) at 334:43: 336:10
+            ∀ a7: T::sort. (a7 = a7) ~ Goto(bb6) at 334:43: 336:10
+            ∀ a7: A::sort. (a7 = a7) ~ Goto(bb6) at 334:43: 336:10
+            (a4 = a4) ~ Goto(bb6) at 334:43: 336:10
+            (a5 = a5) ~ Goto(bb6) at 334:43: 336:10
+            (a6 = a6) ~ Goto(bb6) at 334:43: 336:10
+          ∀ a4: int, a5: int, a6: int.  
+            $k1(a4, a5, a6) =>  
+              ∀ a7: T::sort. (a7 = a7) ~ Goto(bb6) at 334:43: 336:10
+              ∀ a7: A::sort. (a7 = a7) ~ Goto(bb6) at 334:43: 336:10
+              (a4 = a4) ~ Goto(bb6) at 334:43: 336:10
+              (a5 = a5) ~ Goto(bb6) at 334:43: 336:10
+              (a6 = a6) ~ Goto(bb6) at 334:43: 336:10
+  $k0() =>  
+    ∀ a0: int, a1: int, a2: int.  
+      $k1(a0, a1, a2) =>  
+        ∀ a3: T::sort.  
+          $k4(a3) ~ Call at 558:23: 558:33
+          (a3 = a3) ~ Call at 558:23: 558:33
+        ∀ a3: A::sort. (a3 = a3) ~ Call at 558:23: 558:33
+        (a0 = a0) ~ Call at 558:23: 558:33
+        (a1 = a1) ~ Call at 558:23: 558:33
+        (a2 = a2) ~ Call at 558:23: 558:33
+        ∀ a3: int.  
+          (a3 = a2 ∧ pow2(a3) ∧ 1 ≤ a3 ∧ a3 ≥ 0) =>  
+            ∀ a4: int, a5: int, a6: int.  
+              ($k1(a4, a5, a6) ∧ a5 < a6 ∧ a5 ≥ 0 ∧ a4 < a6 ∧ a4 ≥ 0 ∧ pow2(a6) ∧ 1 ≤ a6) =>  
+                ∀ a7: loc.  
+                  ∀ a8: T::sort.  
+                    $k5(a8) ~ Call at 559:9: 559:49
+                    (a8 = a8) ~ Call at 559:9: 559:49
+                  ∀ a8: A::sort. (a8 = a8) ~ Call at 559:9: 559:49
+                  (a6 = a6) ~ Call at 559:9: 559:49
+                  (a3 = a3) ~ Call at 559:9: 559:49
+                  (a3 = a3) ~ Call at 559:9: 559:49
+                  ∀ a8: T::sort.  
+                    $k5(a8) => (a8 = a8) ~ FoldLocal at 559:9: 559:49
+                  ∀ a8: A::sort. (a8 = a8) ~ FoldLocal at 559:9: 559:49
+                  (a3 + a3 = a6) ~ FoldLocal at 559:9: 559:49
+                  ∀ a8: T::sort.  
+                    $k6(a8) ~ Call at 561:23: 561:33
+                    (a8 = a8) ~ Call at 561:23: 561:33
+                  ∀ a8: A::sort. (a8 = a8) ~ Call at 561:23: 561:33
+                  (a4 = a4) ~ Call at 561:23: 561:33
+                  (a5 = a5) ~ Call at 561:23: 561:33
+                  (a6 = a6) ~ Call at 561:23: 561:33
+                  ∀ a8: int.  
+                    (a8 = a6 ∧ pow2(a8) ∧ 1 ≤ a8 ∧ a8 ≥ 0) =>  
+                      ((a8 = a3 * 2) = true) ~ Call at 563:9: 563:39
+                      ∀ a9: loc.  
+                        ∀ a10: T::sort.  
+                          $k7(a10) ~ Call at 565:13: 565:51
+                          (a10 = a10) ~ Call at 565:13: 565:51
+                        ∀ a10: A::sort. (a10 = a10) ~ Call at 565:13: 565:51
+                        (a4 = a4) ~ Call at 565:13: 565:51
+                        (a5 = a5) ~ Call at 565:13: 565:51
+                        (a6 = a6) ~ Call at 565:13: 565:51
+                        (a3 * 2 ≤ a6 ∧ a5 < a3) ~ Call at 565:13: 565:51
+                        (a3 = a3) ~ Call at 565:13: 565:51
+                        ∀ a10: int, a11: int, a12: int.  
+                          ∀ a13: T::sort.  
+                            $k7(a13) => (a13 = a13) ~ FoldLocal at 565:13: 565:51
+                          ∀ a13: A::sort. (a13 = a13) ~ FoldLocal at 565:13: 565:51
+                          (a10 = a4) ~ FoldLocal at 565:13: 565:51
+                          (a11 = a5) ~ FoldLocal at 565:13: 565:51
+                          (a12 = a6) ~ FoldLocal at 565:13: 565:51
+                          false =>  
+                            $k2() ~ Goto(bb17) at 336:10: 336:10
+                            ∀ a13: T::sort. (a13 = a13) ~ Goto(bb17) at 336:10: 336:10
+                            ∀ a13: A::sort. (a13 = a13) ~ Goto(bb17) at 336:10: 336:10
+                            ∀ a13: T::sort. (a13 = a13) ~ Goto(bb17) at 336:10: 336:10
+                            ∀ a13: A::sort. (a13 = a13) ~ Goto(bb17) at 336:10: 336:10
+                          true =>  
+                            ∀ a13: T::sort.  
+                              $k8(a13) ~ Call at 567:24: 567:38
+                              (a13 = a13) ~ Call at 567:24: 567:38
+                            ∀ a13: A::sort. (a13 = a13) ~ Call at 567:24: 567:38
+                            (a4 = a4) ~ Call at 567:24: 567:38
+                            (a5 = a5) ~ Call at 567:24: 567:38
+                            (a6 = a6) ~ Call at 567:24: 567:38
+                            ∀ a13: bool.  
+                              ¬a13 =>  
+                                $k2() ~ Goto(bb17) at 334:43: 336:10
+                                ∀ a14: T::sort. (a14 = a14) ~ Goto(bb17) at 334:43: 336:10
+                                ∀ a14: A::sort. (a14 = a14) ~ Goto(bb17) at 334:43: 336:10
+                                ∀ a14: T::sort. (a14 = a14) ~ Goto(bb17) at 334:43: 336:10
+                                ∀ a14: A::sort. (a14 = a14) ~ Goto(bb17) at 334:43: 336:10
+                              a13 => true ~ Call at 335:13: 335:38
+                          $k2() => true

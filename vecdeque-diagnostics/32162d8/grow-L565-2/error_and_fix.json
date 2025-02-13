@@ -1,0 +1,32 @@
+{
+    "error": {
+        "message": "type invariant may not hold (when place is folded)",
+        "file": "src/vec_deque.rs",
+        "row": 565,
+        "col": 13,
+        "raw": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:565:13\n    |\n565 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 553,
+            "end": 568,
+            "name": "grow",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-grow.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.fluxc"
+            ]
+        },
+        "unique_name": "grow-L565-2"
+    },
+    "fix": {
+        "fix_line": 554,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "self needs to be refined"
+        },
+        "certainty": "y"
+    }
+}

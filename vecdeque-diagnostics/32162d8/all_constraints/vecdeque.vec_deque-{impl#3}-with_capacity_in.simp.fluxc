@@ -1,0 +1,10 @@
+∀ capacity: int.  
+  (capacity < vec_deque::MAXIMUM_ZST_CAPACITY ∧ capacity > 1 ∧ capacity ≥ 0) =>  
+    ∀ a0: A::sort, a1: int.  
+      (a1 ≥ 1 ∧ pow2(a1) ∧ a1 ≥ 0) =>  
+        (0 < a1) ~ Call at 287:9: 291:10
+        (0 < a1) ~ Call at 287:9: 291:10
+        (pow2(a1) ∧ 1 ≤ a1) ~ Call at 287:9: 291:10
+        ∀ a2: T::sort.  
+          $k0(a2) => $k1(a2) ~ Call at 287:9: 291:10
+        (capacity ≤ a1) ~ Ret at 292:5: 292:6

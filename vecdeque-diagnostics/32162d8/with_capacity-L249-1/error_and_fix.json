@@ -1,0 +1,32 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/vec_deque.rs",
+        "row": 249,
+        "col": 9,
+        "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:249:9\n    |\n249 |         Self::with_capacity_in(capacity, Global)\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:279:72\n    |\n279 |     #[flux::sig(fn (capacity: usize{capacity < MAXIMUM_ZST_CAPACITY && capacity > 1}, alloc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tai...\n    |                                                                        ^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 247,
+            "end": 250,
+            "name": "with_capacity",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#0}-with_capacity.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.raw_vec-{impl#0}-with_capacity.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.simp.fluxc"
+            ]
+        },
+        "unique_name": "with_capacity-L249-1"
+    },
+    "fix": {
+        "fix_line": 248,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "capacity > 1"
+        },
+        "certainty": "y"
+    }
+}

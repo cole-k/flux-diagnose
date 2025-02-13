@@ -1,0 +1,30 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/vec_deque.rs",
+        "row": 292,
+        "col": 5,
+        "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:292:5\n    |\n292 |     }\n    |     ^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:279:148\n    |\n279 | ...oc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tail == 0 && capacity <= v.cap})]\n    |                                                              ^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 279,
+            "end": 292,
+            "name": "with_capacity_in",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.simp.fluxc"
+            ]
+        },
+        "unique_name": "with_capacity_in-L292-0"
+    },
+    "fix": {
+        "fix_line": 285,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "real_capacity(capacity) >= capacity"
+        },
+        "certainty": "y"
+    }
+}

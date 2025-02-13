@@ -1,0 +1,30 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/vec_deque.rs",
+        "row": 417,
+        "col": 9,
+        "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:417:9\n    |\n417 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:415:56\n    |\n415 |     #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]\n    |                                                        ^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 415,
+            "end": 418,
+            "name": "len",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-len.smt2"
+            ]
+        },
+        "unique_name": "len-L417-0"
+    },
+    "fix": {
+        "fix_line": 417,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "count(_, _, cap) < cap"
+        },
+        "certainty": "y"
+    }
+}
