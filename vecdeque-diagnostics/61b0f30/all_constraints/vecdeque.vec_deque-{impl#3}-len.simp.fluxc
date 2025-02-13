@@ -1,0 +1,8 @@
+∀ self: VecDeque.  
+  (self.1 < self.2 ∧ self.1 ≥ 0 ∧ self.0 < self.2 ∧ self.0 ≥ 0 ∧ pow2(self.2) ∧ 1 ≤ self.2) =>  
+    ∀ a0: T::sort. $k0(a0) ~ Call at 418:37: 418:47
+    ∀ a0: int.  
+      (a0 = self.2 ∧ pow2(a0) ∧ 1 ≤ a0 ∧ a0 ≥ 0) =>  
+        (pow2(a0) ∧ 1 ≤ a0) ~ Call at 418:9: 418:48
+        ∀ a1: int.  
+          (a1 ≥ 0) => (a1 < self.2) ~ Ret at 418:9: 418:48

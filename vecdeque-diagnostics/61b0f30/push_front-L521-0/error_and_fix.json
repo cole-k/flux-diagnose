@@ -1,0 +1,23 @@
+{
+    "error": {
+        "message": "assignment might be unsafe",
+        "file": "src/vec_deque.rs",
+        "row": 521,
+        "col": 9,
+        "raw": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:521:9\n    |\n521 |         self.tail = self.wrap_sub(tail, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 514,
+            "end": 526,
+            "name": "push_front",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.fluxc"
+            ]
+        },
+        "unique_name": "push_front-L521-0"
+    },
+    "fix": {
+        "seen_before": true
+    }
+}

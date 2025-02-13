@@ -1,0 +1,23 @@
+{
+    "error": {
+        "message": "assignment might be unsafe",
+        "file": "src/vec_deque.rs",
+        "row": 547,
+        "col": 9,
+        "raw": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:547:9\n    |\n547 |         self.head = self.wrap_add(self.head, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 540,
+            "end": 549,
+            "name": "push_back",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.simp.fluxc"
+            ]
+        },
+        "unique_name": "push_back-L547-0"
+    },
+    "fix": {
+        "seen_before": true
+    }
+}

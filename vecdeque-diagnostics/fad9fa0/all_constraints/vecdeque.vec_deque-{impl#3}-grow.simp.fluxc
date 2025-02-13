@@ -1,0 +1,38 @@
+∀ .  
+  false =>  
+    $k0() ~ Goto(bb6) at 336:10: 336:10
+    ∀ a0: int, a1: int, a2: int. $k1(a0, a1, a2) ~ Goto(bb6) at 336:10: 336:10
+  true =>  
+    ∀ a0: int, a1: int, a2: int.  
+      ∀ a3: T::sort. $k3(a3) ~ Call at 558:23: 558:37
+      ∀ a3: bool.  
+        a3 =>  
+          $k0() ~ Goto(bb6) at 334:43: 336:10
+          ∀ a4: int, a5: int, a6: int. $k1(a4, a5, a6) ~ Goto(bb6) at 334:43: 336:10
+  $k0() =>  
+    ∀ a0: int, a1: int, a2: int.  
+      $k1(a0, a1, a2) =>  
+        ∀ a3: T::sort. $k4(a3) ~ Call at 559:23: 559:33
+        ∀ a3: int.  
+          (a3 = a2 ∧ pow2(a3) ∧ 1 ≤ a3 ∧ a3 ≥ 0) =>  
+            ∀ a4: int, a5: int, a6: int.  
+              ($k1(a4, a5, a6) ∧ a5 < a6 ∧ a5 ≥ 0 ∧ a4 < a6 ∧ a4 ≥ 0 ∧ pow2(a6) ∧ 1 ≤ a6) =>  
+                ∀ a7: loc.  
+                  ∀ a8: T::sort. $k5(a8) ~ Call at 560:9: 560:49
+                  (a3 + a3 = a6) ~ FoldLocal at 560:9: 560:49
+                  ∀ a8: T::sort. $k6(a8) ~ Call at 562:23: 562:33
+                  ∀ a8: int.  
+                    (a8 = a6 ∧ pow2(a8) ∧ 1 ≤ a8 ∧ a8 ≥ 0) =>  
+                      ((a8 = a3 * 2) = true) ~ Call at 564:9: 564:39
+                      ∀ a9: loc.  
+                        ∀ a10: T::sort. $k7(a10) ~ Call at 566:13: 566:51
+                        (a3 * 2 ≤ a6 ∧ a5 < a3) ~ Call at 566:13: 566:51
+                        ∀ a10: int, a11: int, a12: int.  
+                          (a10 = a4) ~ FoldLocal at 566:13: 566:51
+                          (a11 = a5) ~ FoldLocal at 566:13: 566:51
+                          (a12 = a6) ~ FoldLocal at 566:13: 566:51
+                          false => $k2() ~ Goto(bb17) at 336:10: 336:10
+                          true =>  
+                            ∀ a13: T::sort. $k8(a13) ~ Call at 568:24: 568:38
+                            ∀ a13: bool.  
+                              ¬a13 => $k2() ~ Goto(bb17) at 334:43: 336:10

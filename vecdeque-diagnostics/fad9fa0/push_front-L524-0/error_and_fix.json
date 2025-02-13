@@ -1,0 +1,23 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/vec_deque.rs",
+        "row": 524,
+        "col": 13,
+        "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:524:13\n    |\n524 |             self.buffer_write(tail, value);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+        "function_context": {
+            "start": 514,
+            "end": 526,
+            "name": "push_front",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/fad9fa0/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/fad9fa0/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/fad9fa0/all_constraints/vecdeque.vec_deque-{impl#3}-push_front.fluxc"
+            ]
+        },
+        "unique_name": "push_front-L524-0"
+    },
+    "fix": {
+        "seen_before": true
+    }
+}

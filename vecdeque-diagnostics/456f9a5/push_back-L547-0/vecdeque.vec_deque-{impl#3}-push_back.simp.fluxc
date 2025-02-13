@@ -1,0 +1,24 @@
+∀ .  
+  ∀ a0: T::sort, a1: int, a2: int, a3: int.  
+    ∀ a4: T::sort. $k2(a4) ~ Call at 542:12: 542:26
+    ∀ a4: bool.  
+      ¬a4 =>  
+        $k0() ~ Goto(bb5) at 544:10: 544:10
+        ∀ a5: int, a6: int, a7: int. $k1(a5, a6, a7) ~ Goto(bb5) at 544:10: 544:10
+      a4 =>  
+        ∀ a5: int, a6: int, a7: int, a8: T::sort. $k3(a8) ~ Call at 543:13: 543:24
+        $k0() ~ Goto(bb5) at 542:27: 544:10
+        ∀ a5: int, a6: int, a7: int. $k1(a5, a6, a7) ~ Goto(bb5) at 542:27: 544:10
+      $k0() =>  
+        ∀ a5: int, a6: int, a7: int.  
+          ($k1(a5, a6, a7) ∧ a6 < a7 ∧ a6 ≥ 0 ∧ a5 < a7 ∧ a5 ≥ 0 ∧ pow2(a7) ∧ 1 ≤ a7 ∧ a6 < a7 ∧ a6 ≥ 0 ∧ a5 < a7 ∧ a5 ≥ 0 ∧ pow2(a7) ∧ 1 ≤ a7) =>  
+            ∀ a8: T::sort. $k4(a8) ~ Call at 547:21: 547:48
+            ∀ a8: int.  
+              (a8 ≥ 0) =>  
+                (a8 = a5) ~ Assign at 547:9: 547:48
+                ∀ a9: T::sort. $k5(a9) ~ Call at 548:18: 548:48
+                ∀ a9: int, a10: int, a11: int.  
+                  (a9 = a5) ~ Call at 548:18: 548:48
+                  (a10 = a6) ~ Call at 548:18: 548:48
+                  (a11 = a7) ~ Call at 548:18: 548:48
+                $k5(a0) ~ Call at 548:18: 548:48

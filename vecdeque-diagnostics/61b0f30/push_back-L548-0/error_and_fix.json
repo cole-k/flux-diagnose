@@ -1,0 +1,23 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/vec_deque.rs",
+        "row": 548,
+        "col": 18,
+        "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:548:18\n    |\n548 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+        "function_context": {
+            "start": 540,
+            "end": 549,
+            "name": "push_back",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/61b0f30/all_constraints/vecdeque.vec_deque-{impl#3}-push_back.simp.fluxc"
+            ]
+        },
+        "unique_name": "push_back-L548-0"
+    },
+    "fix": {
+        "seen_before": true
+    }
+}

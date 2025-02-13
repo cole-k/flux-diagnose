@@ -1,0 +1,25 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/vec_deque.rs",
+        "row": 564,
+        "col": 9,
+        "raw": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:564:9\n    |\n564 |         assert(new_cap == old_cap * 2);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:599:21\n    |\n599 | #[flux::sig(fn(bool[true]))]\n    |                     ^^^^\n\n",
+        "function_context": {
+            "start": 554,
+            "end": 569,
+            "name": "grow",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/fad9fa0/all_constraints/vecdeque.vec_deque-{impl#3}-grow.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/fad9fa0/all_constraints/vecdeque.vec_deque-{impl#3}-grow.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/fad9fa0/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/fad9fa0/all_constraints/vecdeque.vec_deque-{impl#3}-grow.smt2",
+                "/Users/cole/git/flux-diagnose/vecdeque-diagnostics/fad9fa0/all_constraints/vecdeque.raw_vec-{impl#2}-needs_to_grow.fluxc"
+            ]
+        },
+        "unique_name": "grow-L564-0"
+    },
+    "fix": {
+        "seen_before": true
+    }
+}
