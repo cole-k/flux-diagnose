@@ -120,9 +120,9 @@ def extract_function_context(file_name, error_line, log_directory, output_direct
         "constraint_files": [str(file) for file in constraint_files]
     }
 
-def print_function_context(error):
+def render_function_context(error):
     """
-    Print the function context for the specified error.
+    Render the function context for the specified error as a string.
     """
     # Print the line with context
     start_line = error["function_context"]["start"]
@@ -131,21 +131,21 @@ def print_function_context(error):
 
     print(f"\nFunction context (lines {start_line} to {end_line}):")
     print(f"Function name: {function_name}")
+
+    rendered_context = ""
     
     with open(error["file"], 'r') as f:
         context_lines = f.readlines()[start_line - 1:end_line]  # Adjust for 0-based index
         
         for index, context_line in enumerate(context_lines, start=start_line):
-            print(f"{index:2d}: {context_line.rstrip()}")
+            rendered_context += f"{index:2d}: {context_line.rstrip()}\n"
+
+    return rendered_context
 
 def gather_fix_info_from_user(error):
     """
     Gather information about the fix for the specified error from user input.
     """
-    
-    print(error["raw"])
-    print_function_context(error)
-    print()
 
     seen_before = input("Have you seen this error before? (y/n): ").strip().lower().startswith("y")
 
@@ -160,16 +160,15 @@ def gather_fix_info_from_user(error):
     # Ask if the error message is helpful enough
     helpful_message = input("Is the error message helpful enough? (y/n): ").strip().lower()
     
-    # Print the line with context
-    start_line = error["function_context"]["start"]
-    end_line = error["function_context"]["end"]
-    function_name = error["function_context"]["name"]
-    
+    rendered_fix_context = ""
+
     with open(error["file"], 'r') as f:
         context_lines = f.readlines()[fix_line - (CONTEXT_WINDOW + 1) : fix_line + CONTEXT_WINDOW]  # Adjust for 0-based index
         
         for index, context_line in enumerate(context_lines, start=fix_line - CONTEXT_WINDOW):
-            print(f"{index:2d}: {'error->' if index == fix_line else '       '}{context_line.rstrip()}")
+            rendered_fix_context += f"{index:2d}: {'error->' if index == fix_line else '       '}{context_line.rstrip()}\n"
+
+    print(rendered_fix_context)
 
     # Ask for the problem on the indicated line
     problem_choice = input("What is the problem on the line you indicated? (1: Code is wrong, 2: Refinement not specific enough, 3: Incorrect refinement, 4: Other): ")
@@ -204,6 +203,7 @@ def gather_fix_info_from_user(error):
         "fix_description": fix_description,
         "certainty": certainty,
         "seen_before": seen_before,
+        "rendered_fix_context": rendered_fix_context,
     }
 
     return fix_info
@@ -264,6 +264,11 @@ if __name__ == "__main__":
         if not args.ignore_cache and (error_dir / "error_and_fix.json").exists():
             print(f"Skipping {error_name} because it already exists")
             continue
+
+        print(error["raw"])
+        rendered_context = render_function_context(error)
+        error["function_context"]["rendered_context"] = rendered_context
+        print(rendered_context + "\n")
 
         # Save error and fix information to a JSON file
         error_and_fix_info = {
