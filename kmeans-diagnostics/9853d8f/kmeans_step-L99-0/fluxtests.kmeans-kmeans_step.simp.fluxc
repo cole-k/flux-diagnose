@@ -1,0 +1,58 @@
+∀ n: int, k: RVec.  
+  (n ≥ 0 ∧ 0 ≤ k.0) =>  
+    ∀ a0: int.  
+      (0 ≤ a0) =>  
+        ∀ a1: int.  
+          (RVec { a1 } = RVec { n }) => $k3(a1) ~ Call at 91:13: 91:21
+        (k.0 ≥ 0 ∧ 0 ≤ k.0) =>  
+          $k4(0) ~ Call at 95:24: 95:47
+          (0 ≤ k.0) =>  
+            $k0(0) ~ Goto(bb4) at 97:9: 97:14
+            ∀ a1: int.  
+              (RVec { a1 } = RVec { n }) => $k1(a1) ~ Goto(bb4) at 97:9: 97:14
+            ∀ a1: int.  
+              $k4(a1) => $k2(a1) ~ Goto(bb4) at 97:9: 97:14
+            ∀ a1: int.  
+              $k0(a1) =>  
+                ∀ a2: int.  
+                  (RVec { a2 } = RVec { n }) => $k5(a2) ~ Call at 98:15: 98:23
+                (a0 ≥ 0) =>  
+                  ¬(a1 < a0) =>  
+                    ∀ a2: int.  
+                      $k1(a2) => (RVec { a2 } = RVec { n }) ~ Call at 105:5: 105:53
+                    ∀ a2: int.  
+                      (RVec { a2 } = RVec { n }) => (RVec { a2 } = RVec { n }) ~ Ret at 108:1: 108:2
+                    (k.0 = k.0) ~ Ret at 108:1: 108:2
+                  (a1 < a0) =>  
+                    ∀ a2: int.  
+                      (RVec { a2 } = RVec { n }) => $k6(a2) ~ Call at 99:28: 99:31
+                    (a1 < a0) ~ Call at 99:28: 99:31
+                    ∀ a2: int.  
+                      ($k6(a2) ∧ 0 ≤ a2) =>  
+                        (k > RVec { 0 }) ~ Call at 99:17: 99:37
+                        ∀ a3: int.  
+                          (RVec { a3 } = RVec { n }) => (RVec { a3 } = RVec { a2 }) ~ Call at 99:17: 99:37
+                        ∀ a3: int.  
+                          (a3 < k.0 ∧ a3 ≥ 0) =>  
+                            ∀ a4: int.  
+                              $k1(a4) => $k7(a4) ~ Call at 100:28: 100:31
+                            (a3 < k.0) ~ Call at 100:28: 100:31
+                            ∀ a4: int.  
+                              (RVec { a4 } = RVec { n }) => $k8(a4) ~ Call at 100:36: 100:39
+                            (a1 < a0) ~ Call at 100:36: 100:39
+                            ∀ a4: int.  
+                              ($k8(a4) ∧ 0 ≤ a4) =>  
+                                ∀ a5: int.  
+                                  $k7(a5) =>  
+                                    (a4 = a5) ~ Call at 100:9: 100:40
+                                    ∀ a6: int.  
+                                      $k2(a6) => $k9(a6) ~ Call at 101:17: 101:20
+                                    (a3 < k.0) ~ Call at 101:17: 101:20
+                                    ∀ a6: int.  
+                                      (a6 ≥ 0 ∧ $k9(a6)) =>  
+                                        $k9(a6 + 1) ~ Assign at 101:9: 101:25
+                                        $k0(a1 + 1) ~ Goto(bb4) at 98:24: 103:6
+                                        ∀ a7: int.  
+                                          $k7(a7) => $k1(a7) ~ Goto(bb4) at 98:24: 103:6
+                                        ∀ a7: int.  
+                                          $k9(a7) => $k2(a7) ~ Goto(bb4) at 98:24: 103:6

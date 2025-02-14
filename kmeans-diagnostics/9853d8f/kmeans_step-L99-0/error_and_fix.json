@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 99,
+        "col": 17,
+        "raw": "error[E0999]: refinement type error\n  --> src/kmeans.rs:99:17\n   |\n99 |         let j = nearest(&ps[i], &cs);\n   |                 ^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> src/kmeans.rs:59:12\n   |\n59 |   requires k > 0\n   |            ^^^^^\n\n",
+        "function_context": {
+            "start": 89,
+            "end": 108,
+            "name": "kmeans_step",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/9853d8f/all_constraints/fluxtests.kmeans-kmeans_step.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/9853d8f/all_constraints/fluxtests.kmeans-kmeans_step.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/9853d8f/all_constraints/fluxtests.kmeans-kmeans_step.smt2"
+            ],
+            "rendered_context": "89: #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n90: fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n91:     let k = cs.len();\n92: \n93:     let mut res_points = init_centers(n, k);\n94: \n95:     let mut res_size = RVec::from_elem_n(0, k);\n96: \n97:     let mut i = 0;\n98:     while i < ps.len() {\n99:         let j = nearest(&ps[i], &cs);\n100:         add(&mut res_points[j], &ps[i]);\n101:         res_size[j] += 1;\n102:         i += 1;\n103:     }\n104: \n105:     normalize_centers(n, &mut res_points, &res_size);\n106: \n107:     res_points\n108: }\n"
+        },
+        "unique_name": "kmeans_step-L99-0"
+    },
+    "fix": {
+        "fix_line": 90,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "cs outer length needs to be > 0"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "87:        \n88:        /// updating the centers\n89:        #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n90: error->fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n91:            let k = cs.len();\n92:        \n93:            let mut res_points = init_centers(n, k);\n"
+    }
+}

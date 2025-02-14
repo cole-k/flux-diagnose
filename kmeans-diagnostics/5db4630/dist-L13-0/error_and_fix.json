@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 13,
+        "col": 26,
+        "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:13:26\n    |\n13  |         let di = x[i] - y[i];\n    |                          ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+        "function_context": {
+            "start": 8,
+            "end": 18,
+            "name": "dist",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-dist.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-dist.smt2",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-dist.simp.fluxc"
+            ],
+            "rendered_context": " 8: // #[flux::sig(fn(&RVec<f32>[@n], &RVec<f32>[n]) -> f32)]\n 9: fn dist(x: &RVec<f32>, y: &RVec<f32>) -> f32 {\n10:     let mut res = 0.0;\n11:     let mut i = 0;\n12:     while i < x.len() {\n13:         let di = x[i] - y[i];\n14:         res += di * di;\n15:         i += 1;\n16:     }\n17:     res\n18: }\n"
+        },
+        "unique_name": "dist-L13-0"
+    },
+    "fix": {
+        "fix_line": 9,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "y needs same length as x"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": " 6:        \n 7:        /// distance between two points\n 8:        // #[flux::sig(fn(&RVec<f32>[@n], &RVec<f32>[n]) -> f32)]\n 9: error->fn dist(x: &RVec<f32>, y: &RVec<f32>) -> f32 {\n10:            let mut res = 0.0;\n11:            let mut i = 0;\n12:            while i < x.len() {\n"
+    }
+}

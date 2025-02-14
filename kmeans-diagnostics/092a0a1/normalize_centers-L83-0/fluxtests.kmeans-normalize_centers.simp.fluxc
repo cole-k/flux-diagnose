@@ -1,0 +1,28 @@
+∀ .  
+  ∀ a0: int.  
+    (a0 ≥ 0) =>  
+      ∀ a1: int.  
+        (0 ≤ a1) =>  
+          ∀ a2: int.  
+            (0 ≤ a2) =>  
+              ∀ a3: int. $k2(a3) ~ Call at 80:13: 80:21
+              (a2 ≥ 0) =>  
+                $k0(0) ~ Goto(bb2) at 81:9: 81:14
+                ∀ a3: int. $k1(a3) ~ Goto(bb2) at 81:9: 81:14
+                ∀ a3: int.  
+                  ($k0(a3) ∧ a3 < a2) =>  
+                    ∀ a4: int.  
+                      $k1(a4) =>  
+                        ∀ a5: int. $k3(a5) ~ Call at 83:23: 83:26
+                        (a3 < a4) ~ Call at 83:23: 83:26
+                        ∀ a5: int. $k4(a5) ~ Call at 83:35: 83:38
+                        (a3 < a1) ~ Call at 83:35: 83:38
+                        ∀ a5: int.  
+                          ($k4(a5) ∧ a5 ≥ 0) =>  
+                            ∀ a6: int.  
+                              $k3(a6) =>  
+                                $k0(a3 + 1) ~ Goto(bb2) at 82:17: 85:6
+                                ∀ a7: int.  
+                                  $k1(a7) => $k1(a7) ~ Goto(bb2) at 82:17: 85:6
+                                ∀ a7: int.  
+                                  $k1(a7) => $k1(a7) ~ Goto(bb2) at 82:17: 85:6

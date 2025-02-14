@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 119,
+        "col": 15,
+        "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:119:15\n    |\n119 |         res = kmeans_step(n, res, ps);\n    |               ^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/kmeans.rs:91:12\n    |\n91  |   requires k > 0\n    |            ^^^^^\n\n",
+        "function_context": {
+            "start": 114,
+            "end": 123,
+            "name": "kmeans",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/956812b/all_constraints/fluxtests.kmeans-kmeans.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/956812b/all_constraints/fluxtests.kmeans-kmeans.smt2",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/956812b/all_constraints/fluxtests.kmeans-kmeans.fluxc"
+            ],
+            "rendered_context": "114: #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n115: pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n116:     let mut i = 0;\n117:     let mut res = cs;\n118:     while i < iters {\n119:         res = kmeans_step(n, res, ps);\n120:         i += 1;\n121:     }\n122:     res\n123: }\n"
+        },
+        "unique_name": "kmeans-L119-0"
+    },
+    "fix": {
+        "fix_line": 114,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "k needs to be > 0"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "111:        }\n112:        \n113:        /// kmeans: iterating the center-update-steps\n114: error->#[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n115:        pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n116:            let mut i = 0;\n117:            let mut res = cs;\n"
+    }
+}

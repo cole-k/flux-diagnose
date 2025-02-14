@@ -1,0 +1,573 @@
+{
+    "092a0a1": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 68,
+                "col": 18,
+                "raw": "error[E0999]: refinement type error\n  --> src/kmeans.rs:68:18\n   |\n68 |         let di = dist(&cs[i], p);\n   |                  ^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+                "function_context": {
+                    "start": 60,
+                    "end": 76,
+                    "name": "nearest",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-nearest.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-nearest.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-nearest.smt2"
+                    ],
+                    "rendered_context": "60: // )]\n61: fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:     // let n = p.len();\n63:     let k = cs.len();\n64:     let mut res = 0;\n65:     let mut min = f32::MAX;\n66:     let mut i = 0;\n67:     while i < k {\n68:         let di = dist(&cs[i], p);\n69:         if di < min {\n70:             res = i;\n71:             min = di;\n72:         }\n73:         i += 1;\n74:     }\n75:     res\n76: }\n"
+                },
+                "unique_name": "nearest-L68-0"
+            },
+            "fix": {
+                "fix_line": 61,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "cs and p need to be related by length"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "58:        // fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        // requires k > 0\n60:        // )]\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 101,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:101:9\n    |\n101 |         add(&mut res_points[j], &ps[i]);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+                "function_context": {
+                    "start": 90,
+                    "end": 109,
+                    "name": "kmeans_step",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-kmeans_step.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-kmeans_step.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-kmeans_step.smt2"
+                    ],
+                    "rendered_context": "90: // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n91: fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n92:     let k = cs.len();\n93: \n94:     let mut res_points = init_centers(n, k);\n95: \n96:     let mut res_size = RVec::from_elem_n(0, k);\n97: \n98:     let mut i = 0;\n99:     while i < ps.len() {\n100:         let j = nearest(&ps[i], &cs);\n101:         add(&mut res_points[j], &ps[i]);\n102:         res_size[j] += 1;\n103:         i += 1;\n104:     }\n105: \n106:     normalize_centers(n, &mut res_points, &res_size);\n107: \n108:     res_points\n109: }\n"
+                },
+                "unique_name": "kmeans_step-L101-1"
+            },
+            "fix": {
+                "fix_line": 94,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "res_points and ps need to have same shape"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "91:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n92:            let k = cs.len();\n93:        \n94: error->    let mut res_points = init_centers(n, k);\n95:        \n96:            let mut res_size = RVec::from_elem_n(0, k);\n97:        \n"
+            }
+        }
+    ],
+    "5db4630": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 28,
+                "col": 10,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:28:10\n    |\n28  |         x[i] = xi + yi;\n    |          ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:189:48\n    |\n189 |     #[flux::sig(fn(&mut RVec<T>[@n], usize{v : v < n}) -> &mut T)]\n    |                                                ^^^^^\n\n",
+                "function_context": {
+                    "start": 21,
+                    "end": 32,
+                    "name": "add",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.fluxc"
+                    ],
+                    "rendered_context": "21: // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:     let mut i = 0;\n24:     let n = x.len();\n25:     while i < n {\n26:         let xi = x[i];\n27:         let yi = y[i];\n28:         x[i] = xi + yi;\n29:         i += 1;\n30:     }\n31:     0\n32: }\n"
+                },
+                "unique_name": "add-L28-0"
+            },
+            "fix": {
+                "fix_line": 22,
+                "helpful_message": "x and y need same lengths",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "x and y need same lengths"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 26,
+                "col": 19,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:26:19\n    |\n26  |         let xi = x[i];\n    |                   ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+                "function_context": {
+                    "start": 21,
+                    "end": 32,
+                    "name": "add",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.fluxc"
+                    ],
+                    "rendered_context": "21: // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:     let mut i = 0;\n24:     let n = x.len();\n25:     while i < n {\n26:         let xi = x[i];\n27:         let yi = y[i];\n28:         x[i] = xi + yi;\n29:         i += 1;\n30:     }\n31:     0\n32: }\n"
+                },
+                "unique_name": "add-L26-0"
+            },
+            "fix": {
+                "fix_line": 22,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "x and y need same lengths"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 40,
+                "col": 10,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:40:10\n    |\n40  |         x[i] = xi / (w as f32);\n    |          ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:189:48\n    |\n189 |     #[flux::sig(fn(&mut RVec<T>[@n], usize{v : v < n}) -> &mut T)]\n    |                                                ^^^^^\n\n",
+                "function_context": {
+                    "start": 35,
+                    "end": 44,
+                    "name": "normal",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normal.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normal.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normal.simp.fluxc"
+                    ],
+                    "rendered_context": "35: // #[flux::sig(fn(&mut RVec<f32>[@n], usize) -> i32)]\n36: fn normal(x: &mut RVec<f32>, w: usize) -> i32 {\n37:     let mut i = 0;\n38:     while i < x.len() {\n39:         let xi = x[i];\n40:         x[i] = xi / (w as f32);\n41:         i += 1;\n42:     }\n43:     0\n44: }\n"
+                },
+                "unique_name": "normal-L40-0"
+            },
+            "fix": {
+                "fix_line": 36,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "x needs length refinement"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "33:        \n34:        /// normalizing a point (cluster) by size\n35:        // #[flux::sig(fn(&mut RVec<f32>[@n], usize) -> i32)]\n36: error->fn normal(x: &mut RVec<f32>, w: usize) -> i32 {\n37:            let mut i = 0;\n38:            while i < x.len() {\n39:                let xi = x[i];\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 13,
+                "col": 26,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:13:26\n    |\n13  |         let di = x[i] - y[i];\n    |                          ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+                "function_context": {
+                    "start": 8,
+                    "end": 18,
+                    "name": "dist",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-dist.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-dist.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-dist.simp.fluxc"
+                    ],
+                    "rendered_context": " 8: // #[flux::sig(fn(&RVec<f32>[@n], &RVec<f32>[n]) -> f32)]\n 9: fn dist(x: &RVec<f32>, y: &RVec<f32>) -> f32 {\n10:     let mut res = 0.0;\n11:     let mut i = 0;\n12:     while i < x.len() {\n13:         let di = x[i] - y[i];\n14:         res += di * di;\n15:         i += 1;\n16:     }\n17:     res\n18: }\n"
+                },
+                "unique_name": "dist-L13-0"
+            },
+            "fix": {
+                "fix_line": 9,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "y needs same length as x"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": " 6:        \n 7:        /// distance between two points\n 8:        // #[flux::sig(fn(&RVec<f32>[@n], &RVec<f32>[n]) -> f32)]\n 9: error->fn dist(x: &RVec<f32>, y: &RVec<f32>) -> f32 {\n10:            let mut res = 0.0;\n11:            let mut i = 0;\n12:            while i < x.len() {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 104,
+                "col": 17,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:104:17\n    |\n104 |         res_size[j] += 1;\n    |                 ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:189:48\n    |\n189 |     #[flux::sig(fn(&mut RVec<T>[@n], usize{v : v < n}) -> &mut T)]\n    |                                                ^^^^^\n\n",
+                "function_context": {
+                    "start": 92,
+                    "end": 111,
+                    "name": "kmeans_step",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-kmeans_step.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-kmeans_step.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-kmeans_step.smt2"
+                    ],
+                    "rendered_context": "92: // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n93: fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n94:     let k = cs.len();\n95: \n96:     let mut res_points = init_centers(n, k);\n97: \n98:     let mut res_size = RVec::from_elem_n(0, k);\n99: \n100:     let mut i = 0;\n101:     while i < ps.len() {\n102:         let j = nearest(&ps[i], &cs);\n103:         add(&mut res_points[j], &ps[i]);\n104:         res_size[j] += 1;\n105:         i += 1;\n106:     }\n107: \n108:     normalize_centers(n, &mut res_points, &res_size);\n109: \n110:     res_points\n111: }\n"
+                },
+                "unique_name": "kmeans_step-L104-0"
+            },
+            "fix": {
+                "fix_line": 102,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "nearest unrefined; possibly fn args need reft"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "99:        \n100:            let mut i = 0;\n101:            while i < ps.len() {\n102: error->        let j = nearest(&ps[i], &cs);\n103:                add(&mut res_points[j], &ps[i]);\n104:                res_size[j] += 1;\n105:                i += 1;\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 85,
+                "col": 35,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:85:35\n    |\n85  |         normal(&mut cs[i], weights[i]);\n    |                                   ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+                "function_context": {
+                    "start": 80,
+                    "end": 89,
+                    "name": "normalize_centers",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.simp.fluxc"
+                    ],
+                    "rendered_context": "80: // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:     let k = cs.len();\n83:     let mut i = 0;\n84:     while i < k {\n85:         normal(&mut cs[i], weights[i]);\n86:         i += 1;\n87:     }\n88:     0\n89: }\n"
+                },
+                "unique_name": "normalize_centers-L85-1"
+            },
+            "fix": {
+                "fix_line": 81,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "weights needs length refinement"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 27,
+                "col": 19,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:27:19\n    |\n27  |         let yi = y[i];\n    |                   ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+                "function_context": {
+                    "start": 21,
+                    "end": 32,
+                    "name": "add",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.fluxc"
+                    ],
+                    "rendered_context": "21: // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:     let mut i = 0;\n24:     let n = x.len();\n25:     while i < n {\n26:         let xi = x[i];\n27:         let yi = y[i];\n28:         x[i] = xi + yi;\n29:         i += 1;\n30:     }\n31:     0\n32: }\n"
+                },
+                "unique_name": "add-L27-0"
+            },
+            "fix": {
+                "fix_line": 22,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "x and y need same lengths"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 85,
+                "col": 23,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:85:23\n    |\n85  |         normal(&mut cs[i], weights[i]);\n    |                       ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:189:48\n    |\n189 |     #[flux::sig(fn(&mut RVec<T>[@n], usize{v : v < n}) -> &mut T)]\n    |                                                ^^^^^\n\n",
+                "function_context": {
+                    "start": 80,
+                    "end": 89,
+                    "name": "normalize_centers",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.simp.fluxc"
+                    ],
+                    "rendered_context": "80: // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:     let k = cs.len();\n83:     let mut i = 0;\n84:     while i < k {\n85:         normal(&mut cs[i], weights[i]);\n86:         i += 1;\n87:     }\n88:     0\n89: }\n"
+                },
+                "unique_name": "normalize_centers-L85-0"
+            },
+            "fix": {
+                "fix_line": 81,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "cs needs length refinement"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 103,
+                "col": 28,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:103:28\n    |\n103 |         add(&mut res_points[j], &ps[i]);\n    |                            ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:189:48\n    |\n189 |     #[flux::sig(fn(&mut RVec<T>[@n], usize{v : v < n}) -> &mut T)]\n    |                                                ^^^^^\n\n",
+                "function_context": {
+                    "start": 92,
+                    "end": 111,
+                    "name": "kmeans_step",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-kmeans_step.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-kmeans_step.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-kmeans_step.smt2"
+                    ],
+                    "rendered_context": "92: // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n93: fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n94:     let k = cs.len();\n95: \n96:     let mut res_points = init_centers(n, k);\n97: \n98:     let mut res_size = RVec::from_elem_n(0, k);\n99: \n100:     let mut i = 0;\n101:     while i < ps.len() {\n102:         let j = nearest(&ps[i], &cs);\n103:         add(&mut res_points[j], &ps[i]);\n104:         res_size[j] += 1;\n105:         i += 1;\n106:     }\n107: \n108:     normalize_centers(n, &mut res_points, &res_size);\n109: \n110:     res_points\n111: }\n"
+                },
+                "unique_name": "kmeans_step-L103-0"
+            },
+            "fix": {
+                "fix_line": 96,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "init_centers needs length refinement; possibly fn args need it too"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "93:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n94:            let k = cs.len();\n95:        \n96: error->    let mut res_points = init_centers(n, k);\n97:        \n98:            let mut res_size = RVec::from_elem_n(0, k);\n99:        \n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 39,
+                "col": 19,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:39:19\n    |\n39  |         let xi = x[i];\n    |                   ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+                "function_context": {
+                    "start": 35,
+                    "end": 44,
+                    "name": "normal",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normal.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normal.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normal.simp.fluxc"
+                    ],
+                    "rendered_context": "35: // #[flux::sig(fn(&mut RVec<f32>[@n], usize) -> i32)]\n36: fn normal(x: &mut RVec<f32>, w: usize) -> i32 {\n37:     let mut i = 0;\n38:     while i < x.len() {\n39:         let xi = x[i];\n40:         x[i] = xi / (w as f32);\n41:         i += 1;\n42:     }\n43:     0\n44: }\n"
+                },
+                "unique_name": "normal-L39-0"
+            },
+            "fix": {
+                "fix_line": 36,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "x needs length refinement"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "33:        \n34:        /// normalizing a point (cluster) by size\n35:        // #[flux::sig(fn(&mut RVec<f32>[@n], usize) -> i32)]\n36: error->fn normal(x: &mut RVec<f32>, w: usize) -> i32 {\n37:            let mut i = 0;\n38:            while i < x.len() {\n39:                let xi = x[i];\n"
+            }
+        }
+    ],
+    "956812b": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 119,
+                "col": 15,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:119:15\n    |\n119 |         res = kmeans_step(n, res, ps);\n    |               ^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/kmeans.rs:91:12\n    |\n91  |   requires k > 0\n    |            ^^^^^\n\n",
+                "function_context": {
+                    "start": 114,
+                    "end": 123,
+                    "name": "kmeans",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/956812b/all_constraints/fluxtests.kmeans-kmeans.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/956812b/all_constraints/fluxtests.kmeans-kmeans.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/956812b/all_constraints/fluxtests.kmeans-kmeans.fluxc"
+                    ],
+                    "rendered_context": "114: #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n115: pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n116:     let mut i = 0;\n117:     let mut res = cs;\n118:     while i < iters {\n119:         res = kmeans_step(n, res, ps);\n120:         i += 1;\n121:     }\n122:     res\n123: }\n"
+                },
+                "unique_name": "kmeans-L119-0"
+            },
+            "fix": {
+                "fix_line": 114,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "k needs to be > 0"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "111:        }\n112:        \n113:        /// kmeans: iterating the center-update-steps\n114: error->#[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n115:        pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n116:            let mut i = 0;\n117:            let mut res = cs;\n"
+            }
+        }
+    ],
+    "589c0b9": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 75,
+                "col": 5,
+                "raw": "error[E0999]: refinement type error\n  --> src/kmeans.rs:75:5\n   |\n75 |     res\n   |     ^^^ a postcondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> src/kmeans.rs:58:59\n   |\n58 |   fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n   |                                                           ^^^^^\n\n",
+                "function_context": {
+                    "start": 60,
+                    "end": 76,
+                    "name": "nearest",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-nearest.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-nearest.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-nearest.smt2"
+                    ],
+                    "rendered_context": "60: // requires k > 0\n61: fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:     // let n = p.len();\n63:     let k = cs.len();\n64:     let mut res = 0;\n65:     let mut min = f32::MAX;\n66:     let mut i = 0;\n67:     while i < k {\n68:         let di = dist(&cs[i], p);\n69:         if di < min {\n70:             res = i;\n71:             min = di;\n72:         }\n73:         i += 1;\n74:     }\n75:     res\n76: }\n"
+                },
+                "unique_name": "nearest-L75-0"
+            },
+            "fix": {
+                "fix_line": 61,
+                "helpful_message": "signature permits k = 0",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "k > 0"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "58:          fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        )]\n60:        // requires k > 0\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 117,
+                "col": 15,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:117:15\n    |\n117 |         res = kmeans_step(n, res, ps);\n    |               ^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+                "function_context": {
+                    "start": 112,
+                    "end": 121,
+                    "name": "kmeans",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans.smt2",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans.fluxc"
+                    ],
+                    "rendered_context": "112: // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n113: pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n114:     let mut i = 0;\n115:     let mut res = cs;\n116:     while i < iters {\n117:         res = kmeans_step(n, res, ps);\n118:         i += 1;\n119:     }\n120:     res\n121: }\n"
+                },
+                "unique_name": "kmeans-L117-0"
+            },
+            "fix": {
+                "fix_line": 113,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "args need refinements"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "110:        \n111:        /// kmeans: iterating the center-update-steps\n112:        // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n113: error->pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n114:            let mut i = 0;\n115:            let mut res = cs;\n116:            while i < iters {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 109,
+                "col": 1,
+                "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:109:1\n    |\n109 | }\n    | ^ a postcondition cannot be proved\n\n",
+                "function_context": {
+                    "start": 90,
+                    "end": 109,
+                    "name": "kmeans_step",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans_step.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans_step.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans_step.smt2"
+                    ],
+                    "rendered_context": "90: #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n91: fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n92:     let k = cs.len();\n93: \n94:     let mut res_points = init_centers(n, k);\n95: \n96:     let mut res_size = RVec::from_elem_n(0, k);\n97: \n98:     let mut i = 0;\n99:     while i < ps.len() {\n100:         let j = nearest(&ps[i], &cs);\n101:         add(&mut res_points[j], &ps[i]);\n102:         res_size[j] += 1;\n103:         i += 1;\n104:     }\n105: \n106:     normalize_centers(n, &mut res_points, &res_size);\n107: \n108:     res_points\n109: }\n"
+                },
+                "unique_name": "kmeans_step-L109-0"
+            },
+            "fix": {
+                "fix_line": 106,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "normalize_centers needs a refinement"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "103:                i += 1;\n104:            }\n105:        \n106: error->    normalize_centers(n, &mut res_points, &res_size);\n107:        \n108:            res_points\n109:        }\n"
+            }
+        }
+    ],
+    "9853d8f": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/kmeans.rs",
+                "row": 99,
+                "col": 17,
+                "raw": "error[E0999]: refinement type error\n  --> src/kmeans.rs:99:17\n   |\n99 |         let j = nearest(&ps[i], &cs);\n   |                 ^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> src/kmeans.rs:59:12\n   |\n59 |   requires k > 0\n   |            ^^^^^\n\n",
+                "function_context": {
+                    "start": 89,
+                    "end": 108,
+                    "name": "kmeans_step",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/9853d8f/all_constraints/fluxtests.kmeans-kmeans_step.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/9853d8f/all_constraints/fluxtests.kmeans-kmeans_step.fluxc",
+                        "/Users/cole/git/flux-diagnose/kmeans-diagnostics/9853d8f/all_constraints/fluxtests.kmeans-kmeans_step.smt2"
+                    ],
+                    "rendered_context": "89: #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n90: fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n91:     let k = cs.len();\n92: \n93:     let mut res_points = init_centers(n, k);\n94: \n95:     let mut res_size = RVec::from_elem_n(0, k);\n96: \n97:     let mut i = 0;\n98:     while i < ps.len() {\n99:         let j = nearest(&ps[i], &cs);\n100:         add(&mut res_points[j], &ps[i]);\n101:         res_size[j] += 1;\n102:         i += 1;\n103:     }\n104: \n105:     normalize_centers(n, &mut res_points, &res_size);\n106: \n107:     res_points\n108: }\n"
+                },
+                "unique_name": "kmeans_step-L99-0"
+            },
+            "fix": {
+                "fix_line": 90,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "cs outer length needs to be > 0"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "87:        \n88:        /// updating the centers\n89:        #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n90: error->fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n91:            let k = cs.len();\n92:        \n93:            let mut res_points = init_centers(n, k);\n"
+            }
+        }
+    ]
+}

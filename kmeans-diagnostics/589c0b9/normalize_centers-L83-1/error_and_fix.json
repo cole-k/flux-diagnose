@@ -1,0 +1,24 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 83,
+        "col": 35,
+        "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:83:35\n    |\n83  |         normal(&mut cs[i], weights[i]);\n    |                                   ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+        "function_context": {
+            "start": 78,
+            "end": 87,
+            "name": "normalize_centers",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-normalize_centers.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-normalize_centers.smt2",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-normalize_centers.simp.fluxc"
+            ],
+            "rendered_context": "78: // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n79: fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n80:     let k = cs.len();\n81:     let mut i = 0;\n82:     while i < k {\n83:         normal(&mut cs[i], weights[i]);\n84:         i += 1;\n85:     }\n86:     0\n87: }\n"
+        },
+        "unique_name": "normalize_centers-L83-1"
+    },
+    "fix": {
+        "seen_before": true
+    }
+}

@@ -1,0 +1,19 @@
+∀ .  
+  ∀ a0: int.  
+    (a0 ≥ 0) =>  
+      ∀ a1: int.  
+        (0 ≤ a1) =>  
+          ∀ a2: int.  
+            (0 ≤ a2) =>  
+              ∀ a3: int.  
+                $k0(0) ~ Goto(bb1) at 115:9: 115:16
+                ∀ a4: int. $k1(a4) ~ Goto(bb1) at 115:9: 115:16
+                ∀ a4: int.  
+                  ($k0(a4) ∧ a4 < a3) =>  
+                    ∀ a5: int.  
+                      $k1(a5) => (RVec { a5 } = RVec { a0 }) ~ Call at 117:15: 117:38
+                    ∀ a5: int. (RVec { a5 } = RVec { a0 }) ~ Call at 117:15: 117:38
+                    (0 ≤ a1) =>  
+                      $k0(a4 + 1) ~ Goto(bb1) at 116:21: 119:6
+                      ∀ a5: int.  
+                        (RVec { a5 } = RVec { a0 }) => $k1(a5) ~ Goto(bb1) at 116:21: 119:6

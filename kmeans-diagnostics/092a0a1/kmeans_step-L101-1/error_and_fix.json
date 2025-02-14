@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 101,
+        "col": 9,
+        "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:101:9\n    |\n101 |         add(&mut res_points[j], &ps[i]);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+        "function_context": {
+            "start": 90,
+            "end": 109,
+            "name": "kmeans_step",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-kmeans_step.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-kmeans_step.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-kmeans_step.smt2"
+            ],
+            "rendered_context": "90: // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n91: fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n92:     let k = cs.len();\n93: \n94:     let mut res_points = init_centers(n, k);\n95: \n96:     let mut res_size = RVec::from_elem_n(0, k);\n97: \n98:     let mut i = 0;\n99:     while i < ps.len() {\n100:         let j = nearest(&ps[i], &cs);\n101:         add(&mut res_points[j], &ps[i]);\n102:         res_size[j] += 1;\n103:         i += 1;\n104:     }\n105: \n106:     normalize_centers(n, &mut res_points, &res_size);\n107: \n108:     res_points\n109: }\n"
+        },
+        "unique_name": "kmeans_step-L101-1"
+    },
+    "fix": {
+        "fix_line": 94,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "res_points and ps need to have same shape"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "91:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n92:            let k = cs.len();\n93:        \n94: error->    let mut res_points = init_centers(n, k);\n95:        \n96:            let mut res_size = RVec::from_elem_n(0, k);\n97:        \n"
+    }
+}

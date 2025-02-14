@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 26,
+        "col": 19,
+        "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:26:19\n    |\n26  |         let xi = x[i];\n    |                   ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+        "function_context": {
+            "start": 21,
+            "end": 32,
+            "name": "add",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.smt2",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-add.fluxc"
+            ],
+            "rendered_context": "21: // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:     let mut i = 0;\n24:     let n = x.len();\n25:     while i < n {\n26:         let xi = x[i];\n27:         let yi = y[i];\n28:         x[i] = xi + yi;\n29:         i += 1;\n30:     }\n31:     0\n32: }\n"
+        },
+        "unique_name": "add-L26-0"
+    },
+    "fix": {
+        "fix_line": 22,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "x and y need same lengths"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n"
+    }
+}

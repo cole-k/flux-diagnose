@@ -1,0 +1,47 @@
+∀ n: int, k: RVec.  
+  (n ≥ 0 ∧ 0 ≤ k.0) =>  
+    ∀ a0: int.  
+      (0 ≤ a0) =>  
+        ∀ a1: int.  
+          $k0(0) ~ Goto(bb1) at 117:9: 117:16
+          ∀ a2: int.  
+            (RVec { a2 } = RVec { n }) =>  
+              (RVec { a2 } = RVec { n }) ~ Goto(bb1) at 117:9: 117:16
+              (a2 = a2) ~ Goto(bb1) at 117:9: 117:16
+          ∀ a2: int.  
+            (RVec { a2 } = RVec { n }) =>  
+              $k1(a2) ~ Goto(bb1) at 117:9: 117:16
+              (a2 = a2) ~ Goto(bb1) at 117:9: 117:16
+          true ~ Goto(bb1) at 117:9: 117:16
+          ∀ a2: int.  
+            $k0(a2) =>  
+              ¬(a2 < a1) =>  
+                ∀ a3: int.  
+                  $k1(a3) =>  
+                    (RVec { a3 } = RVec { n }) ~ Ret at 123:1: 123:2
+                    (a3 = a3) ~ Ret at 123:1: 123:2
+                (k = k) ~ Ret at 123:1: 123:2
+              (a2 < a1) =>  
+                (k > RVec { 0 }) ~ Call at 119:15: 119:38
+                (n = n) ~ Call at 119:15: 119:38
+                ∀ a3: int.  
+                  $k1(a3) =>  
+                    (RVec { a3 } = RVec { n }) ~ Call at 119:15: 119:38
+                    (a3 = a3) ~ Call at 119:15: 119:38
+                (k = k) ~ Call at 119:15: 119:38
+                ∀ a3: int.  
+                  (RVec { a3 } = RVec { n }) =>  
+                    (RVec { a3 } = RVec { n }) ~ Call at 119:15: 119:38
+                    (a3 = a3) ~ Call at 119:15: 119:38
+                (a0 = a0) ~ Call at 119:15: 119:38
+                (0 ≤ k.0) =>  
+                  $k0(a2 + 1) ~ Goto(bb1) at 118:21: 121:6
+                  ∀ a3: int.  
+                    (RVec { a3 } = RVec { n }) =>  
+                      (RVec { a3 } = RVec { n }) ~ Goto(bb1) at 118:21: 121:6
+                      (a3 = a3) ~ Goto(bb1) at 118:21: 121:6
+                  ∀ a3: int.  
+                    (RVec { a3 } = RVec { n }) =>  
+                      $k1(a3) ~ Goto(bb1) at 118:21: 121:6
+                      (a3 = a3) ~ Goto(bb1) at 118:21: 121:6
+                  (a2 + 1 = a2 + 1) ~ Goto(bb1) at 118:21: 121:6

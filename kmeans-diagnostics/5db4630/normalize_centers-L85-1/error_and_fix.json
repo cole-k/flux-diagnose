@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 85,
+        "col": 35,
+        "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:85:35\n    |\n85  |         normal(&mut cs[i], weights[i]);\n    |                                   ^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/rvec.rs:181:44\n    |\n181 |     #[flux::sig(fn(&RVec<T>[@n], usize{v : v < n}) -> &T)]\n    |                                            ^^^^^\n\n",
+        "function_context": {
+            "start": 80,
+            "end": 89,
+            "name": "normalize_centers",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.smt2",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-normalize_centers.simp.fluxc"
+            ],
+            "rendered_context": "80: // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:     let k = cs.len();\n83:     let mut i = 0;\n84:     while i < k {\n85:         normal(&mut cs[i], weights[i]);\n86:         i += 1;\n87:     }\n88:     0\n89: }\n"
+        },
+        "unique_name": "normalize_centers-L85-1"
+    },
+    "fix": {
+        "fix_line": 81,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "weights needs length refinement"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n"
+    }
+}

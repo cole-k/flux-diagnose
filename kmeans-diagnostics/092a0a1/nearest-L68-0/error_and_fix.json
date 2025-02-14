@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 68,
+        "col": 18,
+        "raw": "error[E0999]: refinement type error\n  --> src/kmeans.rs:68:18\n   |\n68 |         let di = dist(&cs[i], p);\n   |                  ^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+        "function_context": {
+            "start": 60,
+            "end": 76,
+            "name": "nearest",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-nearest.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-nearest.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/092a0a1/all_constraints/fluxtests.kmeans-nearest.smt2"
+            ],
+            "rendered_context": "60: // )]\n61: fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:     // let n = p.len();\n63:     let k = cs.len();\n64:     let mut res = 0;\n65:     let mut min = f32::MAX;\n66:     let mut i = 0;\n67:     while i < k {\n68:         let di = dist(&cs[i], p);\n69:         if di < min {\n70:             res = i;\n71:             min = di;\n72:         }\n73:         i += 1;\n74:     }\n75:     res\n76: }\n"
+        },
+        "unique_name": "nearest-L68-0"
+    },
+    "fix": {
+        "fix_line": 61,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "cs and p need to be related by length"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "58:        // fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        // requires k > 0\n60:        // )]\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n"
+    }
+}

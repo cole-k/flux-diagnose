@@ -1,0 +1,56 @@
+∀ n: RVec, k: RVec.  
+  (0 ≤ n.0 ∧ 0 ≤ k.0) =>  
+    ∀ a0: int.  
+      (RVec { a0 } = n) =>  
+        $k2(a0) ~ Call at 63:13: 63:21
+        (a0 = a0) ~ Call at 63:13: 63:21
+    (k = k) ~ Call at 63:13: 63:21
+    (k.0 ≥ 0) =>  
+      $k1(0, 0) ~ Goto(bb2) at 66:9: 66:14
+      true ~ Goto(bb2) at 66:9: 66:14
+      ∀ a0: int.  
+        (RVec { a0 } = n) =>  
+          (RVec { a0 } = n) ~ Goto(bb2) at 66:9: 66:14
+          (a0 = a0) ~ Goto(bb2) at 66:9: 66:14
+      true ~ Goto(bb2) at 66:9: 66:14
+      ∀ a0: int, a1: int.  
+        $k1(a0, a1) =>  
+          ¬(a0 < k.0) =>  
+            (a1 < k.0) ~ Ret at 75:5: 75:8
+            (a1 = a1) ~ Ret at 75:5: 75:8
+          (a0 < k.0) =>  
+            ∀ a2: int.  
+              (RVec { a2 } = n) =>  
+                $k3(a2) ~ Call at 68:26: 68:29
+                (a2 = a2) ~ Call at 68:26: 68:29
+            (k = k) ~ Call at 68:26: 68:29
+            (a0 < k.0) ~ Call at 68:26: 68:29
+            (a0 = a0) ~ Call at 68:26: 68:29
+            ∀ a2: int.  
+              ($k3(a2) ∧ 0 ≤ a2) =>  
+                (a2 = a2) ~ Call at 68:18: 68:33
+                (n = RVec { a2 }) ~ Call at 68:18: 68:33
+                ∀ a3: bool.  
+                  ¬a3 =>  
+                    $k0(a1) ~ Goto(bb9) at 72:10: 72:10
+                    ∀ a4: int.  
+                      (RVec { a4 } = n) =>  
+                        (RVec { a4 } = n) ~ Goto(bb9) at 72:10: 72:10
+                        (a4 = a4) ~ Goto(bb9) at 72:10: 72:10
+                    (a1 = a1) ~ Goto(bb9) at 72:10: 72:10
+                  a3 =>  
+                    $k0(a0) ~ Goto(bb9) at 69:21: 72:10
+                    ∀ a4: int.  
+                      (RVec { a4 } = n) =>  
+                        (RVec { a4 } = n) ~ Goto(bb9) at 69:21: 72:10
+                        (a4 = a4) ~ Goto(bb9) at 69:21: 72:10
+                    (a0 = a0) ~ Goto(bb9) at 69:21: 72:10
+                  ∀ a4: int.  
+                    $k0(a4) =>  
+                      $k1(a0 + 1, a4) ~ Goto(bb2) at 67:17: 74:6
+                      (a0 + 1 = a0 + 1) ~ Goto(bb2) at 67:17: 74:6
+                      ∀ a5: int.  
+                        (RVec { a5 } = n) =>  
+                          (RVec { a5 } = n) ~ Goto(bb2) at 67:17: 74:6
+                          (a5 = a5) ~ Goto(bb2) at 67:17: 74:6
+                      (a4 = a4) ~ Goto(bb2) at 67:17: 74:6

@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 117,
+        "col": 15,
+        "raw": "error[E0999]: refinement type error\n   --> src/kmeans.rs:117:15\n    |\n117 |         res = kmeans_step(n, res, ps);\n    |               ^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+        "function_context": {
+            "start": 112,
+            "end": 121,
+            "name": "kmeans",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans.smt2",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-kmeans.fluxc"
+            ],
+            "rendered_context": "112: // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n113: pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n114:     let mut i = 0;\n115:     let mut res = cs;\n116:     while i < iters {\n117:         res = kmeans_step(n, res, ps);\n118:         i += 1;\n119:     }\n120:     res\n121: }\n"
+        },
+        "unique_name": "kmeans-L117-0"
+    },
+    "fix": {
+        "fix_line": 113,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "args need refinements"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "110:        \n111:        /// kmeans: iterating the center-update-steps\n112:        // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n113: error->pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n114:            let mut i = 0;\n115:            let mut res = cs;\n116:            while i < iters {\n"
+    }
+}

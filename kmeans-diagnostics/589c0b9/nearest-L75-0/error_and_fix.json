@@ -1,0 +1,33 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/kmeans.rs",
+        "row": 75,
+        "col": 5,
+        "raw": "error[E0999]: refinement type error\n  --> src/kmeans.rs:75:5\n   |\n75 |     res\n   |     ^^^ a postcondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> src/kmeans.rs:58:59\n   |\n58 |   fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n   |                                                           ^^^^^\n\n",
+        "function_context": {
+            "start": 60,
+            "end": 76,
+            "name": "nearest",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-nearest.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-nearest.fluxc",
+                "/Users/cole/git/flux-diagnose/kmeans-diagnostics/589c0b9/all_constraints/fluxtests.kmeans-nearest.smt2"
+            ],
+            "rendered_context": "60: // requires k > 0\n61: fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:     // let n = p.len();\n63:     let k = cs.len();\n64:     let mut res = 0;\n65:     let mut min = f32::MAX;\n66:     let mut i = 0;\n67:     while i < k {\n68:         let di = dist(&cs[i], p);\n69:         if di < min {\n70:             res = i;\n71:             min = di;\n72:         }\n73:         i += 1;\n74:     }\n75:     res\n76: }\n"
+        },
+        "unique_name": "nearest-L75-0"
+    },
+    "fix": {
+        "fix_line": 61,
+        "helpful_message": "signature permits k = 0",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "k > 0"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "58:          fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        )]\n60:        // requires k > 0\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n"
+    }
+}

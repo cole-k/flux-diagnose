@@ -1,0 +1,43 @@
+∀ .  
+  ∀ a0: int.  
+    (0 ≤ a0) =>  
+      ∀ a1: int.  
+        (0 ≤ a1) =>  
+          ∀ a2: int.  
+            $k2(a2) ~ Call at 63:13: 63:21
+            (a2 = a2) ~ Call at 63:13: 63:21
+          (a1 = a1) ~ Call at 63:13: 63:21
+          (a1 ≥ 0) =>  
+            $k1(0, 0) ~ Goto(bb2) at 66:9: 66:14
+            true ~ Goto(bb2) at 66:9: 66:14
+            ∀ a2: int. (a2 = a2) ~ Goto(bb2) at 66:9: 66:14
+            true ~ Goto(bb2) at 66:9: 66:14
+            ∀ a2: int, a3: int.  
+              $k1(a2, a3) =>  
+                ¬(a2 < a1) => (a3 = a3) ~ Ret at 75:5: 75:8
+                (a2 < a1) =>  
+                  ∀ a4: int.  
+                    $k3(a4) ~ Call at 68:26: 68:29
+                    (a4 = a4) ~ Call at 68:26: 68:29
+                  (a1 = a1) ~ Call at 68:26: 68:29
+                  (a2 < a1) ~ Call at 68:26: 68:29
+                  (a2 = a2) ~ Call at 68:26: 68:29
+                  ∀ a4: int.  
+                    ($k3(a4) ∧ 0 ≤ a4) =>  
+                      (a4 = a4) ~ Call at 68:18: 68:33
+                      (a0 = a4) ~ Call at 68:18: 68:33
+                      ∀ a5: bool.  
+                        ¬a5 =>  
+                          $k0(a3) ~ Goto(bb9) at 72:10: 72:10
+                          ∀ a6: int. (a6 = a6) ~ Goto(bb9) at 72:10: 72:10
+                          (a3 = a3) ~ Goto(bb9) at 72:10: 72:10
+                        a5 =>  
+                          $k0(a2) ~ Goto(bb9) at 69:21: 72:10
+                          ∀ a6: int. (a6 = a6) ~ Goto(bb9) at 69:21: 72:10
+                          (a2 = a2) ~ Goto(bb9) at 69:21: 72:10
+                        ∀ a6: int.  
+                          $k0(a6) =>  
+                            $k1(a2 + 1, a6) ~ Goto(bb2) at 67:17: 74:6
+                            (a2 + 1 = a2 + 1) ~ Goto(bb2) at 67:17: 74:6
+                            ∀ a7: int. (a7 = a7) ~ Goto(bb2) at 67:17: 74:6
+                            (a6 = a6) ~ Goto(bb2) at 67:17: 74:6
