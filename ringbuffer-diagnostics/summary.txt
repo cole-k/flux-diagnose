@@ -36,6 +36,7 @@ Fix Information:
   Fix Type: new_refinement
   Fix Description: new.hd == old.hd
   Certainty: True
+  Error Type: 1f
 
 --------------------------------------------------------------------------------
 Commit Hash: c76c03f48
@@ -75,6 +76,7 @@ Fix Information:
   Fix Type: new_refinement
   Fix Description: should be b == full(rb)
   Certainty: True
+  Error Type: 1f
 
 --------------------------------------------------------------------------------
 Commit Hash: fe6218181
@@ -143,6 +145,7 @@ Fix Information:
   Fix Type: new_refinement
   Fix Description: rb.tl - rb.hd (?)
   Certainty: False
+  Error Type: 1f
 
 ================
 ERROR: len-L88-0
@@ -202,6 +205,7 @@ Fix Information:
   Fix Type: new_refinement
   Fix Description: rb.tl - rb.hd
   Certainty: True
+  Error Type: 1f
 
 --------------------------------------------------------------------------------
 Commit Hash: a41e71dec
@@ -232,6 +236,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: More annotations (IDK) ??
   Certainty: False
+  Error Type: 1a
 
 --------------------------------------------------------------------------------
 Commit Hash: 12da8b279
@@ -268,6 +273,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: IDK ??
   Certainty: False
+  Error Type: 1a
 
 --------------------------------------------------------------------------------
 Commit Hash: da3a5624b
@@ -302,6 +308,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: is_full needs an annotation
   Certainty: True
+  Error Type: 1a
 
 =====================
 ERROR: enqueue-L110-0
@@ -333,6 +340,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: is_full needs an annotation
   Certainty: True
+  Error Type: 1a
 
 =====================
 ERROR: enqueue-L114-0
@@ -364,6 +372,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: is_full needs an annotation
   Certainty: True
+  Error Type: 1a
 
 --------------------------------------------------------------------------------
 Commit Hash: ffc30ac8a
@@ -398,6 +407,7 @@ Fix Information:
   Fix Type: new_refinement
   Fix Description: should be full(old)
   Certainty: True
+  Error Type: 1f
 
 =====================
 ERROR: dequeue-L156-1
@@ -434,6 +444,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: has_elements needs a reft
   Certainty: True
+  Error Type: 1a
 
 =====================
 ERROR: dequeue-L158-0
@@ -465,6 +476,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: has_elements needs a reft
   Certainty: True
+  Error Type: 1a
 
 =====================
 ERROR: dequeue-L156-0
@@ -496,6 +508,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: has_elements needs a reft
   Certainty: True
+  Error Type: 1a
 
 =====================
 ERROR: dequeue-L158-1
@@ -532,6 +545,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: has_elements needs a reft
   Certainty: True
+  Error Type: 1a
 
 --------------------------------------------------------------------------------
 Commit Hash: 8d22afa18
@@ -657,6 +671,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: len > 1
   Certainty: True
+  Error Type: 2b
 
 ================
 ERROR: new-L32-1
@@ -779,6 +794,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: len > 1
   Certainty: True
+  Error Type: 2b
 
 ================
 ERROR: new-L32-0
@@ -901,4 +917,5 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: len > 1
   Certainty: True
+  Error Type: 2b
 

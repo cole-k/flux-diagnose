@@ -117,6 +117,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n"
+        "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n",
+        "error_type": {
+            "condition": 2,
+            "reason": "b"
+        }
     }
 }

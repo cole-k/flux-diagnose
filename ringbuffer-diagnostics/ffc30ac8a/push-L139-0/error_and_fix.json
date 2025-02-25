@@ -30,6 +30,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "115:                }\n116:            }\n117:        \n118: error->    #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n119:                           ensures self: RingBuffer<T>{new :\n120:                             new.ring_len == old.ring_len && new.tl == next_tl(old)\n121:                             && if full(old) {\n"
+        "rendered_fix_context": "115:                }\n116:            }\n117:        \n118: error->    #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n119:                           ensures self: RingBuffer<T>{new :\n120:                             new.ring_len == old.ring_len && new.tl == next_tl(old)\n121:                             && if full(old) {\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "f"
+        }
     }
 }

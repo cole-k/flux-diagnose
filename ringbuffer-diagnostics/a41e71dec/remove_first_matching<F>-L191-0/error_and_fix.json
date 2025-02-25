@@ -24,6 +24,10 @@
         },
         "certainty": false,
         "seen_before": false,
-        "rendered_fix_context": "188:                            next_slot = (next_slot + 1) % len;\n189:                        }\n190:                        self.tail = slot;\n191: error->                return Some(val);\n192:                    }\n193:                    slot = (slot + 1) % len;\n194:                }\n"
+        "rendered_fix_context": "188:                            next_slot = (next_slot + 1) % len;\n189:                        }\n190:                        self.tail = slot;\n191: error->                return Some(val);\n192:                    }\n193:                    slot = (slot + 1) % len;\n194:                }\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "a"
+        }
     }
 }

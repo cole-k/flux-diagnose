@@ -30,7 +30,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "58:        // fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        // requires k > 0\n60:        // )]\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n"
+                "rendered_fix_context": "58:        // fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        // requires k > 0\n60:        // )]\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -63,7 +67,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "91:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n92:            let k = cs.len();\n93:        \n94: error->    let mut res_points = init_centers(n, k);\n95:        \n96:            let mut res_size = RVec::from_elem_n(0, k);\n97:        \n"
+                "rendered_fix_context": "91:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n92:            let k = cs.len();\n93:        \n94: error->    let mut res_points = init_centers(n, k);\n95:        \n96:            let mut res_size = RVec::from_elem_n(0, k);\n97:        \n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "a"
+                }
             }
         }
     ],
@@ -98,7 +106,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n"
+                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -131,7 +143,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n"
+                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -164,7 +180,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "33:        \n34:        /// normalizing a point (cluster) by size\n35:        // #[flux::sig(fn(&mut RVec<f32>[@n], usize) -> i32)]\n36: error->fn normal(x: &mut RVec<f32>, w: usize) -> i32 {\n37:            let mut i = 0;\n38:            while i < x.len() {\n39:                let xi = x[i];\n"
+                "rendered_fix_context": "33:        \n34:        /// normalizing a point (cluster) by size\n35:        // #[flux::sig(fn(&mut RVec<f32>[@n], usize) -> i32)]\n36: error->fn normal(x: &mut RVec<f32>, w: usize) -> i32 {\n37:            let mut i = 0;\n38:            while i < x.len() {\n39:                let xi = x[i];\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -197,7 +217,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": " 6:        \n 7:        /// distance between two points\n 8:        // #[flux::sig(fn(&RVec<f32>[@n], &RVec<f32>[n]) -> f32)]\n 9: error->fn dist(x: &RVec<f32>, y: &RVec<f32>) -> f32 {\n10:            let mut res = 0.0;\n11:            let mut i = 0;\n12:            while i < x.len() {\n"
+                "rendered_fix_context": " 6:        \n 7:        /// distance between two points\n 8:        // #[flux::sig(fn(&RVec<f32>[@n], &RVec<f32>[n]) -> f32)]\n 9: error->fn dist(x: &RVec<f32>, y: &RVec<f32>) -> f32 {\n10:            let mut res = 0.0;\n11:            let mut i = 0;\n12:            while i < x.len() {\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -230,7 +254,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "99:        \n100:            let mut i = 0;\n101:            while i < ps.len() {\n102: error->        let j = nearest(&ps[i], &cs);\n103:                add(&mut res_points[j], &ps[i]);\n104:                res_size[j] += 1;\n105:                i += 1;\n"
+                "rendered_fix_context": "99:        \n100:            let mut i = 0;\n101:            while i < ps.len() {\n102: error->        let j = nearest(&ps[i], &cs);\n103:                add(&mut res_points[j], &ps[i]);\n104:                res_size[j] += 1;\n105:                i += 1;\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -263,7 +291,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n"
+                "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -296,7 +328,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n"
+                "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -329,7 +365,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n"
+                "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -362,7 +402,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "93:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n94:            let k = cs.len();\n95:        \n96: error->    let mut res_points = init_centers(n, k);\n97:        \n98:            let mut res_size = RVec::from_elem_n(0, k);\n99:        \n"
+                "rendered_fix_context": "93:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n94:            let k = cs.len();\n95:        \n96: error->    let mut res_points = init_centers(n, k);\n97:        \n98:            let mut res_size = RVec::from_elem_n(0, k);\n99:        \n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -395,7 +439,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "33:        \n34:        /// normalizing a point (cluster) by size\n35:        // #[flux::sig(fn(&mut RVec<f32>[@n], usize) -> i32)]\n36: error->fn normal(x: &mut RVec<f32>, w: usize) -> i32 {\n37:            let mut i = 0;\n38:            while i < x.len() {\n39:                let xi = x[i];\n"
+                "rendered_fix_context": "33:        \n34:        /// normalizing a point (cluster) by size\n35:        // #[flux::sig(fn(&mut RVec<f32>[@n], usize) -> i32)]\n36: error->fn normal(x: &mut RVec<f32>, w: usize) -> i32 {\n37:            let mut i = 0;\n38:            while i < x.len() {\n39:                let xi = x[i];\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         }
     ],
@@ -430,7 +478,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "111:        }\n112:        \n113:        /// kmeans: iterating the center-update-steps\n114: error->#[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n115:        pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n116:            let mut i = 0;\n117:            let mut res = cs;\n"
+                "rendered_fix_context": "111:        }\n112:        \n113:        /// kmeans: iterating the center-update-steps\n114: error->#[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n115:        pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n116:            let mut i = 0;\n117:            let mut res = cs;\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         }
     ],
@@ -465,7 +517,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "58:          fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        )]\n60:        // requires k > 0\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n"
+                "rendered_fix_context": "58:          fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        )]\n60:        // requires k > 0\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -498,7 +554,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "110:        \n111:        /// kmeans: iterating the center-update-steps\n112:        // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n113: error->pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n114:            let mut i = 0;\n115:            let mut res = cs;\n116:            while i < iters {\n"
+                "rendered_fix_context": "110:        \n111:        /// kmeans: iterating the center-update-steps\n112:        // #[flux::sig(fn(n: usize, k: RVec<RVec<f32>[n]>{k > 0}, &RVec<RVec<f32>[n]>, i32) -> RVec<RVec<f32>[n]>[k])]\n113: error->pub fn kmeans(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>, iters: i32) -> RVec<RVec<f32>> {\n114:            let mut i = 0;\n115:            let mut res = cs;\n116:            while i < iters {\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -531,7 +591,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "103:                i += 1;\n104:            }\n105:        \n106: error->    normalize_centers(n, &mut res_points, &res_size);\n107:        \n108:            res_points\n109:        }\n"
+                "rendered_fix_context": "103:                i += 1;\n104:            }\n105:        \n106: error->    normalize_centers(n, &mut res_points, &res_size);\n107:        \n108:            res_points\n109:        }\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         }
     ],
@@ -566,7 +630,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "87:        \n88:        /// updating the centers\n89:        #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n90: error->fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n91:            let k = cs.len();\n92:        \n93:            let mut res_points = init_centers(n, k);\n"
+                "rendered_fix_context": "87:        \n88:        /// updating the centers\n89:        #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n90: error->fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n91:            let k = cs.len();\n92:        \n93:            let mut res_points = init_centers(n, k);\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         }
     ]

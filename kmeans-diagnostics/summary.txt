@@ -41,6 +41,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: cs and p need to be related by length
   Certainty: True
+  Error Type: 2b
 
 =========================
 ERROR: kmeans_step-L101-1
@@ -85,6 +86,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: res_points and ps need to have same shape
   Certainty: True
+  Error Type: 2a
 
 --------------------------------------------------------------------------------
 Commit Hash: 5db4630
@@ -130,6 +132,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: x and y need same lengths
   Certainty: True
+  Error Type: 2b
 
 ================
 ERROR: add-L26-0
@@ -172,6 +175,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: x and y need same lengths
   Certainty: True
+  Error Type: 2b
 
 ===================
 ERROR: normal-L40-0
@@ -212,6 +216,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: x needs length refinement
   Certainty: True
+  Error Type: 2b
 
 =================
 ERROR: dist-L13-0
@@ -253,6 +258,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: y needs same length as x
   Certainty: True
+  Error Type: 2b
 
 =========================
 ERROR: kmeans_step-L104-0
@@ -303,6 +309,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: nearest unrefined; possibly fn args need reft
   Certainty: True
+  Error Type: 2a
 
 ==============================
 ERROR: normalize_centers-L85-1
@@ -343,6 +350,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: weights needs length refinement
   Certainty: True
+  Error Type: 2b
 
 ================
 ERROR: add-L27-0
@@ -385,6 +393,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: x and y need same lengths
   Certainty: True
+  Error Type: 2b
 
 ==============================
 ERROR: normalize_centers-L85-0
@@ -425,6 +434,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: cs needs length refinement
   Certainty: True
+  Error Type: 2b
 
 =========================
 ERROR: kmeans_step-L103-0
@@ -475,6 +485,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: init_centers needs length refinement; possibly fn args need it too
   Certainty: True
+  Error Type: 2a
 
 ===================
 ERROR: normal-L39-0
@@ -515,6 +526,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: x needs length refinement
   Certainty: True
+  Error Type: 2b
 
 --------------------------------------------------------------------------------
 Commit Hash: 956812b
@@ -558,6 +570,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: k needs to be > 0
   Certainty: True
+  Error Type: 2b
 
 --------------------------------------------------------------------------------
 Commit Hash: 589c0b9
@@ -608,6 +621,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: k > 0
   Certainty: True
+  Error Type: 1b
 
 ====================
 ERROR: kmeans-L117-0
@@ -642,6 +656,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: args need refinements
   Certainty: True
+  Error Type: 2b
 
 =========================
 ERROR: kmeans_step-L109-0
@@ -686,6 +701,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: normalize_centers needs a refinement
   Certainty: True
+  Error Type: 1a
 
 --------------------------------------------------------------------------------
 Commit Hash: 9853d8f
@@ -739,4 +755,5 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: cs outer length needs to be > 0
   Certainty: True
+  Error Type: 2b
 

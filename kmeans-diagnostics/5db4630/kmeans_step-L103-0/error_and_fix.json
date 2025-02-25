@@ -28,6 +28,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "93:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n94:            let k = cs.len();\n95:        \n96: error->    let mut res_points = init_centers(n, k);\n97:        \n98:            let mut res_size = RVec::from_elem_n(0, k);\n99:        \n"
+        "rendered_fix_context": "93:        fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n94:            let k = cs.len();\n95:        \n96: error->    let mut res_points = init_centers(n, k);\n97:        \n98:            let mut res_size = RVec::from_elem_n(0, k);\n99:        \n",
+        "error_type": {
+            "condition": 2,
+            "reason": "a"
+        }
     }
 }

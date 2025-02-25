@@ -28,6 +28,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "58:          fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        )]\n60:        // requires k > 0\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n"
+        "rendered_fix_context": "58:          fn(&RVec<f32>[@n], &RVec<RVec<f32>[n]>[@k]) -> usize{v: v < k}\n59:        )]\n60:        // requires k > 0\n61: error->fn nearest(p: &RVec<f32>, cs: &RVec<RVec<f32>>) -> usize {\n62:            // let n = p.len();\n63:            let k = cs.len();\n64:            let mut res = 0;\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "b"
+        }
     }
 }

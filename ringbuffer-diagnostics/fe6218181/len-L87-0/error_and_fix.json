@@ -58,6 +58,10 @@
         },
         "certainty": false,
         "seen_before": false,
-        "rendered_fix_context": "85:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88: error->            self.tail - self.head\n89:                } else if self.tail < self.head {\n90:                    (self.ring.len() - self.head) + self.tail\n91:                } else {\n"
+        "rendered_fix_context": "85:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88: error->            self.tail - self.head\n89:                } else if self.tail < self.head {\n90:                    (self.ring.len() - self.head) + self.tail\n91:                } else {\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "f"
+        }
     }
 }

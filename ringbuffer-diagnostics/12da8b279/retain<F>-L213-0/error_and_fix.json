@@ -24,6 +24,10 @@
         },
         "certainty": false,
         "seen_before": false,
-        "rendered_fix_context": "210:            fn retain<F>(&mut self, mut f: F)\n211:            where\n212:                F: FnMut(&T) -> bool,\n213: error->    {\n214:                let len = self.ring.len();\n215:                // Index over the elements before the retain operation.\n216:                let mut src = self.head;\n"
+        "rendered_fix_context": "210:            fn retain<F>(&mut self, mut f: F)\n211:            where\n212:                F: FnMut(&T) -> bool,\n213: error->    {\n214:                let len = self.ring.len();\n215:                // Index over the elements before the retain operation.\n216:                let mut src = self.head;\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "a"
+        }
     }
 }

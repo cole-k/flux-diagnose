@@ -32,7 +32,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "99:                             if full(old) {\n100:                                 old == new\n101:                             } else {\n102: error->                         new.ring_len == old.ring_len && new.hd == next_hd(old)\n103:                                 && new.tl == next_tl(old)\n104:                             }\n105:                           }\n"
+                "rendered_fix_context": "99:                             if full(old) {\n100:                                 old == new\n101:                             } else {\n102: error->                         new.ring_len == old.ring_len && new.hd == next_hd(old)\n103:                                 && new.tl == next_tl(old)\n104:                             }\n105:                           }\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "f"
+                }
             }
         }
     ],
@@ -69,7 +73,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "79:        \n80:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n81:            fn is_full(&self) -> bool {\n82: error->        self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85:            //\n"
+                "rendered_fix_context": "79:        \n80:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n81:            fn is_full(&self) -> bool {\n82: error->        self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85:            //\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "f"
+                }
             }
         }
     ],
@@ -134,7 +142,11 @@
                 },
                 "certainty": false,
                 "seen_before": false,
-                "rendered_fix_context": "85:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88: error->            self.tail - self.head\n89:                } else if self.tail < self.head {\n90:                    (self.ring.len() - self.head) + self.tail\n91:                } else {\n"
+                "rendered_fix_context": "85:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88: error->            self.tail - self.head\n89:                } else if self.tail < self.head {\n90:                    (self.ring.len() - self.head) + self.tail\n91:                } else {\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "f"
+                }
             }
         },
         {
@@ -197,7 +209,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "82:                self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85: error->    #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88:                    self.tail - self.head\n"
+                "rendered_fix_context": "82:                self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85: error->    #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88:                    self.tail - self.head\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "f"
+                }
             }
         }
     ],
@@ -228,7 +244,11 @@
                 },
                 "certainty": false,
                 "seen_before": false,
-                "rendered_fix_context": "188:                            next_slot = (next_slot + 1) % len;\n189:                        }\n190:                        self.tail = slot;\n191: error->                return Some(val);\n192:                    }\n193:                    slot = (slot + 1) % len;\n194:                }\n"
+                "rendered_fix_context": "188:                            next_slot = (next_slot + 1) % len;\n189:                        }\n190:                        self.tail = slot;\n191: error->                return Some(val);\n192:                    }\n193:                    slot = (slot + 1) % len;\n194:                }\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         }
     ],
@@ -259,7 +279,11 @@
                 },
                 "certainty": false,
                 "seen_before": false,
-                "rendered_fix_context": "210:            fn retain<F>(&mut self, mut f: F)\n211:            where\n212:                F: FnMut(&T) -> bool,\n213: error->    {\n214:                let len = self.ring.len();\n215:                // Index over the elements before the retain operation.\n216:                let mut src = self.head;\n"
+                "rendered_fix_context": "210:            fn retain<F>(&mut self, mut f: F)\n211:            where\n212:                F: FnMut(&T) -> bool,\n213: error->    {\n214:                let len = self.ring.len();\n215:                // Index over the elements before the retain operation.\n216:                let mut src = self.head;\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         }
     ],
@@ -296,7 +320,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n"
+                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -331,7 +359,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n"
+                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -366,7 +398,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n"
+                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         }
     ],
@@ -403,7 +439,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "115:                }\n116:            }\n117:        \n118: error->    #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n119:                           ensures self: RingBuffer<T>{new :\n120:                             new.ring_len == old.ring_len && new.tl == next_tl(old)\n121:                             && if full(old) {\n"
+                "rendered_fix_context": "115:                }\n116:            }\n117:        \n118: error->    #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n119:                           ensures self: RingBuffer<T>{new :\n120:                             new.ring_len == old.ring_len && new.tl == next_tl(old)\n121:                             && if full(old) {\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "f"
+                }
             }
         },
         {
@@ -438,7 +478,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -473,7 +517,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -508,7 +556,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -543,7 +595,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n",
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         }
     ],
@@ -667,7 +723,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n"
+                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -789,7 +849,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n"
+                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -911,7 +975,11 @@
                 },
                 "certainty": true,
                 "seen_before": false,
-                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n"
+                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n",
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         }
     ]

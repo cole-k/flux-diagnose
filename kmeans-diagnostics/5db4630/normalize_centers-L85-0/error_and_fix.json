@@ -28,6 +28,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n"
+        "rendered_fix_context": "78:        }\n79:        \n80:        // #[flux::sig(fn(n: usize, &mut RVec<RVec<f32>[n]>[@k], &RVec<usize>[k]) -> i32)]\n81: error->fn normalize_centers(_n: usize, cs: &mut RVec<RVec<f32>>, weights: &RVec<usize>) -> i32 {\n82:            let k = cs.len();\n83:            let mut i = 0;\n84:            while i < k {\n",
+        "error_type": {
+            "condition": 2,
+            "reason": "b"
+        }
     }
 }

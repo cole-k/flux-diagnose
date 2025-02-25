@@ -28,6 +28,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": " 6:        \n 7:        /// distance between two points\n 8:        // #[flux::sig(fn(&RVec<f32>[@n], &RVec<f32>[n]) -> f32)]\n 9: error->fn dist(x: &RVec<f32>, y: &RVec<f32>) -> f32 {\n10:            let mut res = 0.0;\n11:            let mut i = 0;\n12:            while i < x.len() {\n"
+        "rendered_fix_context": " 6:        \n 7:        /// distance between two points\n 8:        // #[flux::sig(fn(&RVec<f32>[@n], &RVec<f32>[n]) -> f32)]\n 9: error->fn dist(x: &RVec<f32>, y: &RVec<f32>) -> f32 {\n10:            let mut res = 0.0;\n11:            let mut i = 0;\n12:            while i < x.len() {\n",
+        "error_type": {
+            "condition": 2,
+            "reason": "b"
+        }
     }
 }

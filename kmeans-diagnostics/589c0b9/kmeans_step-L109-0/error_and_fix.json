@@ -28,6 +28,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "103:                i += 1;\n104:            }\n105:        \n106: error->    normalize_centers(n, &mut res_points, &res_size);\n107:        \n108:            res_points\n109:        }\n"
+        "rendered_fix_context": "103:                i += 1;\n104:            }\n105:        \n106: error->    normalize_centers(n, &mut res_points, &res_size);\n107:        \n108:            res_points\n109:        }\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "a"
+        }
     }
 }

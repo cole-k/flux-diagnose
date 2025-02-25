@@ -30,6 +30,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+        "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "a"
+        }
     }
 }

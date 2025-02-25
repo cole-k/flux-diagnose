@@ -30,6 +30,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n"
+        "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "a"
+        }
     }
 }

@@ -30,6 +30,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "99:                             if full(old) {\n100:                                 old == new\n101:                             } else {\n102: error->                         new.ring_len == old.ring_len && new.hd == next_hd(old)\n103:                                 && new.tl == next_tl(old)\n104:                             }\n105:                           }\n"
+        "rendered_fix_context": "99:                             if full(old) {\n100:                                 old == new\n101:                             } else {\n102: error->                         new.ring_len == old.ring_len && new.hd == next_hd(old)\n103:                                 && new.tl == next_tl(old)\n104:                             }\n105:                           }\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "f"
+        }
     }
 }

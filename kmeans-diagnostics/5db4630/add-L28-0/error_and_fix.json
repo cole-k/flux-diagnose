@@ -28,6 +28,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n"
+        "rendered_fix_context": "19:        \n20:        /// adding two points (updates the first)\n21:        // #[flux::sig(fn(&mut RVec<f32>[@n], &RVec<f32>[n]) -> i32)]\n22: error->fn add(x: &mut RVec<f32>, y: &RVec<f32>) -> i32 {\n23:            let mut i = 0;\n24:            let n = x.len();\n25:            while i < n {\n",
+        "error_type": {
+            "condition": 2,
+            "reason": "b"
+        }
     }
 }

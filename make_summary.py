@@ -23,6 +23,8 @@ Example:
     python make_summary.py /path/to/output/directory /path/to/flux/directory
 """
 
+COLLECT_MISSING_ERROR_TYPE = True
+
 def collect_unsolved_errors(base_directory):
     summary_dict = {}
     num_errors = 0
@@ -34,6 +36,7 @@ def collect_unsolved_errors(base_directory):
                 file_path = Path(root) / file
                 with open(file_path, 'r') as f:
                     data = json.load(f)
+                data['error_and_fix_file_path'] = file_path.resolve()
 
                 # Check if "fix" exists and if "seen_before" is False
                 if "fix" in data and not data["fix"].get("seen_before", False):
@@ -42,10 +45,12 @@ def collect_unsolved_errors(base_directory):
                         summary_dict[commit_hash] = []
                     summary_dict[commit_hash].append(data)
                     num_errors += 1
+
     print(f"Collected {num_errors} unique errors")
     return summary_dict
 
-def write_context(commit_hash, flux_dir, data, f):
+def make_context(commit_hash, flux_dir, data):
+    ctx_str = ''
     # Change to the Flux directory
     try:
         os.chdir(flux_dir)  # Change to the Flux directory
@@ -60,12 +65,12 @@ def write_context(commit_hash, flux_dir, data, f):
         ctx_start = min(fix_line, err_ctx_start)
         ctx_end = max(fix_line, err_ctx_end)
 
-        f.write(err_file + "\n")
+        ctx_str += (err_file + "\n")
         with open(err_file, 'r') as ef:
             lines = ef.readlines()
             # Print the lines in the context as well as the line numbers, ensuring that the line numbers are aligned
             for i in range(ctx_start, ctx_end + 1):
-                f.write(f"{i:3}: {'error>' if i == data['error']['row'] else '      '} {'fix> ' if i == data['fix']['fix_line'] else '     '}{lines[i - 1].rstrip()}\n")
+                ctx_str += (f"{i:3}: {'error>' if i == data['error']['row'] else '      '} {'fix> ' if i == data['fix']['fix_line'] else '     '}{lines[i - 1].rstrip()}\n")
 
     except Exception as e:
         print(f"An error occurred while processing the commit: {e}")
@@ -73,12 +78,12 @@ def write_context(commit_hash, flux_dir, data, f):
         # Optionally, you can reset the git state if needed
         subprocess.run(["git", "checkout", "-"], capture_output=True, text=True)
 
+    return ctx_str
+
 def save_summary(base_directory, summary_dict, flux_dir=None):
-    # Save summary.json
-    summary_json_path = Path(base_directory) / "summary.json"
-    with open(summary_json_path, 'w') as f:
-        json.dump(summary_dict, f, indent=4)
-    print(f"Saved summary to {summary_json_path}")
+
+    # resolve path before we do directory changes
+    summary_json_path = (Path(base_directory) / "summary.json").resolve()
 
     # Save summary.txt
     summary_txt_path = Path(base_directory) / "summary.txt"
@@ -88,31 +93,58 @@ def save_summary(base_directory, summary_dict, flux_dir=None):
             f.write(f"Commit Hash: {commit_hash}\n")
             f.write("-" * 80 + "\n")
             for data in error_fix_obj:
+                error_str = ''
                 error_title = f"ERROR: {data['error']['unique_name']}"
-                f.write("=" * len(error_title) + "\n")
-                f.write(error_title + "\n")
-                f.write("=" * len(error_title) + "\n")
-                f.write(f"Error Message: {data['error']['raw']}\n")
+                error_str +=("=" * len(error_title) + "\n")
+                error_str +=(error_title + "\n")
+                error_str +=("=" * len(error_title) + "\n")
+                error_str +=(f"Error Message: {data['error']['raw']}\n")
                 # If flux_dir is provided, print the context
                 if flux_dir:
-                    write_context(commit_hash, flux_dir, data, f)
-                    f.write("\n")
+                    error_str += make_context(commit_hash, flux_dir, data)
+                    error_str +=("\n")
 
                 rendered_constraint_files = "\n".join([f"  {file}" for file in data['error']['function_context']['constraint_files']])
-                f.write(f"Constraint files:\n{rendered_constraint_files}\n")
-                f.write("Fix Information:\n")
-                
+                error_str +=(f"Constraint files:\n{rendered_constraint_files}\n")
+                error_str +=("Fix Information:\n")
+
                 # Format the fix information
                 fix_info = data.get("fix", {})
-                f.write(f"  Fix Line: {fix_info.get('fix_line', 'N/A')}\n")
-                f.write(f"  Helpful Message: {fix_info.get('helpful_message', 'N/A')}\n")
-                f.write(f"  Problem Description: {fix_info.get('problem_description', 'N/A')}\n")
-                f.write(f"  Fix Type: {fix_info.get('fix_description', {}).get('fix_type', 'N/A')}\n")
-                f.write(f"  Fix Description: {fix_info.get('fix_description', {}).get('description', 'N/A')}\n")
-                f.write(f"  Certainty: {fix_info.get('certainty', False)}\n")
-                f.write("\n")
+                error_str +=(f"  Fix Line: {fix_info.get('fix_line', 'N/A')}\n")
+                error_str +=(f"  Helpful Message: {fix_info.get('helpful_message', 'N/A')}\n")
+                error_str +=(f"  Problem Description: {fix_info.get('problem_description', 'N/A')}\n")
+                error_str +=(f"  Fix Type: {fix_info.get('fix_description', {}).get('fix_type', 'N/A')}\n")
+                error_str +=(f"  Fix Description: {fix_info.get('fix_description', {}).get('description', 'N/A')}\n")
+                error_str +=(f"  Certainty: {fix_info.get('certainty', False)}\n")
+                if not 'error_type' in fix_info and COLLECT_MISSING_ERROR_TYPE:
+                    print('Please provide missing error type information for the following error:')
+                    print(error_str)
+
+                    while True:
+                        condition = int(input('Which condition fails?\n  (1) Postcondition\n  (2) Precondition\n  (3) Other\n'))
+                        reason    = input('Why does the condition fail?\n  (a) Inner function g needs stronger postcondition\n  (b) Containing function f needs stronger precondition\n  (c) g needs weaker precondition\n  (d) f needs weaker postcondition\n  (e) Code in f is wrong\n  (f) Condition is wrong\n')
+
+                        if 1 <= condition <= 3 and 'a' <= reason <= 'f':
+                            break
+
+                    file_path = data['error_and_fix_file_path']
+                    data['fix']['error_type'] = { 'condition': condition,
+                                                  'reason': reason}
+                    with open(file_path, 'w') as g:
+                        del data['error_and_fix_file_path']
+                        json.dump(data, g, indent=4)
+                else:
+                    del data['error_and_fix_file_path']
+                fix_info = data.get("fix", {})
+                error_str +=(f"  Error Type: {str(fix_info.get('error_type', {}).get('condition', 'N/A')) + fix_info.get('error_type', {}).get('reason', 'N/A')}\n")
+                error_str += "\n"
+                f.write(error_str)
 
     print(f"Saved summary to {summary_txt_path}")
+    # Save summary.json
+    with open(summary_json_path, 'w') as f:
+        json.dump(summary_dict, f, indent=4)
+    print(f"Saved summary to {summary_json_path}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -122,4 +154,4 @@ if __name__ == "__main__":
     output_directory = sys.argv[1]
     flux_directory = sys.argv[2] if len(sys.argv) > 2 else None
     summary_dict = collect_unsolved_errors(output_directory)
-    save_summary(output_directory, summary_dict, flux_directory) 
+    save_summary(output_directory, summary_dict, flux_directory)

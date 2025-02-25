@@ -28,6 +28,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "87:        \n88:        /// updating the centers\n89:        #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n90: error->fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n91:            let k = cs.len();\n92:        \n93:            let mut res_points = init_centers(n, k);\n"
+        "rendered_fix_context": "87:        \n88:        /// updating the centers\n89:        #[flux::sig(fn(n: usize, cs: RVec<RVec<f32>[n]>[@k], &RVec<RVec<f32>[n]>) -> RVec<RVec<f32>[n]>[k])]\n90: error->fn kmeans_step(n: usize, cs: RVec<RVec<f32>>, ps: &RVec<RVec<f32>>) -> RVec<RVec<f32>> {\n91:            let k = cs.len();\n92:        \n93:            let mut res_points = init_centers(n, k);\n",
+        "error_type": {
+            "condition": 2,
+            "reason": "b"
+        }
     }
 }

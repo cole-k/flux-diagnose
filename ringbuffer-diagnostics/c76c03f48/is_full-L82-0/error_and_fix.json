@@ -30,6 +30,10 @@
         },
         "certainty": true,
         "seen_before": false,
-        "rendered_fix_context": "79:        \n80:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n81:            fn is_full(&self) -> bool {\n82: error->        self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85:            //\n"
+        "rendered_fix_context": "79:        \n80:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n81:            fn is_full(&self) -> bool {\n82: error->        self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85:            //\n",
+        "error_type": {
+            "condition": 1,
+            "reason": "f"
+        }
     }
 }
