@@ -1,0 +1,12 @@
+∀ self: loc.  
+  ∀ a0: RingBuffer.  
+    ∀ a1: T::sort. (a1 = a1) ~ Subtype(Input) at 152:5: 152:39
+    ∀ a1: T::sort. (a1 = a1) ~ Subtype(Input) at 152:5: 152:39
+    (a0 = a0) ~ Subtype(Input) at 152:5: 152:39
+    ∀ a1: T::sort. (a1 = a1) ~ Subtype(Output) at 152:5: 152:39
+    (¬empty(a0) = ¬empty(a0)) ~ Subtype(Output) at 152:5: 152:39
+    ∀ a1: RingBuffer.  
+      (if empty(a0) { a0 = a1 } else { a1.0 = a0.0 ∧ a1.2 = a0.2 ∧ a1.1 = next_hd(a0) } ∧ a1.0 > 1) =>  
+        ∀ a2: T::sort. (a2 = a2) ~ Subtype(Ensures) at 152:5: 152:39
+        ∀ a2: T::sort. (a2 = a2) ~ Subtype(Ensures) at 152:5: 152:39
+        (a1 = a1) ~ Subtype(Ensures) at 152:5: 152:39

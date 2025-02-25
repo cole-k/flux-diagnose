@@ -1,0 +1,15 @@
+∀ .  
+  ∀ a0: A::sort.  
+    $k0() ~ Other at 81:24: 81:63
+    $k1() ~ Other at 81:24: 81:63
+    $k1() ~ Other at 81:24: 81:63
+    $k1() ~ Other at 81:24: 81:63
+    ∀ a1: <λb0. A[b0] as Time>::Ticks::sort.  
+      $k2(a1) ~ Call at 82:25: 82:53
+      ∀ a2: <λb1. A[b1] as Time>::Ticks::sort.  
+        $k3(a2) ~ Call at 83:31: 83:59
+        $k4(0) ~ Call at 84:29: 84:41
+        $k5(0) ~ Call at 85:29: 85:41
+        $k1() ~ Call at 79:9: 86:10
+        ∀ a3: int. $k4(a3) ~ Call at 79:9: 86:10
+        ∀ a3: int. $k5(a3) ~ Call at 79:9: 86:10

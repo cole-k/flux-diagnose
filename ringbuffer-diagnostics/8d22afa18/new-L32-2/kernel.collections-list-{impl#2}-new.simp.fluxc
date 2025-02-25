@@ -1,0 +1,14 @@
+∀ .  
+  $k3(false) ~ Call at 47:28: 47:43
+  $k1() =>  
+    ∀ a0: T::sort.  
+      $k0(a0) => $k2(a0) ~ Call at 47:28: 47:43
+  ∀ a0: Option.  
+    $k3(a0.0) =>  
+      ∀ a1: T::sort.  
+        $k2(a1) => $k4(a1) ~ Call at 47:19: 47:44
+  ∀ a0: Option.  
+    $k3(a0.0) ~ Call at 47:19: 47:44
+    ∀ a1: T::sort.  
+      $k4(a1) => $k2(a1) ~ Call at 47:19: 47:44
+  ∀ a0: T::sort. $k4(a0) ~ Call at 46:9: 48:10

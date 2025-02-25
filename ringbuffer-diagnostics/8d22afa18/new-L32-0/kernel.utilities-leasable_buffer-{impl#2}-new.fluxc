@@ -1,0 +1,26 @@
+∀ .  
+  ∀ a0: int.  
+    (a0 ≥ 0) =>  
+      ∀ a1: T::sort.  
+        $k0(a1) ~ Call at 254:19: 254:31
+        (a1 = a1) ~ Call at 254:19: 254:31
+      (a0 = a0) ~ Call at 254:19: 254:31
+      (a0 ≥ 0) =>  
+        true ~ Call at 257:27: 257:59
+        (a0 = a0) ~ Call at 257:27: 257:59
+        ∀ a1: int.  
+          ∀ a2: T::sort.  
+            $k1(a2) ~ Call at 255:9: 258:10
+            (a2 = a2) ~ Call at 255:9: 258:10
+          (a1 = a1) ~ Call at 255:9: 258:10
+        ∀ a1: int.  
+          ∀ a2: T::sort.  
+            $k1(a2) => (a2 = a2) ~ Call at 255:9: 258:10
+          (a1 = a1) ~ Call at 255:9: 258:10
+        true ~ Call at 255:9: 258:10
+        (a0 = a0) ~ Call at 255:9: 258:10
+        ∀ a1: T::sort.  
+          $k1(a1) => (a1 = a1) ~ Ret at 255:9: 258:10
+        ∀ a1: T::sort.  
+          $k1(a1) ~ Ret at 255:9: 258:10
+          (a1 = a1) ~ Ret at 255:9: 258:10

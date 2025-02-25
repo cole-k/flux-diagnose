@@ -1,0 +1,5 @@
+∀ .  
+  ∀ a0: Option.  
+    (a0 = a0) ~ Call at 32:9: 35:10
+    $k0() => true
+    $k0() ~ Call at 32:9: 35:10

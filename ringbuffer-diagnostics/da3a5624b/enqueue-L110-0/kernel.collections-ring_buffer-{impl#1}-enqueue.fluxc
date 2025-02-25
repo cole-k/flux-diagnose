@@ -1,0 +1,52 @@
+∀ self: loc, old: RingBuffer.  
+  (old.0 > 1) =>  
+    ∀ a0: T::sort.  
+      ∀ a1: T::sort.  
+        $k0(a1) ~ Call at 108:12: 108:26
+        (a1 = a1) ~ Call at 108:12: 108:26
+      ∀ a1: T::sort.  
+        $k0(a1) => (a1 = a1) ~ Call at 108:12: 108:26
+      (old = old) ~ Call at 108:12: 108:26
+      ∀ a1: bool.  
+        (¬a1 ∧ old.0 > 1 ∧ old.0 ≥ 0 ∧ old.1 < old.0 ∧ old.1 ≥ 0 ∧ old.2 < old.0 ∧ old.2 ≥ 0) =>  
+          (old.2 < old.0) ~ Assert("possible out-of-bounds access") at 112:13: 112:33
+          (old.2 < old.0) =>  
+            (a0 = a0) ~ Assign at 112:13: 112:39
+            ∀ a2: T::sort.  
+              $k1(a2) ~ Call at 113:43: 113:58
+              (a2 = a2) ~ Call at 113:43: 113:58
+            (old.0 = old.0) ~ Call at 113:43: 113:58
+            (old.0 ≥ 0) =>  
+              (old.0 ≠ 0) ~ Assert("possible remainder with a divisor of zero") at 113:25: 113:58
+              (old.0 ≠ 0) =>  
+                (old.0 ≠ 0) ~ Rem at 113:13: 113:58
+                (old.0 > 1) ~ Fold at 114:13: 114:17
+                ∀ a2: T::sort.  
+                  $k2(a2) ~ Fold at 114:13: 114:17
+                  (a2 = a2) ~ Fold at 114:13: 114:17
+                (old.0 = old.0) ~ Fold at 114:13: 114:17
+                ∀ a2: T::sort.  
+                  $k2(a2) => (a2 = a2) ~ Fold at 114:13: 114:17
+                (old.0 = old.0) ~ Fold at 114:13: 114:17
+                (old.1 < old.0) ~ Fold at 114:13: 114:17
+                (old.1 = old.1) ~ Fold at 114:13: 114:17
+                ((old.2 + 1) mod old.0 < old.0) ~ Fold at 114:13: 114:17
+                ((old.2 + 1) mod old.0 = (old.2 + 1) mod old.0) ~ Fold at 114:13: 114:17
+                (true = ¬full(old)) ~ Ret at 114:13: 114:17
+                true ~ Ret at 114:13: 114:17
+                if full(old) { old.1 = old.1 ∧ old.2 = (old.2 + 1) mod old.0 } else { true } ~ Ret at 114:13: 114:17
+                ∀ a2: T::sort.  
+                  $k2(a2) => (a2 = a2) ~ Ret at 114:13: 114:17
+                ∀ a2: T::sort.  
+                  $k2(a2) ~ Ret at 114:13: 114:17
+                  (a2 = a2) ~ Ret at 114:13: 114:17
+                (old.0 = old.0) ~ Ret at 114:13: 114:17
+                (old.1 = old.1) ~ Ret at 114:13: 114:17
+                ((old.2 + 1) mod old.0 = (old.2 + 1) mod old.0) ~ Ret at 114:13: 114:17
+        a1 =>  
+          (false = ¬full(old)) ~ Ret at 110:13: 110:18
+          true ~ Ret at 110:13: 110:18
+          if full(old) { old.1 = old.1 ∧ old.2 = old.2 } else { true } ~ Ret at 110:13: 110:18
+          ∀ a2: T::sort. (a2 = a2) ~ Ret at 110:13: 110:18
+          ∀ a2: T::sort. (a2 = a2) ~ Ret at 110:13: 110:18
+          (old = old) ~ Ret at 110:13: 110:18

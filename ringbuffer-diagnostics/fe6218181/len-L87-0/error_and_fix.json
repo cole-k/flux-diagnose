@@ -1,0 +1,63 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/collections/ring_buffer.rs",
+        "row": 87,
+        "col": 9,
+        "raw": "error[E0999]: refinement type error\n  --> kernel/src/collections/ring_buffer.rs:87:9\n   |\n87 | /         if self.tail > self.head {\n88 | |             self.tail - self.head\n89 | |         } else if self.tail < self.head {\n90 | |             (self.ring.len() - self.head) + self.tail\n...  |\n93 | |             0\n94 | |         }\n   | |_________^ a postcondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> kernel/src/collections/ring_buffer.rs:85:59\n   |\n85 |     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n   |                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 85,
+            "end": 95,
+            "name": "len",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.simp.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#0}-available_len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#4}-available_len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#0}-available_len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-debug_available_len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-mut_imut_buffer-{impl#0}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#20}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.simp.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#20}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.simp.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.smt2",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#14}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#0}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#6}-available_len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#0}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#6}-available_len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#14}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#4}-available_len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-mut_imut_buffer-{impl#0}-len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-len.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-debug_available_len.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.fluxc"
+            ],
+            "rendered_context": "85:     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:     fn len(&self) -> usize {\n87:         if self.tail > self.head {\n88:             self.tail - self.head\n89:         } else if self.tail < self.head {\n90:             (self.ring.len() - self.head) + self.tail\n91:         } else {\n92:             // head equals tail, length is zero\n93:             0\n94:         }\n95:     }\n"
+        },
+        "unique_name": "len-L87-0"
+    },
+    "fix": {
+        "fix_line": 88,
+        "helpful_message": "n",
+        "problem_description": "3",
+        "fix_description": {
+            "fix_type": "new_refinement",
+            "description": "rb.tl - rb.hd (?)"
+        },
+        "certainty": false,
+        "seen_before": false,
+        "rendered_fix_context": "85:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88: error->            self.tail - self.head\n89:                } else if self.tail < self.head {\n90:                    (self.ring.len() - self.head) + self.tail\n91:                } else {\n"
+    }
+}

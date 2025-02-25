@@ -1,0 +1,918 @@
+{
+    "65478d906": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 114,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:114:13\n    |\n114 |             true\n    |             ^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:99:22\n    |\n99  | /                      if full(old) {\n100 | |                          old == new\n101 | |                      } else {\n102 | |                          new.ring_len == old.ring_len && new.hd == next_hd(old)\n103 | |                          && new.tl == next_tl(old)\n104 | |                      }\n    | |______________________^\n\n",
+                "function_context": {
+                    "start": 97,
+                    "end": 116,
+                    "name": "enqueue",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/65478d906/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/65478d906/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/65478d906/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/65478d906/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/65478d906/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.smt2"
+                    ],
+                    "rendered_context": "97:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> bool[!full(old)]\n98:                    ensures self: RingBuffer<T>{new :\n99:                      if full(old) {\n100:                          old == new\n101:                      } else {\n102:                          new.ring_len == old.ring_len && new.hd == next_hd(old)\n103:                          && new.tl == next_tl(old)\n104:                      }\n105:                    }\n106:     )]\n107:     fn enqueue(&mut self, val: T) -> bool {\n108:         if self.is_full() {\n109:             // Incrementing tail will overwrite head\n110:             false\n111:         } else {\n112:             self.ring[self.tail] = val;\n113:             self.tail = (self.tail + 1) % self.ring.len();\n114:             true\n115:         }\n116:     }\n"
+                },
+                "unique_name": "enqueue-L114-0"
+            },
+            "fix": {
+                "fix_line": 102,
+                "helpful_message": "n",
+                "problem_description": "3",
+                "fix_description": {
+                    "fix_type": "new_refinement",
+                    "description": "new.hd == old.hd"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "99:                             if full(old) {\n100:                                 old == new\n101:                             } else {\n102: error->                         new.ring_len == old.ring_len && new.hd == next_hd(old)\n103:                                 && new.tl == next_tl(old)\n104:                             }\n105:                           }\n"
+            }
+        }
+    ],
+    "c76c03f48": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 82,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n  --> kernel/src/collections/ring_buffer.rs:82:9\n   |\n82 |         self.head == ((self.tail + 1) % self.ring.len())\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> kernel/src/collections/ring_buffer.rs:24:39\n   |\n24 |     fn full(rb: RingBuffer) -> bool { rb.hd == next_index(rb.tl, rb.ring_len) }\n   |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nnote: inside this call\n  --> kernel/src/collections/ring_buffer.rs:80:63\n   |\n80 |     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n   |                                                               ^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 80,
+                    "end": 83,
+                    "name": "is_full",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.smt2"
+                    ],
+                    "rendered_context": "80:     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n81:     fn is_full(&self) -> bool {\n82:         self.head == ((self.tail + 1) % self.ring.len())\n83:     }\n"
+                },
+                "unique_name": "is_full-L82-0"
+            },
+            "fix": {
+                "fix_line": 79,
+                "helpful_message": "n",
+                "problem_description": "3",
+                "fix_description": {
+                    "fix_type": "new_refinement",
+                    "description": "should be b == full(rb)"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "79:        \n80:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n81:            fn is_full(&self) -> bool {\n82: error->        self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85:            //\n"
+            }
+        }
+    ],
+    "fe6218181": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 87,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n  --> kernel/src/collections/ring_buffer.rs:87:9\n   |\n87 | /         if self.tail > self.head {\n88 | |             self.tail - self.head\n89 | |         } else if self.tail < self.head {\n90 | |             (self.ring.len() - self.head) + self.tail\n...  |\n93 | |             0\n94 | |         }\n   | |_________^ a postcondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> kernel/src/collections/ring_buffer.rs:85:59\n   |\n85 |     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n   |                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 85,
+                    "end": 95,
+                    "name": "len",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#0}-available_len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#4}-available_len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#0}-available_len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-debug_available_len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-mut_imut_buffer-{impl#0}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#20}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#20}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#14}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#0}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#6}-available_len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#0}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#6}-available_len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#14}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#4}-available_len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-mut_imut_buffer-{impl#0}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-debug_available_len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.fluxc"
+                    ],
+                    "rendered_context": "85:     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:     fn len(&self) -> usize {\n87:         if self.tail > self.head {\n88:             self.tail - self.head\n89:         } else if self.tail < self.head {\n90:             (self.ring.len() - self.head) + self.tail\n91:         } else {\n92:             // head equals tail, length is zero\n93:             0\n94:         }\n95:     }\n"
+                },
+                "unique_name": "len-L87-0"
+            },
+            "fix": {
+                "fix_line": 88,
+                "helpful_message": "n",
+                "problem_description": "3",
+                "fix_description": {
+                    "fix_type": "new_refinement",
+                    "description": "rb.tl - rb.hd (?)"
+                },
+                "certainty": false,
+                "seen_before": false,
+                "rendered_fix_context": "85:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88: error->            self.tail - self.head\n89:                } else if self.tail < self.head {\n90:                    (self.ring.len() - self.head) + self.tail\n91:                } else {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 88,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n  --> kernel/src/collections/ring_buffer.rs:88:13\n   |\n88 |             self.tail - self.head\n   |             ^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> kernel/src/collections/ring_buffer.rs:85:59\n   |\n85 |     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n   |                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 85,
+                    "end": 95,
+                    "name": "len",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#0}-available_len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#4}-available_len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#0}-available_len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-debug_available_len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-mut_imut_buffer-{impl#0}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#20}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#20}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#14}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#0}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#6}-available_len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#0}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#6}-available_len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#1}-len.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.collections-ring_buffer-{impl#1}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#14}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-{impl#4}-available_len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-mut_imut_buffer-{impl#0}-len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-len.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.debug-debug_available_len.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/fe6218181/all_constraints/kernel.processbuffer-{impl#6}-len.fluxc"
+                    ],
+                    "rendered_context": "85:     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:     fn len(&self) -> usize {\n87:         if self.tail > self.head {\n88:             self.tail - self.head\n89:         } else if self.tail < self.head {\n90:             (self.ring.len() - self.head) + self.tail\n91:         } else {\n92:             // head equals tail, length is zero\n93:             0\n94:         }\n95:     }\n"
+                },
+                "unique_name": "len-L88-0"
+            },
+            "fix": {
+                "fix_line": 85,
+                "helpful_message": "n",
+                "problem_description": "3",
+                "fix_description": {
+                    "fix_type": "new_refinement",
+                    "description": "rb.tl - rb.hd"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "82:                self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85: error->    #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> usize[(rb.hd - rb.tl) % rb.ring_len])]\n86:            fn len(&self) -> usize {\n87:                if self.tail > self.head {\n88:                    self.tail - self.head\n"
+            }
+        }
+    ],
+    "a41e71dec": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 191,
+                "col": 24,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:191:24\n    |\n191 |                 return Some(val);\n    |                        ^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:171:54\n    |\n171 |                    ensures self: RingBuffer<T>{new : len(old) - len(new) <= 1})]\n    |                                                      ^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 170,
+                    "end": 172,
+                    "name": "remove_first_matching<F>",
+                    "constraint_files": [],
+                    "rendered_context": "170:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], _) -> Option<T>\n171:                    ensures self: RingBuffer<T>{new : len(old) - len(new) <= 1})]\n172:     fn remove_first_matching<F>(&mut self, f: F) -> Option<T>\n"
+                },
+                "unique_name": "remove_first_matching<F>-L191-0"
+            },
+            "fix": {
+                "fix_line": 191,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "More annotations (IDK) ??"
+                },
+                "certainty": false,
+                "seen_before": false,
+                "rendered_fix_context": "188:                            next_slot = (next_slot + 1) % len;\n189:                        }\n190:                        self.tail = slot;\n191: error->                return Some(val);\n192:                    }\n193:                    slot = (slot + 1) % len;\n194:                }\n"
+            }
+        }
+    ],
+    "12da8b279": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 213,
+                "col": 5,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:213:5\n    |\n213 | /     {\n214 | |         let len = self.ring.len();\n215 | |         // Index over the elements before the retain operation.\n216 | |         let mut src = self.head;\n...   |\n232 | |         self.tail = dst;\n233 | |     }\n    | |_____^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:208:54\n    |\n208 |                    ensures self: RingBuffer<T>{new : len(old) <= len(new)}\n    |                                                      ^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 207,
+                    "end": 210,
+                    "name": "retain<F>",
+                    "constraint_files": [],
+                    "rendered_context": "207:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], _)\n208:                    ensures self: RingBuffer<T>{new : len(old) <= len(new)}\n209:     )]\n210:     fn retain<F>(&mut self, mut f: F)\n"
+                },
+                "unique_name": "retain<F>-L213-0"
+            },
+            "fix": {
+                "fix_line": 213,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "IDK ??"
+                },
+                "certainty": false,
+                "seen_before": false,
+                "rendered_fix_context": "210:            fn retain<F>(&mut self, mut f: F)\n211:            where\n212:                F: FnMut(&T) -> bool,\n213: error->    {\n214:                let len = self.ring.len();\n215:                // Index over the elements before the retain operation.\n216:                let mut src = self.head;\n"
+            }
+        }
+    ],
+    "da3a5624b": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 114,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:114:13\n    |\n114 |             true\n    |             ^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:99:22\n    |\n99  |                      if full(old) { old.hd == new.hd && old.tl == new.tl } else { true }\n    |                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 106,
+                    "end": 116,
+                    "name": "enqueue",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.smt2"
+                    ],
+                    "rendered_context": "106:     //\n107:     fn enqueue(&mut self, val: T) -> bool {\n108:         if self.is_full() {\n109:             // Incrementing tail will overwrite head\n110:             false\n111:         } else {\n112:             self.ring[self.tail] = val;\n113:             self.tail = (self.tail + 1) % self.ring.len();\n114:             true\n115:         }\n116:     }\n"
+                },
+                "unique_name": "enqueue-L114-1"
+            },
+            "fix": {
+                "fix_line": 108,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "is_full needs an annotation"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 110,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:110:13\n    |\n110 |             false\n    |             ^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:97:76\n    |\n97  |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> bool{ b: b == !full(old) }\n    |                                                                            ^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 106,
+                    "end": 116,
+                    "name": "enqueue",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.smt2"
+                    ],
+                    "rendered_context": "106:     //\n107:     fn enqueue(&mut self, val: T) -> bool {\n108:         if self.is_full() {\n109:             // Incrementing tail will overwrite head\n110:             false\n111:         } else {\n112:             self.ring[self.tail] = val;\n113:             self.tail = (self.tail + 1) % self.ring.len();\n114:             true\n115:         }\n116:     }\n"
+                },
+                "unique_name": "enqueue-L110-0"
+            },
+            "fix": {
+                "fix_line": 108,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "is_full needs an annotation"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 114,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:114:13\n    |\n114 |             true\n    |             ^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:97:76\n    |\n97  |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> bool{ b: b == !full(old) }\n    |                                                                            ^^^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 106,
+                    "end": 116,
+                    "name": "enqueue",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.smt2"
+                    ],
+                    "rendered_context": "106:     //\n107:     fn enqueue(&mut self, val: T) -> bool {\n108:         if self.is_full() {\n109:             // Incrementing tail will overwrite head\n110:             false\n111:         } else {\n112:             self.ring[self.tail] = val;\n113:             self.tail = (self.tail + 1) % self.ring.len();\n114:             true\n115:         }\n116:     }\n"
+                },
+                "unique_name": "enqueue-L114-0"
+            },
+            "fix": {
+                "fix_line": 108,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "is_full needs an annotation"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n"
+            }
+        }
+    ],
+    "ffc30ac8a": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 139,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:139:9\n    |\n139 |         result\n    |         ^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:118:77\n    |\n118 |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n    |                                                                             ^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 118,
+                    "end": 140,
+                    "name": "push",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.sub.fluxc"
+                    ],
+                    "rendered_context": "118:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n119:                    ensures self: RingBuffer<T>{new :\n120:                      new.ring_len == old.ring_len && new.tl == next_tl(old)\n121:                      && if full(old) {\n122:                          new.hd == next_hd(old)\n123:                      } else {\n124:                          new.hd == old.hd\n125:                      }\n126:                    }\n127:     )]\n128:     fn push(&mut self, val: T) -> Option<T> {\n129:         let result = if self.is_full() {\n130:             let val = self.ring[self.head];\n131:             self.head = (self.head + 1) % self.ring.len();\n132:             Some(val)\n133:         } else {\n134:             None\n135:         };\n136: \n137:         self.ring[self.tail] = val;\n138:         self.tail = (self.tail + 1) % self.ring.len();\n139:         result\n140:     }\n"
+                },
+                "unique_name": "push-L139-0"
+            },
+            "fix": {
+                "fix_line": 118,
+                "helpful_message": "n",
+                "problem_description": "3",
+                "fix_description": {
+                    "fix_type": "new_refinement",
+                    "description": "should be full(old)"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "115:                }\n116:            }\n117:        \n118: error->    #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n119:                           ensures self: RingBuffer<T>{new :\n120:                             new.ring_len == old.ring_len && new.tl == next_tl(old)\n121:                             && if full(old) {\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 156,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:156:13\n    |\n156 |             Some(val)\n    |             ^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:144:22\n    |\n144 | /                      if empty(old) {\n145 | |                        old == new\n146 | |                      } else {\n147 | |                        new.ring_len == old.ring_len && new.tl == old.tl\n148 | |                        && new.hd == next_hd(old)\n149 | |                      }\n    | |______________________^\n\n",
+                "function_context": {
+                    "start": 142,
+                    "end": 160,
+                    "name": "dequeue",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.fluxc"
+                    ],
+                    "rendered_context": "142:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]\n143:                    ensures self: RingBuffer<T>{new :\n144:                      if empty(old) {\n145:                        old == new\n146:                      } else {\n147:                        new.ring_len == old.ring_len && new.tl == old.tl\n148:                        && new.hd == next_hd(old)\n149:                      }\n150:                    }\n151:     )]\n152:     fn dequeue(&mut self) -> Option<T> {\n153:         if self.has_elements() {\n154:             let val = self.ring[self.head];\n155:             self.head = (self.head + 1) % self.ring.len();\n156:             Some(val)\n157:         } else {\n158:             None\n159:         }\n160:     }\n"
+                },
+                "unique_name": "dequeue-L156-1"
+            },
+            "fix": {
+                "fix_line": 153,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "has_elements needs a reft"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 158,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:158:13\n    |\n158 |             None\n    |             ^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:142:69\n    |\n142 |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]\n    |                                                                     ^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 142,
+                    "end": 160,
+                    "name": "dequeue",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.fluxc"
+                    ],
+                    "rendered_context": "142:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]\n143:                    ensures self: RingBuffer<T>{new :\n144:                      if empty(old) {\n145:                        old == new\n146:                      } else {\n147:                        new.ring_len == old.ring_len && new.tl == old.tl\n148:                        && new.hd == next_hd(old)\n149:                      }\n150:                    }\n151:     )]\n152:     fn dequeue(&mut self) -> Option<T> {\n153:         if self.has_elements() {\n154:             let val = self.ring[self.head];\n155:             self.head = (self.head + 1) % self.ring.len();\n156:             Some(val)\n157:         } else {\n158:             None\n159:         }\n160:     }\n"
+                },
+                "unique_name": "dequeue-L158-0"
+            },
+            "fix": {
+                "fix_line": 153,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "has_elements needs a reft"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 156,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:156:13\n    |\n156 |             Some(val)\n    |             ^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:142:69\n    |\n142 |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]\n    |                                                                     ^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 142,
+                    "end": 160,
+                    "name": "dequeue",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.fluxc"
+                    ],
+                    "rendered_context": "142:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]\n143:                    ensures self: RingBuffer<T>{new :\n144:                      if empty(old) {\n145:                        old == new\n146:                      } else {\n147:                        new.ring_len == old.ring_len && new.tl == old.tl\n148:                        && new.hd == next_hd(old)\n149:                      }\n150:                    }\n151:     )]\n152:     fn dequeue(&mut self) -> Option<T> {\n153:         if self.has_elements() {\n154:             let val = self.ring[self.head];\n155:             self.head = (self.head + 1) % self.ring.len();\n156:             Some(val)\n157:         } else {\n158:             None\n159:         }\n160:     }\n"
+                },
+                "unique_name": "dequeue-L156-0"
+            },
+            "fix": {
+                "fix_line": 153,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "has_elements needs a reft"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 158,
+                "col": 13,
+                "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:158:13\n    |\n158 |             None\n    |             ^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:144:22\n    |\n144 | /                      if empty(old) {\n145 | |                        old == new\n146 | |                      } else {\n147 | |                        new.ring_len == old.ring_len && new.tl == old.tl\n148 | |                        && new.hd == next_hd(old)\n149 | |                      }\n    | |______________________^\n\n",
+                "function_context": {
+                    "start": 142,
+                    "end": 160,
+                    "name": "dequeue",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.sub.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.fluxc"
+                    ],
+                    "rendered_context": "142:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]\n143:                    ensures self: RingBuffer<T>{new :\n144:                      if empty(old) {\n145:                        old == new\n146:                      } else {\n147:                        new.ring_len == old.ring_len && new.tl == old.tl\n148:                        && new.hd == next_hd(old)\n149:                      }\n150:                    }\n151:     )]\n152:     fn dequeue(&mut self) -> Option<T> {\n153:         if self.has_elements() {\n154:             let val = self.ring[self.head];\n155:             self.head = (self.head + 1) % self.ring.len();\n156:             Some(val)\n157:         } else {\n158:             None\n159:         }\n160:     }\n"
+                },
+                "unique_name": "dequeue-L158-1"
+            },
+            "fix": {
+                "fix_line": 153,
+                "helpful_message": "has_elements needs a reft",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "has_elements needs a reft"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+            }
+        }
+    ],
+    "8d22afa18": [
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 32,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n  --> kernel/src/collections/ring_buffer.rs:32:9\n   |\n32 | /         RingBuffer {\n33 | |             head: 0,\n34 | |             tail: 0,\n35 | |             ring,\n36 | |         }\n   | |_________^ a precondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> kernel/src/collections/ring_buffer.rs:17:26\n   |\n17 |     #[field({usize[tl] | tl < ring_len})]\n   |                          ^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 30,
+                    "end": 37,
+                    "name": "new",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.introspection-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_checker-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-peripheral_management-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#8}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.ipc-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.kernel-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-priority-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/flux_support.flux_register_interface-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#8}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-static_ref-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.kernel-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#12}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-peripheral_management-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_loading-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.introspection-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-mpu-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.ipc-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-scheduler_timer-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_loading-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/flux_support.flux_register_interface-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-mpu-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#14}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.upcall-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-gpio-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#14}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#8}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-static_ref-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_checker-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.storage_permissions-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#12}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.upcall-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#9}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-priority-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#8}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.storage_permissions-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-list-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-list-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#9}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-gpio-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-scheduler_timer-{impl#1}-new.fluxc"
+                    ],
+                    "rendered_context": "30:     //\n31:     pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:         RingBuffer {\n33:             head: 0,\n34:             tail: 0,\n35:             ring,\n36:         }\n37:     }\n"
+                },
+                "unique_name": "new-L32-2"
+            },
+            "fix": {
+                "fix_line": 31,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "len > 1"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 32,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n  --> kernel/src/collections/ring_buffer.rs:32:9\n   |\n32 | /         RingBuffer {\n33 | |             head: 0,\n34 | |             tail: 0,\n35 | |             ring,\n36 | |         }\n   | |_________^ a precondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> kernel/src/collections/ring_buffer.rs:15:26\n   |\n15 |     #[field({usize[hd] | hd < ring_len})]\n   |                          ^^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 30,
+                    "end": 37,
+                    "name": "new",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.introspection-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_checker-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-peripheral_management-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#8}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.ipc-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.kernel-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-priority-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/flux_support.flux_register_interface-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#8}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-static_ref-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.kernel-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#12}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-peripheral_management-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_loading-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.introspection-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-mpu-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.ipc-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-scheduler_timer-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_loading-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/flux_support.flux_register_interface-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-mpu-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#14}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.upcall-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-gpio-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#14}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#8}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-static_ref-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_checker-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.storage_permissions-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#12}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.upcall-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#9}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-priority-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#8}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.storage_permissions-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-list-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-list-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#9}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-gpio-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-scheduler_timer-{impl#1}-new.fluxc"
+                    ],
+                    "rendered_context": "30:     //\n31:     pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:         RingBuffer {\n33:             head: 0,\n34:             tail: 0,\n35:             ring,\n36:         }\n37:     }\n"
+                },
+                "unique_name": "new-L32-1"
+            },
+            "fix": {
+                "fix_line": 31,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "len > 1"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n"
+            }
+        },
+        {
+            "error": {
+                "message": "refinement type error",
+                "file": "src/collections/ring_buffer.rs",
+                "row": 32,
+                "col": 9,
+                "raw": "error[E0999]: refinement type error\n  --> kernel/src/collections/ring_buffer.rs:32:9\n   |\n32 | /         RingBuffer {\n33 | |             head: 0,\n34 | |             tail: 0,\n35 | |             ring,\n36 | |         }\n   | |_________^ a precondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> kernel/src/collections/ring_buffer.rs:13:35\n   |\n13 |     #[field({&mut [T][ring_len] | ring_len > 1})]\n   |                                   ^^^^^^^^^^^^\n\n",
+                "function_context": {
+                    "start": 30,
+                    "end": 37,
+                    "name": "new",
+                    "constraint_files": [
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.introspection-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_checker-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-peripheral_management-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#8}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.ipc-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.kernel-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-priority-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/flux_support.flux_register_interface-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#8}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-static_ref-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#4}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.kernel-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#12}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-peripheral_management-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_loading-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.introspection-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-mpu-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.ipc-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-scheduler_timer-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_loading-{impl#1}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/flux_support.flux_register_interface-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-mpu-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#14}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.upcall-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-gpio-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#14}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#8}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-cooperative-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-static_ref-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process_checker-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#3}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-mlfq-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.storage_permissions-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#12}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.process-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.upcall-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#4}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.debug-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-led-{impl#1}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#9}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-priority-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#8}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.storage_permissions-{impl#0}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.scheduler-round_robin-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#0}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-list-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-list-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#11}-new.smt2",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#5}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.processbuffer-{impl#9}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.grant-{impl#5}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-binary_write-{impl#2}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.deferred_call-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.hil-gpio-{impl#3}-new.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.utilities-leasable_buffer-{impl#2}-new.simp.fluxc",
+                        "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.platform-scheduler_timer-{impl#1}-new.fluxc"
+                    ],
+                    "rendered_context": "30:     //\n31:     pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:         RingBuffer {\n33:             head: 0,\n34:             tail: 0,\n35:             ring,\n36:         }\n37:     }\n"
+                },
+                "unique_name": "new-L32-0"
+            },
+            "fix": {
+                "fix_line": 31,
+                "helpful_message": "n",
+                "problem_description": "2",
+                "fix_description": {
+                    "fix_type": "additional_refinement",
+                    "description": "len > 1"
+                },
+                "certainty": true,
+                "seen_before": false,
+                "rendered_fix_context": "28:        \n29:        impl<'a, T: Copy> RingBuffer<'a, T> {\n30:            //\n31: error->    pub fn new(ring: &'a mut [T]) -> RingBuffer<'a, T> {\n32:                RingBuffer {\n33:                    head: 0,\n34:                    tail: 0,\n"
+            }
+        }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/collections/ring_buffer.rs",
+        "row": 139,
+        "col": 9,
+        "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:139:9\n    |\n139 |         result\n    |         ^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:118:77\n    |\n118 |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n    |                                                                             ^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 118,
+            "end": 140,
+            "name": "push",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.smt2",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.simp.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-push.sub.fluxc"
+            ],
+            "rendered_context": "118:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n119:                    ensures self: RingBuffer<T>{new :\n120:                      new.ring_len == old.ring_len && new.tl == next_tl(old)\n121:                      && if full(old) {\n122:                          new.hd == next_hd(old)\n123:                      } else {\n124:                          new.hd == old.hd\n125:                      }\n126:                    }\n127:     )]\n128:     fn push(&mut self, val: T) -> Option<T> {\n129:         let result = if self.is_full() {\n130:             let val = self.ring[self.head];\n131:             self.head = (self.head + 1) % self.ring.len();\n132:             Some(val)\n133:         } else {\n134:             None\n135:         };\n136: \n137:         self.ring[self.tail] = val;\n138:         self.tail = (self.tail + 1) % self.ring.len();\n139:         result\n140:     }\n"
+        },
+        "unique_name": "push-L139-0"
+    },
+    "fix": {
+        "fix_line": 118,
+        "helpful_message": "n",
+        "problem_description": "3",
+        "fix_description": {
+            "fix_type": "new_refinement",
+            "description": "should be full(old)"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "115:                }\n116:            }\n117:        \n118: error->    #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> Option<T>[!full(old)]\n119:                           ensures self: RingBuffer<T>{new :\n120:                             new.ring_len == old.ring_len && new.tl == next_tl(old)\n121:                             && if full(old) {\n"
+    }
+}

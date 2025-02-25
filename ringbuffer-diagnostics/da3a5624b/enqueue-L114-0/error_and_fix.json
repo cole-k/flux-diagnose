@@ -1,0 +1,35 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/collections/ring_buffer.rs",
+        "row": 114,
+        "col": 13,
+        "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:114:13\n    |\n114 |             true\n    |             ^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:97:76\n    |\n97  |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> bool{ b: b == !full(old) }\n    |                                                                            ^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 106,
+            "end": 116,
+            "name": "enqueue",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.smt2"
+            ],
+            "rendered_context": "106:     //\n107:     fn enqueue(&mut self, val: T) -> bool {\n108:         if self.is_full() {\n109:             // Incrementing tail will overwrite head\n110:             false\n111:         } else {\n112:             self.ring[self.tail] = val;\n113:             self.tail = (self.tail + 1) % self.ring.len();\n114:             true\n115:         }\n116:     }\n"
+        },
+        "unique_name": "enqueue-L114-0"
+    },
+    "fix": {
+        "fix_line": 108,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "is_full needs an annotation"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "105:            //\n106:            //\n107:            fn enqueue(&mut self, val: T) -> bool {\n108: error->        if self.is_full() {\n109:                    // Incrementing tail will overwrite head\n110:                    false\n111:                } else {\n"
+    }
+}

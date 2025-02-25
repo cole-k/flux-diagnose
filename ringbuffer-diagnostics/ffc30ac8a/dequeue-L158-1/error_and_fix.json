@@ -1,0 +1,35 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/collections/ring_buffer.rs",
+        "row": 158,
+        "col": 13,
+        "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:158:13\n    |\n158 |             None\n    |             ^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:144:22\n    |\n144 | /                      if empty(old) {\n145 | |                        old == new\n146 | |                      } else {\n147 | |                        new.ring_len == old.ring_len && new.tl == old.tl\n148 | |                        && new.hd == next_hd(old)\n149 | |                      }\n    | |______________________^\n\n",
+        "function_context": {
+            "start": 142,
+            "end": 160,
+            "name": "dequeue",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.smt2",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.fluxc"
+            ],
+            "rendered_context": "142:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]\n143:                    ensures self: RingBuffer<T>{new :\n144:                      if empty(old) {\n145:                        old == new\n146:                      } else {\n147:                        new.ring_len == old.ring_len && new.tl == old.tl\n148:                        && new.hd == next_hd(old)\n149:                      }\n150:                    }\n151:     )]\n152:     fn dequeue(&mut self) -> Option<T> {\n153:         if self.has_elements() {\n154:             let val = self.ring[self.head];\n155:             self.head = (self.head + 1) % self.ring.len();\n156:             Some(val)\n157:         } else {\n158:             None\n159:         }\n160:     }\n"
+        },
+        "unique_name": "dequeue-L158-1"
+    },
+    "fix": {
+        "fix_line": 153,
+        "helpful_message": "has_elements needs a reft",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "has_elements needs a reft"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "150:                           }\n151:            )]\n152:            fn dequeue(&mut self) -> Option<T> {\n153: error->        if self.has_elements() {\n154:                    let val = self.ring[self.head];\n155:                    self.head = (self.head + 1) % self.ring.len();\n156:                    Some(val)\n"
+    }
+}

@@ -1,0 +1,30 @@
+∀ rb: RingBuffer.  
+  (rb.0 > 1 ∧ rb.0 > 1 ∧ rb.0 ≥ 0 ∧ rb.1 < rb.0 ∧ rb.1 ≥ 0 ∧ rb.2 < rb.0 ∧ rb.2 ≥ 0) =>  
+    ¬(rb.2 > rb.1) =>  
+      ¬(rb.2 < rb.1) =>  
+        $k0(0) ~ Goto(bb6) at 93:13: 93:14
+        true ~ Goto(bb6) at 93:13: 93:14
+        ∀ a0: T::sort.  
+          $k1(a0) ~ Goto(bb6) at 93:13: 93:14
+          (a0 = a0) ~ Goto(bb6) at 93:13: 93:14
+        ∀ a0: T::sort.  
+          $k1(a0) => (a0 = a0) ~ Goto(bb6) at 93:13: 93:14
+      (rb.2 < rb.1) =>  
+        ∀ a0: T::sort.  
+          $k2(a0) ~ Call at 90:14: 90:29
+          (a0 = a0) ~ Call at 90:14: 90:29
+        (rb.0 = rb.0) ~ Call at 90:14: 90:29
+        (rb.0 ≥ 0) =>  
+          (rb.0 - rb.1 ≥ 0) ~ Overflow at 90:13: 90:42
+          $k0(rb.0 - rb.1 + rb.2) ~ Goto(bb6) at 90:13: 90:54
+          (rb.0 - rb.1 + rb.2 = rb.0 - rb.1 + rb.2) ~ Goto(bb6) at 90:13: 90:54
+          ∀ a0: T::sort.  
+            $k1(a0) ~ Goto(bb6) at 90:13: 90:54
+            (a0 = a0) ~ Goto(bb6) at 90:13: 90:54
+          ∀ a0: T::sort.  
+            $k1(a0) => (a0 = a0) ~ Goto(bb6) at 90:13: 90:54
+      ∀ a0: int.  
+        $k0(a0) => (a0 = (rb.1 - rb.2) mod rb.0) ~ Ret at 87:9: 94:10
+    (rb.2 > rb.1) =>  
+      (rb.2 - rb.1 ≥ 0) ~ Overflow at 88:13: 88:34
+      (rb.2 - rb.1 = (rb.1 - rb.2) mod rb.0) ~ Ret at 88:13: 88:34

@@ -1,0 +1,29 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/collections/ring_buffer.rs",
+        "row": 191,
+        "col": 24,
+        "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:191:24\n    |\n191 |                 return Some(val);\n    |                        ^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:171:54\n    |\n171 |                    ensures self: RingBuffer<T>{new : len(old) - len(new) <= 1})]\n    |                                                      ^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 170,
+            "end": 172,
+            "name": "remove_first_matching<F>",
+            "constraint_files": [],
+            "rendered_context": "170:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], _) -> Option<T>\n171:                    ensures self: RingBuffer<T>{new : len(old) - len(new) <= 1})]\n172:     fn remove_first_matching<F>(&mut self, f: F) -> Option<T>\n"
+        },
+        "unique_name": "remove_first_matching<F>-L191-0"
+    },
+    "fix": {
+        "fix_line": 191,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "More annotations (IDK) ??"
+        },
+        "certainty": false,
+        "seen_before": false,
+        "rendered_fix_context": "188:                            next_slot = (next_slot + 1) % len;\n189:                        }\n190:                        self.tail = slot;\n191: error->                return Some(val);\n192:                    }\n193:                    slot = (slot + 1) % len;\n194:                }\n"
+    }
+}

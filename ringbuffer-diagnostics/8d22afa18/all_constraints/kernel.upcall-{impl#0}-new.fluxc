@@ -1,0 +1,7 @@
+∀ .  
+  ∀ a0: int.  
+    (a0 ≥ 0) =>  
+      ∀ a1: Option.  
+        (a0 = a0) ~ Call at 104:9: 109:10
+        ∀ a2: NonNull. (a2 = a2) ~ Call at 104:9: 109:10
+        (a1 = a1) ~ Call at 104:9: 109:10

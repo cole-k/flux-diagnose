@@ -1,0 +1,55 @@
+∀ self: loc, old: RingBuffer.  
+  (old.0 > 1) =>  
+    ∀ a0: T::sort.  
+      $k0(a0) ~ Call at 153:12: 153:31
+      (a0 = a0) ~ Call at 153:12: 153:31
+    ∀ a0: T::sort.  
+      $k0(a0) => (a0 = a0) ~ Call at 153:12: 153:31
+    (old = old) ~ Call at 153:12: 153:31
+    ∀ a0: bool.  
+      ¬a0 =>  
+        ∀ a1: T::sort.  
+          $k1(a1) => (a1 = a1) ~ Ret at 158:13: 158:17
+        (false = ¬empty(old)) ~ Ret at 158:13: 158:17
+        if empty(old) { old = old } else { old.0 = old.0 ∧ old.2 = old.2 ∧ old.1 = next_hd(old) } ~ Ret at 158:13: 158:17
+        ∀ a1: T::sort. (a1 = a1) ~ Ret at 158:13: 158:17
+        ∀ a1: T::sort. (a1 = a1) ~ Ret at 158:13: 158:17
+        (old = old) ~ Ret at 158:13: 158:17
+      (a0 ∧ old.0 > 1 ∧ old.0 ≥ 0 ∧ old.1 < old.0 ∧ old.1 ≥ 0 ∧ old.2 < old.0 ∧ old.2 ≥ 0) =>  
+        (old.1 < old.0) ~ Assert("possible out-of-bounds access") at 154:23: 154:43
+        (old.1 < old.0) =>  
+          ∀ a1: T::sort.  
+            ∀ a2: T::sort.  
+              $k2(a2) ~ Call at 155:43: 155:58
+              (a2 = a2) ~ Call at 155:43: 155:58
+            (old.0 = old.0) ~ Call at 155:43: 155:58
+            (old.0 ≥ 0) =>  
+              (old.0 ≠ 0) ~ Assert("possible remainder with a divisor of zero") at 155:25: 155:58
+              (old.0 ≠ 0) =>  
+                (old.0 ≠ 0) ~ Rem at 155:13: 155:58
+                $k3(a1) ~ Call at 156:13: 156:22
+                (a1 = a1) ~ Call at 156:13: 156:22
+                (old.0 > 1) ~ Fold at 156:13: 156:22
+                ∀ a2: T::sort.  
+                  $k4(a2) ~ Fold at 156:13: 156:22
+                  (a2 = a2) ~ Fold at 156:13: 156:22
+                (old.0 = old.0) ~ Fold at 156:13: 156:22
+                ∀ a2: T::sort.  
+                  $k4(a2) => (a2 = a2) ~ Fold at 156:13: 156:22
+                (old.0 = old.0) ~ Fold at 156:13: 156:22
+                ((old.1 + 1) mod old.0 < old.0) ~ Fold at 156:13: 156:22
+                ((old.1 + 1) mod old.0 = (old.1 + 1) mod old.0) ~ Fold at 156:13: 156:22
+                (old.2 < old.0) ~ Fold at 156:13: 156:22
+                (old.2 = old.2) ~ Fold at 156:13: 156:22
+                ∀ a2: T::sort.  
+                  $k3(a2) => (a2 = a2) ~ Ret at 156:13: 156:22
+                (true = ¬empty(old)) ~ Ret at 156:13: 156:22
+                if empty(old) { old = RingBuffer { old.0, (old.1 + 1) mod old.0, old.2 } } else { old.0 = old.0 ∧ old.2 = old.2 ∧ (old.1 + 1) mod old.0 = next_hd(old) } ~ Ret at 156:13: 156:22
+                ∀ a2: T::sort.  
+                  $k4(a2) => (a2 = a2) ~ Ret at 156:13: 156:22
+                ∀ a2: T::sort.  
+                  $k4(a2) ~ Ret at 156:13: 156:22
+                  (a2 = a2) ~ Ret at 156:13: 156:22
+                (old.0 = old.0) ~ Ret at 156:13: 156:22
+                ((old.1 + 1) mod old.0 = (old.1 + 1) mod old.0) ~ Ret at 156:13: 156:22
+                (old.2 = old.2) ~ Ret at 156:13: 156:22

@@ -1,0 +1,107 @@
+∀ self: loc, old: RingBuffer.  
+  (old.0 > 1) =>  
+    ∀ a0: T::sort.  
+      ∀ a1: T::sort.  
+        $k3(a1) ~ Call at 129:25: 129:39
+        (a1 = a1) ~ Call at 129:25: 129:39
+      ∀ a1: T::sort.  
+        $k3(a1) => (a1 = a1) ~ Call at 129:25: 129:39
+      (old = old) ~ Call at 129:25: 129:39
+      ¬full(old) =>  
+        $k0(false, old.0, old.1, old.2) ~ Goto(bb7) at 134:13: 134:17
+        ∀ a1: T::sort.  
+          $k4(a1) =>  
+            $k1(a1) ~ Goto(bb7) at 134:13: 134:17
+            (a1 = a1) ~ Goto(bb7) at 134:13: 134:17
+        true ~ Goto(bb7) at 134:13: 134:17
+        ∀ a1: T::sort.  
+          $k2(a1) ~ Goto(bb7) at 134:13: 134:17
+          (a1 = a1) ~ Goto(bb7) at 134:13: 134:17
+        ∀ a1: T::sort.  
+          $k2(a1) => (a1 = a1) ~ Goto(bb7) at 134:13: 134:17
+        (old = old) ~ Goto(bb7) at 134:13: 134:17
+      (full(old) ∧ old.0 > 1 ∧ old.0 ≥ 0 ∧ old.1 < old.0 ∧ old.1 ≥ 0 ∧ old.2 < old.0 ∧ old.2 ≥ 0) =>  
+        (old.1 < old.0) ~ Assert("possible out-of-bounds access") at 130:23: 130:43
+        (old.1 < old.0) =>  
+          ∀ a1: T::sort.  
+            ∀ a2: T::sort.  
+              $k5(a2) ~ Call at 131:43: 131:58
+              (a2 = a2) ~ Call at 131:43: 131:58
+            (old.0 = old.0) ~ Call at 131:43: 131:58
+            (old.0 ≥ 0) =>  
+              (old.0 ≠ 0) ~ Assert("possible remainder with a divisor of zero") at 131:25: 131:58
+              (old.0 ≠ 0) =>  
+                (old.0 ≠ 0) ~ Rem at 131:13: 131:58
+                $k6(a1) ~ Call at 132:13: 132:22
+                (a1 = a1) ~ Call at 132:13: 132:22
+                (old.0 > 1) ~ Fold at 132:13: 132:22
+                ∀ a2: T::sort.  
+                  $k7(a2) ~ Fold at 132:13: 132:22
+                  (a2 = a2) ~ Fold at 132:13: 132:22
+                (old.0 = old.0) ~ Fold at 132:13: 132:22
+                ∀ a2: T::sort.  
+                  $k7(a2) => (a2 = a2) ~ Fold at 132:13: 132:22
+                (old.0 = old.0) ~ Fold at 132:13: 132:22
+                ((old.1 + 1) mod old.0 < old.0) ~ Fold at 132:13: 132:22
+                ((old.1 + 1) mod old.0 = (old.1 + 1) mod old.0) ~ Fold at 132:13: 132:22
+                (old.2 < old.0) ~ Fold at 132:13: 132:22
+                (old.2 = old.2) ~ Fold at 132:13: 132:22
+                $k0(true, old.0, (old.1 + 1) mod old.0, old.2) ~ Goto(bb7) at 132:13: 132:22
+                ∀ a2: T::sort.  
+                  $k6(a2) =>  
+                    $k1(a2) ~ Goto(bb7) at 132:13: 132:22
+                    (a2 = a2) ~ Goto(bb7) at 132:13: 132:22
+                true ~ Goto(bb7) at 132:13: 132:22
+                ∀ a2: T::sort.  
+                  $k7(a2) =>  
+                    $k2(a2) ~ Goto(bb7) at 132:13: 132:22
+                    (a2 = a2) ~ Goto(bb7) at 132:13: 132:22
+                ∀ a2: T::sort.  
+                  $k2(a2) =>  
+                    $k7(a2) ~ Goto(bb7) at 132:13: 132:22
+                    (a2 = a2) ~ Goto(bb7) at 132:13: 132:22
+                (old.0 = old.0) ~ Goto(bb7) at 132:13: 132:22
+                ((old.1 + 1) mod old.0 = (old.1 + 1) mod old.0) ~ Goto(bb7) at 132:13: 132:22
+                (old.2 = old.2) ~ Goto(bb7) at 132:13: 132:22
+      ∀ a1: bool, a2: RingBuffer.  
+        ($k0(a1, a2.0, a2.1, a2.2) ∧ a2.0 > 1 ∧ a2.0 ≥ 0 ∧ a2.1 < a2.0 ∧ a2.1 ≥ 0 ∧ a2.2 < a2.0 ∧ a2.2 ≥ 0) =>  
+          (a2.2 < a2.0) ~ Assert("possible out-of-bounds access") at 137:9: 137:29
+          (a2.2 < a2.0) =>  
+            $k2(a0) ~ Assign at 137:9: 137:35
+            (a0 = a0) ~ Assign at 137:9: 137:35
+            ∀ a3: T::sort.  
+              $k2(a3) =>  
+                $k8(a3) ~ Call at 138:39: 138:54
+                (a3 = a3) ~ Call at 138:39: 138:54
+            (a2.0 = a2.0) ~ Call at 138:39: 138:54
+            (a2.0 ≥ 0) =>  
+              (a2.0 ≠ 0) ~ Assert("possible remainder with a divisor of zero") at 138:21: 138:54
+              (a2.0 ≠ 0) =>  
+                (a2.0 ≠ 0) ~ Rem at 138:9: 138:54
+                (a2.0 > 1) ~ Fold at 140:6: 140:6
+                ∀ a3: T::sort.  
+                  $k2(a3) =>  
+                    $k9(a3) ~ Fold at 140:6: 140:6
+                    (a3 = a3) ~ Fold at 140:6: 140:6
+                (a2.0 = a2.0) ~ Fold at 140:6: 140:6
+                ∀ a3: T::sort.  
+                  $k9(a3) =>  
+                    $k2(a3) ~ Fold at 140:6: 140:6
+                    (a3 = a3) ~ Fold at 140:6: 140:6
+                (a2.0 = a2.0) ~ Fold at 140:6: 140:6
+                (a2.1 < a2.0) ~ Fold at 140:6: 140:6
+                (a2.1 = a2.1) ~ Fold at 140:6: 140:6
+                ((a2.2 + 1) mod a2.0 < a2.0) ~ Fold at 140:6: 140:6
+                ((a2.2 + 1) mod a2.0 = (a2.2 + 1) mod a2.0) ~ Fold at 140:6: 140:6
+                ∀ a3: T::sort.  
+                  $k1(a3) => (a3 = a3) ~ Ret at 139:9: 139:15
+                (a1 = ¬full(old)) ~ Ret at 139:9: 139:15
+                (a2.0 = old.0 ∧ (a2.2 + 1) mod a2.0 = next_tl(old) ∧ if full(old) { a2.1 = next_hd(old) } else { a2.1 = old.1 }) ~ Ret at 139:9: 139:15
+                ∀ a3: T::sort.  
+                  $k9(a3) => (a3 = a3) ~ Ret at 139:9: 139:15
+                ∀ a3: T::sort.  
+                  $k9(a3) ~ Ret at 139:9: 139:15
+                  (a3 = a3) ~ Ret at 139:9: 139:15
+                (a2.0 = a2.0) ~ Ret at 139:9: 139:15
+                (a2.1 = a2.1) ~ Ret at 139:9: 139:15
+                ((a2.2 + 1) mod a2.0 = (a2.2 + 1) mod a2.0) ~ Ret at 139:9: 139:15

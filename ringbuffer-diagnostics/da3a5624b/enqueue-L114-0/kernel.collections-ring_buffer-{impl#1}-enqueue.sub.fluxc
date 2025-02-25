@@ -1,0 +1,13 @@
+∀ self: loc.  
+  ∀ a0: RingBuffer, a1: T::sort.  
+    ∀ a2: T::sort. (a2 = a2) ~ Subtype(Input) at 107:5: 107:42
+    ∀ a2: T::sort. (a2 = a2) ~ Subtype(Input) at 107:5: 107:42
+    (a0 = a0) ~ Subtype(Input) at 107:5: 107:42
+    (a1 = a1) ~ Subtype(Input) at 107:5: 107:42
+    ∀ a2: bool.  
+      (a2 = ¬full(a0)) => (a2 = a2) ~ Subtype(Output) at 107:5: 107:42
+    ∀ a2: RingBuffer.  
+      (if full(a0) { a0.1 = a2.1 ∧ a0.2 = a2.2 } else { true } ∧ a2.0 > 1) =>  
+        ∀ a3: T::sort. (a3 = a3) ~ Subtype(Ensures) at 107:5: 107:42
+        ∀ a3: T::sort. (a3 = a3) ~ Subtype(Ensures) at 107:5: 107:42
+        (a2 = a2) ~ Subtype(Ensures) at 107:5: 107:42

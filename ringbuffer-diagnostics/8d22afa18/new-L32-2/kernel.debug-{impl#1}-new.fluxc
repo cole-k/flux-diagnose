@@ -1,0 +1,33 @@
+∀ .  
+  ∀ a0: RingBuffer.  
+    $k1(a0.0, a0.1, a0.2) ~ Call at 315:26: 315:52
+    ∀ a1: int.  
+      $k0(a1) ~ Call at 315:26: 315:52
+      (a1 = a1) ~ Call at 315:26: 315:52
+    ∀ a1: int.  
+      $k0(a1) => (a1 = a1) ~ Call at 315:26: 315:52
+    (a0 = a0) ~ Call at 315:26: 315:52
+  ∀ a0: RingBuffer.  
+    $k1(a0.0, a0.1, a0.2) =>  
+      ∀ a1: int.  
+        $k0(a1) => (a1 = a1) ~ Call at 315:26: 315:52
+      ∀ a1: int.  
+        $k0(a1) ~ Call at 315:26: 315:52
+        (a1 = a1) ~ Call at 315:26: 315:52
+      (a0 = a0) ~ Call at 315:26: 315:52
+  ∀ a0: RingBuffer.  
+    $k1(a0.0, a0.1, a0.2) =>  
+      ∀ a1: int.  
+        $k0(a1) => (a1 = a1) ~ Call at 314:9: 316:10
+      ∀ a1: int.  
+        $k0(a1) ~ Call at 314:9: 316:10
+        (a1 = a1) ~ Call at 314:9: 316:10
+      (a0 = a0) ~ Call at 314:9: 316:10
+  ∀ a0: RingBuffer.  
+    $k1(a0.0, a0.1, a0.2) ~ Call at 314:9: 316:10
+    ∀ a1: int.  
+      $k0(a1) ~ Call at 314:9: 316:10
+      (a1 = a1) ~ Call at 314:9: 316:10
+    ∀ a1: int.  
+      $k0(a1) => (a1 = a1) ~ Call at 314:9: 316:10
+    (a0 = a0) ~ Call at 314:9: 316:10

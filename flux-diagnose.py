@@ -8,10 +8,11 @@ from collections import defaultdict  # Import defaultdict for counting
 import argparse  # Import argparse for command-line argument parsing
 
 CONTEXT_WINDOW = 3
-LOG_DIRECTORY = "log"
+DEFAULT_LOG_DIRECTORY = "log"
 DEFAULT_OUTPUT_DIR = Path("flux-diagnostics")  # Use Path for output directory
 
-def parse_flux_json(json_output, log_directory, output_directory):
+def parse_flux_json(json_output, log_directory, output_directory,
+                    ignore_file_prefix):
     """
     Parses the JSON output from the Flux tool and extracts relevant error details.
     Only error messages are retained, while warnings are discarded.
@@ -21,12 +22,12 @@ def parse_flux_json(json_output, log_directory, output_directory):
 
     for raw_data in json_output:
         data = json.loads(raw_data)
-            
+
         # Check if the message is of type 'compiler-message' and if the message is an error
         if data.get("reason") == "compiler-message":
             message = data.get("message", {})
             spans = message.get("spans", [])
-            
+
             # Only process if the message level is 'error'
             if message.get("level") == "error":
                 for span in spans:
@@ -34,7 +35,7 @@ def parse_flux_json(json_output, log_directory, output_directory):
 
                     error_info = {
                         "message": message.get("message"),
-                        "file": span.get("file_name"),
+                        "file": span.get("file_name").lstrip(ignore_file_prefix),
                         "row": row,
                         "col": span.get("column_start"),
                         "raw": message.get("rendered"),
@@ -51,7 +52,7 @@ def parse_flux_json(json_output, log_directory, output_directory):
 
                     error_info["unique_name"] = unique_name  # Add the unique name to the error info
                     errors.append(error_info)
-    
+
     return errors
 
 def extract_function_context(file_name, error_line, log_directory, output_directory):
@@ -62,7 +63,7 @@ def extract_function_context(file_name, error_line, log_directory, output_direct
     """
     with open(file_name, 'r') as file:
         lines = file.readlines()
-    
+
     function_start = None
     function_end = None
     metadata_start = None
@@ -85,7 +86,7 @@ def extract_function_context(file_name, error_line, log_directory, output_direct
         if line.startswith("#") or line.startswith("//") or not line:
             metadata_start = i + 1  # Update metadata start line
             break
-    
+
     # If we found the function start, now find the end
     if function_start is not None:
         brace_count = 0
@@ -96,7 +97,7 @@ def extract_function_context(file_name, error_line, log_directory, output_direct
             if brace_count == 0:
                 function_end = i + 1  # Store the line number (1-based)
                 break
-    
+
     # Find constraint files in the log directory
     destination_log_dir = output_directory / "all_constraints"
     os.makedirs(destination_log_dir, exist_ok=True)  # Create the log directory if it doesn't exist
@@ -111,7 +112,7 @@ def extract_function_context(file_name, error_line, log_directory, output_direct
                     shutil.copy(source_path, destination_path)  # Copy the file
                     constraint_files.append(destination_path)  # Add the new path to the list
                     # print(f"Copied {source_path} to {destination_path}")
-    
+
     return {
         "start": metadata_start if metadata_start else function_start,
         "end": function_end,
@@ -133,10 +134,10 @@ def render_function_context(error):
     print(f"Function name: {function_name}")
 
     rendered_context = ""
-    
+
     with open(error["file"], 'r') as f:
         context_lines = f.readlines()[start_line - 1:end_line]  # Adjust for 0-based index
-        
+
         for index, context_line in enumerate(context_lines, start=start_line):
             rendered_context += f"{index:2d}: {context_line.rstrip()}\n"
 
@@ -152,19 +153,19 @@ def gather_fix_info_from_user(error):
     if seen_before:
         # Early exit without any additional info
         return { "seen_before": True }
-    
+
     certainty = input("Do you know for sure where the error is? (y/n): ").strip().lower().startswith("y")
 
     fix_line = int(input(f"Enter the line number that needs to change to fix the error (press Enter for {error['row']}): ") or error["row"])
 
     # Ask if the error message is helpful enough
     helpful_message = input("Is the error message helpful enough? (y/n): ").strip().lower()
-    
+
     rendered_fix_context = ""
 
     with open(error["file"], 'r') as f:
         context_lines = f.readlines()[fix_line - (CONTEXT_WINDOW + 1) : fix_line + CONTEXT_WINDOW]  # Adjust for 0-based index
-        
+
         for index, context_line in enumerate(context_lines, start=fix_line - CONTEXT_WINDOW):
             rendered_fix_context += f"{index:2d}: {'error->' if index == fix_line else '       '}{context_line.rstrip()}\n"
 
@@ -172,7 +173,7 @@ def gather_fix_info_from_user(error):
 
     # Ask for the problem on the indicated line
     problem_choice = input("What is the problem on the line you indicated? (1: Code is wrong, 2: Refinement not specific enough, 3: Incorrect refinement, 4: Other): ")
-    
+
     fix_description = {}
     if problem_choice == '1':
         fix_description = {
@@ -236,12 +237,19 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run Flux diagnostics and gather error information.")
     parser.add_argument("directory_to_run_flux_in", help="Directory to run Flux in.")
     parser.add_argument("--output-directory", type=Path, default=DEFAULT_OUTPUT_DIR, help="Directory to save output.")
+    parser.add_argument("--log-directory", type=Path, default=None,
+                        help="Directory Flux writes its logs in")
     parser.add_argument("--ignore-cache", action='store_true', help="Ignore caches, overwriting existing ones.")
-    
+    parser.add_argument("--ignore-file-prefix", type=str,
+        help="File prefix to ignore from flux error messages (useful when running in a subproject)")
+
     args = parser.parse_args()
 
     directory_to_run_flux_in = args.directory_to_run_flux_in
     output_directory = Path(args.output_directory).resolve()
+
+    log_directory = Path(args.log_directory or output_directory + '/' +
+                         DEFAULT_LOG_DIRECTORY).resolve()
 
     # Create the output directory if it doesn't exist
     os.makedirs(output_directory, exist_ok=True)
@@ -251,7 +259,8 @@ if __name__ == "__main__":
     by_commit_hash_dir = output_directory / commit_hash if commit_hash else output_directory
 
     # Parse the JSON output
-    parsed_errors = parse_flux_json(json_output, directory_to_run_flux_in + '/log', by_commit_hash_dir)
+    parsed_errors = parse_flux_json(json_output, log_directory,
+                                    by_commit_hash_dir, args.ignore_file_prefix)
     print(f"Total errors found: {len(parsed_errors)}\n")
 
     # Save error and fix information

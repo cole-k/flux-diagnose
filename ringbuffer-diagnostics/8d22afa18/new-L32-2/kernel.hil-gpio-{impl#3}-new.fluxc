@@ -1,0 +1,11 @@
+∀ .  
+  ∀ a0: IP::sort.  
+    $k0(0) ~ Call at 278:20: 278:32
+    true ~ Call at 278:20: 278:32
+    ∀ a1: int.  
+      $k0(a1) => (a1 = a1) ~ Call at 277:9: 281:10
+    ∀ a1: int.  
+      $k0(a1) ~ Call at 277:9: 281:10
+      (a1 = a1) ~ Call at 277:9: 281:10
+    (a0 = a0) ~ Call at 277:9: 281:10
+    ∀ a1: IP::sort. (a1 = a1) ~ Ret at 277:9: 281:10

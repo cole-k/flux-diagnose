@@ -1,0 +1,4 @@
+∀ .  
+  $k0(0) ~ Call at 259:27: 259:39
+  ∀ a0: ProcessBinary. $k1(a0.0) ~ Call at 258:9: 263:10
+  ∀ a0: int. $k0(a0) ~ Call at 258:9: 263:10

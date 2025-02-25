@@ -1,0 +1,35 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/collections/ring_buffer.rs",
+        "row": 82,
+        "col": 9,
+        "raw": "error[E0999]: refinement type error\n  --> kernel/src/collections/ring_buffer.rs:82:9\n   |\n82 |         self.head == ((self.tail + 1) % self.ring.len())\n   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n   |\nnote: this is the condition that cannot be proved\n  --> kernel/src/collections/ring_buffer.rs:24:39\n   |\n24 |     fn full(rb: RingBuffer) -> bool { rb.hd == next_index(rb.tl, rb.ring_len) }\n   |                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nnote: inside this call\n  --> kernel/src/collections/ring_buffer.rs:80:63\n   |\n80 |     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n   |                                                               ^^^^^^^^\n\n",
+        "function_context": {
+            "start": 80,
+            "end": 83,
+            "name": "is_full",
+            "constraint_files": [
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.simp.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.simp.sub.fluxc",
+                "/Users/cole/git/flux-diagnose/ringbuffer-diagnostics/c76c03f48/all_constraints/kernel.collections-ring_buffer-{impl#1}-is_full.smt2"
+            ],
+            "rendered_context": "80:     #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n81:     fn is_full(&self) -> bool {\n82:         self.head == ((self.tail + 1) % self.ring.len())\n83:     }\n"
+        },
+        "unique_name": "is_full-L82-0"
+    },
+    "fix": {
+        "fix_line": 79,
+        "helpful_message": "n",
+        "problem_description": "3",
+        "fix_description": {
+            "fix_type": "new_refinement",
+            "description": "should be b == full(rb)"
+        },
+        "certainty": true,
+        "seen_before": false,
+        "rendered_fix_context": "79:        \n80:            #[flux_rs::sig(fn(self: &RingBuffer<T>[@rb]) -> bool{ b : full(rb) })]\n81:            fn is_full(&self) -> bool {\n82: error->        self.head == ((self.tail + 1) % self.ring.len())\n83:            }\n84:        \n85:            //\n"
+    }
+}

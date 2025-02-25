@@ -1,0 +1,6 @@
+∀ .  
+  ∀ a0: ReadableProcessSlice.  
+    (a0.0 ≥ 0) =>  
+      $k0() ~ Call at 790:9: 790:25
+      (a0.0 = a0.0) ~ Call at 790:9: 790:25
+      (a0.0 ≥ 0) => (a0.0 = a0.0) ~ Ret at 790:9: 790:19

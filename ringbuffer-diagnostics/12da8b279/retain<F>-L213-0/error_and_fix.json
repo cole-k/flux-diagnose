@@ -1,0 +1,29 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/collections/ring_buffer.rs",
+        "row": 213,
+        "col": 5,
+        "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:213:5\n    |\n213 | /     {\n214 | |         let len = self.ring.len();\n215 | |         // Index over the elements before the retain operation.\n216 | |         let mut src = self.head;\n...   |\n232 | |         self.tail = dst;\n233 | |     }\n    | |_____^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:208:54\n    |\n208 |                    ensures self: RingBuffer<T>{new : len(old) <= len(new)}\n    |                                                      ^^^^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 207,
+            "end": 210,
+            "name": "retain<F>",
+            "constraint_files": [],
+            "rendered_context": "207:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], _)\n208:                    ensures self: RingBuffer<T>{new : len(old) <= len(new)}\n209:     )]\n210:     fn retain<F>(&mut self, mut f: F)\n"
+        },
+        "unique_name": "retain<F>-L213-0"
+    },
+    "fix": {
+        "fix_line": 213,
+        "helpful_message": "n",
+        "problem_description": "2",
+        "fix_description": {
+            "fix_type": "additional_refinement",
+            "description": "IDK ??"
+        },
+        "certainty": false,
+        "seen_before": false,
+        "rendered_fix_context": "210:            fn retain<F>(&mut self, mut f: F)\n211:            where\n212:                F: FnMut(&T) -> bool,\n213: error->    {\n214:                let len = self.ring.len();\n215:                // Index over the elements before the retain operation.\n216:                let mut src = self.head;\n"
+    }
+}

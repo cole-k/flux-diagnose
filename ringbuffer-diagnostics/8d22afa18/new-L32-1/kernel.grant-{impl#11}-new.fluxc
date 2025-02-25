@@ -1,0 +1,220 @@
+∀ .  
+  ∀ a0: int.  
+    (a0 ≥ 0) =>  
+      ∀ a1: int.  
+        (a1 ≥ 0) =>  
+          ∀ a2: int.  
+            (a2 ≥ 0) =>  
+              (a2 = a2) ~ Call at 1133:13: 1133:42
+              ∀ a3: int.  
+                (a3 > 0 ∧ a3 ≥ 0) =>  
+                  (a3 = a3) ~ Call at 1134:13: 1134:44
+                  ∀ a4: int.  
+                    (a4 ≥ 0) =>  
+                      (a4 = a4) ~ Call at 1135:13: 1135:40
+                      ∀ a5: int.  
+                        (a5 ≥ 0) =>  
+                          (a5 = a5) ~ Call at 1136:13: 1136:42
+                          ∀ a6: int.  
+                            (a6 ≥ 0) =>  
+                              (a6 = a6) ~ Call at 1137:13: 1137:42
+                              (a1 = a1) ~ Call at 1130:47: 1139:10
+                              (a0 = a0) ~ Call at 1130:47: 1139:10
+                              (a2 = a2) ~ Call at 1130:47: 1139:10
+                              (GrantDataAlign { a3 } > GrantDataAlign { 0 }) ~ Call at 1130:47: 1139:10
+                              (a3 = a3) ~ Call at 1130:47: 1139:10
+                              ∀ a7: Result.  
+                                ∀ a8: Option.  
+                                  $k15(a8.0) ~ Call at 1130:47: 1139:11
+                                  ∀ a9: NonNull.  
+                                    $k17(a9.0) ~ Call at 1130:47: 1139:11
+                                    ∀ a10: int.  
+                                      $k16(a10) ~ Call at 1130:47: 1139:11
+                                      (a10 = a10) ~ Call at 1130:47: 1139:11
+                                    (a9 = a9) ~ Call at 1130:47: 1139:11
+                                  (a8 = a8) ~ Call at 1130:47: 1139:11
+                                $k18() ~ Call at 1130:47: 1139:11
+                                (a7 = a7) ~ Call at 1130:47: 1139:11
+                                ∀ a8: Option.  
+                                  $k15(a8.0) =>  
+                                    (a8 = Option { true }) =>  
+                                      ∀ a9: NonNull.  
+                                        $k17(a9.0) =>  
+                                          ∀ a10: int.  
+                                            $k16(a10) =>  
+                                              $k19(a10) ~ Call at 1161:34: 1161:67
+                                              (a10 = a10) ~ Call at 1161:34: 1161:67
+                                          (a9 = a9) ~ Call at 1161:34: 1161:67
+                                          ∀ a10: NonNull.  
+                                            ∀ a11: T::sort.  
+                                              $k20(a11) =>  
+                                                $k21(a11) ~ Call at 1164:23: 1164:42
+                                                (a11 = a11) ~ Call at 1164:23: 1164:42
+                                            (a10 = a10) ~ Call at 1164:23: 1164:42
+                                            ∀ a11: T::sort.  
+                                              $k22(a11) ~ Call at 1164:17: 1164:57
+                                              (a11 = a11) ~ Call at 1164:17: 1164:57
+                                              $k23(a9.0) ~ Fold at 1159:13: 1165:14
+                                              ∀ a12: int.  
+                                                $k16(a12) =>  
+                                                  $k16(a12) ~ Fold at 1159:13: 1165:14
+                                                  (a12 = a12) ~ Fold at 1159:13: 1165:14
+                                              (a9 = a9) ~ Fold at 1159:13: 1165:14
+                                              $k0(true) ~ Goto(bb17) at 1159:13: 1165:14
+                                              ∀ a12: NonNull.  
+                                                $k23(a12.0) =>  
+                                                  $k2(a12.0) ~ Goto(bb17) at 1159:13: 1165:14
+                                                  ∀ a13: int.  
+                                                    $k16(a13) =>  
+                                                      $k1(a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                      (a13 = a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                  (a12 = a12) ~ Goto(bb17) at 1159:13: 1165:14
+                                              true ~ Goto(bb17) at 1159:13: 1165:14
+                                              ∀ a12: NonNull.  
+                                                $k17(a12.0) =>  
+                                                  $k4(a12.0) ~ Goto(bb17) at 1159:13: 1165:14
+                                                  ∀ a13: int.  
+                                                    $k16(a13) =>  
+                                                      $k3(a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                      (a13 = a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                  (a12 = a12) ~ Goto(bb17) at 1159:13: 1165:14
+                                              ∀ a12: NonNull.  
+                                                $k17(a12.0) =>  
+                                                  $k6(a12.0) ~ Goto(bb17) at 1159:13: 1165:14
+                                                  ∀ a13: int.  
+                                                    $k16(a13) =>  
+                                                      $k5(a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                      (a13 = a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                  (a12 = a12) ~ Goto(bb17) at 1159:13: 1165:14
+                                              ∀ a12: T::sort, a13: Upcalls::sort, a14: AllowROs::sort, a15: AllowRWs::sort.  
+                                                $k7(a12) ~ Goto(bb17) at 1159:13: 1165:14
+                                                (a12 = a12) ~ Goto(bb17) at 1159:13: 1165:14
+                                                $k8(a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                (a13 = a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                $k9(a14) ~ Goto(bb17) at 1159:13: 1165:14
+                                                (a14 = a14) ~ Goto(bb17) at 1159:13: 1165:14
+                                                $k10(a15) ~ Goto(bb17) at 1159:13: 1165:14
+                                                (a15 = a15) ~ Goto(bb17) at 1159:13: 1165:14
+                                              ∀ a12: NonNull.  
+                                                $k17(a12.0) =>  
+                                                  $k12(a12.0) ~ Goto(bb17) at 1159:13: 1165:14
+                                                  ∀ a13: int.  
+                                                    $k16(a13) =>  
+                                                      $k11(a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                      (a13 = a13) ~ Goto(bb17) at 1159:13: 1165:14
+                                                  (a12 = a12) ~ Goto(bb17) at 1159:13: 1165:14
+                                    (a8 = Option { false }) =>  
+                                      $k0(false) ~ Goto(bb17) at 1166:10: 1166:10
+                                      ∀ a9: NonNull.  
+                                        $k24(a9.0) =>  
+                                          $k2(a9.0) ~ Goto(bb17) at 1166:10: 1166:10
+                                          ∀ a10: int.  
+                                            $k16(a10) =>  
+                                              $k1(a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                              (a10 = a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                          (a9 = a9) ~ Goto(bb17) at 1166:10: 1166:10
+                                      true ~ Goto(bb17) at 1166:10: 1166:10
+                                      ∀ a9: NonNull.  
+                                        $k17(a9.0) =>  
+                                          $k4(a9.0) ~ Goto(bb17) at 1166:10: 1166:10
+                                          ∀ a10: int.  
+                                            $k16(a10) =>  
+                                              $k3(a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                              (a10 = a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                          (a9 = a9) ~ Goto(bb17) at 1166:10: 1166:10
+                                      ∀ a9: NonNull.  
+                                        $k17(a9.0) =>  
+                                          $k6(a9.0) ~ Goto(bb17) at 1166:10: 1166:10
+                                          ∀ a10: int.  
+                                            $k16(a10) =>  
+                                              $k5(a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                              (a10 = a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                          (a9 = a9) ~ Goto(bb17) at 1166:10: 1166:10
+                                      ∀ a9: T::sort, a10: Upcalls::sort, a11: AllowROs::sort, a12: AllowRWs::sort.  
+                                        $k7(a9) ~ Goto(bb17) at 1166:10: 1166:10
+                                        (a9 = a9) ~ Goto(bb17) at 1166:10: 1166:10
+                                        $k8(a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                        (a10 = a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                        $k9(a11) ~ Goto(bb17) at 1166:10: 1166:10
+                                        (a11 = a11) ~ Goto(bb17) at 1166:10: 1166:10
+                                        $k10(a12) ~ Goto(bb17) at 1166:10: 1166:10
+                                        (a12 = a12) ~ Goto(bb17) at 1166:10: 1166:10
+                                      ∀ a9: NonNull.  
+                                        $k17(a9.0) =>  
+                                          $k12(a9.0) ~ Goto(bb17) at 1166:10: 1166:10
+                                          ∀ a10: int.  
+                                            $k16(a10) =>  
+                                              $k11(a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                              (a10 = a10) ~ Goto(bb17) at 1166:10: 1166:10
+                                          (a9 = a9) ~ Goto(bb17) at 1166:10: 1166:10
+                                    ∀ a9: bool.  
+                                      $k0(a9) =>  
+                                        (a0 = a0) ~ Call at 1170:12: 1175:10
+                                        (a1 = a1) ~ Call at 1170:12: 1175:10
+                                        $k36() =>  
+                                          ∀ a10: T::sort.  
+                                            $k32(a10) =>  
+                                              ∀ a11: Upcalls::sort.  
+                                                $k33(a11) =>  
+                                                  ∀ a12: AllowROs::sort.  
+                                                    $k34(a12) =>  
+                                                      ∀ a13: AllowRWs::sort.  
+                                                        $k35(a13) =>  
+                                                          $k37(a10) ~ Call at 1170:12: 1175:10
+                                                          (a10 = a10) ~ Call at 1170:12: 1175:10
+                                                          (a11 = a11) ~ Call at 1170:12: 1175:10
+                                                          (a12 = a12) ~ Call at 1170:12: 1175:10
+                                                          (a13 = a13) ~ Call at 1170:12: 1175:10
+                                        $k42() ~ Call at 1170:9: 1175:11
+                                        ∀ a10: T::sort.  
+                                          $k37(a10) =>  
+                                            $k38(a10) ~ Call at 1170:9: 1175:11
+                                            (a10 = a10) ~ Call at 1170:9: 1175:11
+                                        ∀ a10: Upcalls::sort.  
+                                          $k39(a10) ~ Call at 1170:9: 1175:11
+                                          (a10 = a10) ~ Call at 1170:9: 1175:11
+                                        ∀ a10: AllowROs::sort.  
+                                          $k40(a10) ~ Call at 1170:9: 1175:11
+                                          (a10 = a10) ~ Call at 1170:9: 1175:11
+                                        ∀ a10: AllowRWs::sort.  
+                                          $k41(a10) ~ Call at 1170:9: 1175:11
+                                          (a10 = a10) ~ Call at 1170:9: 1175:11
+                                        $k49() ~ Fold at 1170:9: 1175:11
+                                        $k46(a8.0) ~ Fold at 1170:9: 1175:11
+                                        ∀ a10: NonNull.  
+                                          $k6(a10.0) =>  
+                                            $k48(a10.0) ~ Fold at 1170:9: 1175:11
+                                            ∀ a11: int.  
+                                              $k5(a11) =>  
+                                                $k47(a11) ~ Fold at 1170:9: 1175:11
+                                                (a11 = a11) ~ Fold at 1170:9: 1175:11
+                                            (a10 = a10) ~ Fold at 1170:9: 1175:11
+                                        (a8 = a8) ~ Fold at 1170:9: 1175:11
+                                        $k42() =>  
+                                          ∀ a10: T::sort.  
+                                            $k38(a10) => (a10 = a10) ~ Ret at 1170:9: 1175:11
+                                          ∀ a10: Upcalls::sort.  
+                                            $k39(a10) => (a10 = a10) ~ Ret at 1170:9: 1175:11
+                                          ∀ a10: AllowROs::sort.  
+                                            $k40(a10) => (a10 = a10) ~ Ret at 1170:9: 1175:11
+                                          ∀ a10: AllowRWs::sort.  
+                                            $k41(a10) => (a10 = a10) ~ Ret at 1170:9: 1175:11
+                                        $k43() => true
+                                        true ~ Ret at 1170:9: 1175:11
+                                ∀ a8: Result.  
+                                  $k18() => true
+                                  (a8 = a8) ~ Call at 1130:47: 1139:11
+                                  ∀ a9: Result.  
+                                    $k30(a8.0) ~ Fold at 1176:6: 1176:6
+                                    $k18() => $k18() ~ Fold at 1176:6: 1176:6
+                                    (a8 = a8) ~ Fold at 1176:6: 1176:6
+                                    $k29() =>  
+                                      ∀ a10: T::sort.  
+                                        $k25(a10) => (a10 = a10) ~ Ret at 1176:6: 1176:6
+                                      ∀ a10: Upcalls::sort.  
+                                        $k26(a10) => (a10 = a10) ~ Ret at 1176:6: 1176:6
+                                      ∀ a10: AllowROs::sort.  
+                                        $k27(a10) => (a10 = a10) ~ Ret at 1176:6: 1176:6
+                                      ∀ a10: AllowRWs::sort.  
+                                        $k28(a10) => (a10 = a10) ~ Ret at 1176:6: 1176:6
+                                    (a9 = a9) ~ Ret at 1176:6: 1176:6

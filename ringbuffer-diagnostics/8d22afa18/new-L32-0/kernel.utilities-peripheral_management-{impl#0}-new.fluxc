@@ -1,0 +1,16 @@
+∀ .  
+  ∀ a0: H::sort.  
+    (a0 = a0) ~ Call at 223:25: 223:60
+    ∀ a1: <λb0. H[b0] as PeripheralManagement<λb1. C[b1]>>::RegisterType::sort.  
+      (a0 = a0) ~ Call at 224:21: 224:52
+      ∀ a2: C::sort.  
+        (a0 = a0) ~ Call at 225:9: 225:71
+        (a2 = a2) ~ Call at 225:9: 225:71
+        (a1 = a1) ~ Call at 225:9: 225:71
+        (a1 = a1) ~ Call at 226:9: 230:10
+        (a0 = a0) ~ Call at 226:9: 230:10
+        (a2 = a2) ~ Call at 226:9: 230:10
+        ∀ a3: H::sort. (a3 = a3) ~ Ret at 226:9: 230:10
+        ∀ a3: H::sort. (a3 = a3) ~ Ret at 226:9: 230:10
+        ∀ a3: C::sort. (a3 = a3) ~ Ret at 226:9: 230:10
+        ∀ a3: C::sort. (a3 = a3) ~ Ret at 226:9: 230:10

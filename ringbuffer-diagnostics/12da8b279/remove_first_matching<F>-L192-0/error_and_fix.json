@@ -1,0 +1,20 @@
+{
+    "error": {
+        "message": "refinement type error",
+        "file": "src/collections/ring_buffer.rs",
+        "row": 192,
+        "col": 24,
+        "raw": "error[E0999]: refinement type error\n   --> kernel/src/collections/ring_buffer.rs:192:24\n    |\n192 |                 return Some(val);\n    |                        ^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> kernel/src/collections/ring_buffer.rs:171:54\n    |\n171 |                    ensures self: RingBuffer<T>{new : len(old) - len(new) <= 1}\n    |                                                      ^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+        "function_context": {
+            "start": 170,
+            "end": 173,
+            "name": "remove_first_matching<F>",
+            "constraint_files": [],
+            "rendered_context": "170:     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], _) -> Option<T>\n171:                    ensures self: RingBuffer<T>{new : len(old) - len(new) <= 1}\n172:     )]\n173:     fn remove_first_matching<F>(&mut self, f: F) -> Option<T>\n"
+        },
+        "unique_name": "remove_first_matching<F>-L192-0"
+    },
+    "fix": {
+        "seen_before": true
+    }
+}

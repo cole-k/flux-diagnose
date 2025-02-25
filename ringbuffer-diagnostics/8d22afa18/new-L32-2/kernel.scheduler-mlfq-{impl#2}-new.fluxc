@@ -1,0 +1,40 @@
+∀ .  
+  ∀ a0: A::sort.  
+    $k0() ~ Other at 81:24: 81:63
+    $k1() ~ Other at 81:24: 81:63
+    $k1() => true
+    $k1() ~ Other at 81:24: 81:63
+    $k1() => true
+    $k1() ~ Other at 81:24: 81:63
+    $k1() => true
+    true ~ Call at 82:35: 82:52
+    ∀ a1: <λb0. A[b0] as Time>::Ticks::sort.  
+      $k2(a1) ~ Call at 82:25: 82:53
+      (a1 = a1) ~ Call at 82:25: 82:53
+      true ~ Call at 83:41: 83:58
+      ∀ a2: <λb1. A[b1] as Time>::Ticks::sort.  
+        $k3(a2) ~ Call at 83:31: 83:59
+        (a2 = a2) ~ Call at 83:31: 83:59
+        $k4(0) ~ Call at 84:29: 84:41
+        true ~ Call at 84:29: 84:41
+        $k5(0) ~ Call at 85:29: 85:41
+        true ~ Call at 85:29: 85:41
+        (a0 = a0) ~ Call at 79:9: 86:10
+        $k1() => true
+        $k1() ~ Call at 79:9: 86:10
+        ∀ a3: <λb2. A[b2] as Time>::Ticks::sort. (a3 = a3) ~ Call at 79:9: 86:10
+        ∀ a3: <λb3. A[b3] as Time>::Ticks::sort. (a3 = a3) ~ Call at 79:9: 86:10
+        ∀ a3: <λb4. A[b4] as Time>::Ticks::sort. (a3 = a3) ~ Call at 79:9: 86:10
+        ∀ a3: <λb5. A[b5] as Time>::Ticks::sort. (a3 = a3) ~ Call at 79:9: 86:10
+        ∀ a3: int.  
+          $k4(a3) => (a3 = a3) ~ Call at 79:9: 86:10
+        ∀ a3: int.  
+          $k4(a3) ~ Call at 79:9: 86:10
+          (a3 = a3) ~ Call at 79:9: 86:10
+        ∀ a3: int.  
+          $k5(a3) => (a3 = a3) ~ Call at 79:9: 86:10
+        ∀ a3: int.  
+          $k5(a3) ~ Call at 79:9: 86:10
+          (a3 = a3) ~ Call at 79:9: 86:10
+        ∀ a3: A::sort. (a3 = a3) ~ Ret at 79:9: 86:10
+        ∀ a3: A::sort. (a3 = a3) ~ Ret at 79:9: 86:10

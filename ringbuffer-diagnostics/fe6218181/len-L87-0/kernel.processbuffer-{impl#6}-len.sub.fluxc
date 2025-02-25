@@ -1,0 +1,2 @@
+∀ .  
+  ∀ a0: int. (a0 = a0) ~ Subtype(Output) at 521:5: 521:27

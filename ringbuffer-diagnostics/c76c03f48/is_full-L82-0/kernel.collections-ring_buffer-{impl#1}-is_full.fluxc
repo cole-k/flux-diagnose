@@ -1,0 +1,12 @@
+∀ rb: RingBuffer.  
+  (rb.0 > 1 ∧ rb.0 > 1 ∧ rb.0 ≥ 0 ∧ rb.1 < rb.0 ∧ rb.1 ≥ 0 ∧ rb.2 < rb.0 ∧ rb.2 ≥ 0) =>  
+    ∀ a0: T::sort.  
+      $k0(a0) ~ Call at 82:41: 82:56
+      (a0 = a0) ~ Call at 82:41: 82:56
+    (rb.0 = rb.0) ~ Call at 82:41: 82:56
+    (rb.0 ≥ 0) =>  
+      (rb.0 ≠ 0) ~ Assert("possible remainder with a divisor of zero") at 82:22: 82:57
+      (rb.0 ≠ 0) =>  
+        (rb.0 ≠ 0) ~ Rem at 82:22: 82:57
+        full(rb) ~ Ret at 82:9: 82:57
+        ((rb.1 = (rb.2 + 1) mod rb.0) = (rb.1 = (rb.2 + 1) mod rb.0)) ~ Ret at 82:9: 82:57

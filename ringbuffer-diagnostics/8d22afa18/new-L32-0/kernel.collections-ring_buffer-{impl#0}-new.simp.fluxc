@@ -1,0 +1,7 @@
+∀ .  
+  ∀ a0: int.  
+    (a0 > 1) ~ Call at 32:9: 36:10
+    ∀ a1: T::sort. $k0(a1) ~ Call at 32:9: 36:10
+    (0 < a0) ~ Call at 32:9: 36:10
+    (0 < a0) ~ Call at 32:9: 36:10
+    ∀ a1: T::sort. $k0(a1) ~ Ret at 32:9: 36:10

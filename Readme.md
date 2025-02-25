@@ -14,6 +14,10 @@ Runs Flux on a project and interactively prompts the user to identify where the 
 5. Present me the errors and let me identify the parts of the code they correspond to. Then I will have the option to indicate what is wrong (if anything) with the error message.
 6. Store the results somewhere on disk.
 
+# Interesting errors
+
+- ringbuffer-diagnostics/a41e71dec (nontrivial fix)
+
 # Notes
 
 Written at least partially using GPT-4o-mini.

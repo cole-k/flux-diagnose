@@ -1,0 +1,62 @@
+∀ .  
+  ∀ a0: int.  
+    $k1(a0) ~ Call at 441:28: 441:53
+    ∀ a1: int.  
+      $k0(a1) ~ Call at 441:28: 441:53
+      (a1 = a1) ~ Call at 441:28: 441:53
+    (a0 = a0) ~ Call at 441:28: 441:53
+  ∀ a0: int.  
+    $k1(a0) =>  
+      ∀ a1: int.  
+        $k0(a1) => (a1 = a1) ~ Call at 441:28: 441:53
+      (a0 = a0) ~ Call at 441:28: 441:53
+  ∀ a0: RingBuffer.  
+    $k3(a0.0, a0.1, a0.2) ~ Call at 442:30: 442:60
+    ∀ a1: int.  
+      $k2(a1) ~ Call at 442:30: 442:60
+      (a1 = a1) ~ Call at 442:30: 442:60
+    ∀ a1: int.  
+      $k2(a1) => (a1 = a1) ~ Call at 442:30: 442:60
+    (a0 = a0) ~ Call at 442:30: 442:60
+  ∀ a0: RingBuffer.  
+    $k3(a0.0, a0.1, a0.2) =>  
+      ∀ a1: int.  
+        $k2(a1) => (a1 = a1) ~ Call at 442:30: 442:60
+      ∀ a1: int.  
+        $k2(a1) ~ Call at 442:30: 442:60
+        (a1 = a1) ~ Call at 442:30: 442:60
+      (a0 = a0) ~ Call at 442:30: 442:60
+  $k4(0) ~ Call at 443:20: 443:32
+  true ~ Call at 443:20: 443:32
+  ∀ a0: int.  
+    $k1(a0) =>  
+      ∀ a1: int.  
+        $k0(a1) => (a1 = a1) ~ Call at 439:9: 444:10
+      (a0 = a0) ~ Call at 439:9: 444:10
+  ∀ a0: int.  
+    $k1(a0) ~ Call at 439:9: 444:10
+    ∀ a1: int.  
+      $k0(a1) ~ Call at 439:9: 444:10
+      (a1 = a1) ~ Call at 439:9: 444:10
+    (a0 = a0) ~ Call at 439:9: 444:10
+  ∀ a0: RingBuffer.  
+    $k3(a0.0, a0.1, a0.2) =>  
+      ∀ a1: int.  
+        $k2(a1) => (a1 = a1) ~ Call at 439:9: 444:10
+      ∀ a1: int.  
+        $k2(a1) ~ Call at 439:9: 444:10
+        (a1 = a1) ~ Call at 439:9: 444:10
+      (a0 = a0) ~ Call at 439:9: 444:10
+  ∀ a0: RingBuffer.  
+    $k3(a0.0, a0.1, a0.2) ~ Call at 439:9: 444:10
+    ∀ a1: int.  
+      $k2(a1) ~ Call at 439:9: 444:10
+      (a1 = a1) ~ Call at 439:9: 444:10
+    ∀ a1: int.  
+      $k2(a1) => (a1 = a1) ~ Call at 439:9: 444:10
+    (a0 = a0) ~ Call at 439:9: 444:10
+  ∀ a0: int.  
+    $k4(a0) => (a0 = a0) ~ Call at 439:9: 444:10
+  ∀ a0: int.  
+    $k4(a0) ~ Call at 439:9: 444:10
+    (a0 = a0) ~ Call at 439:9: 444:10

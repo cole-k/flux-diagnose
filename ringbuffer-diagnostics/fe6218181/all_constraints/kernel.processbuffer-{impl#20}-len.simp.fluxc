@@ -1,0 +1,5 @@
+∀ .  
+  ∀ a0: WriteableProcessSlice.  
+    (a0.0 ≥ 0) =>  
+      $k1() ~ Call at 1031:9: 1031:25
+      ∀ a1: int. $k0(a1) ~ Call at 1031:9: 1031:25
