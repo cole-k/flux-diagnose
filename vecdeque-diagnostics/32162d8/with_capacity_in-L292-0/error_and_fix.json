@@ -26,6 +26,10 @@
             "description": "real_capacity(capacity) >= capacity"
         },
         "certainty": true,
-        "seen_before": false
+        "seen_before": false,
+        "error_type": {
+            "condition": 1,
+            "reason": "a"
+        }
     }
 }

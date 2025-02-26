@@ -28,7 +28,11 @@
                     "description": "self needs refining"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -59,7 +63,11 @@
                     "description": "self needs refining"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -90,7 +98,11 @@
                     "description": "self needs refining"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -121,7 +133,11 @@
                     "description": "self needs refining"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         }
     ],
@@ -156,7 +172,11 @@
                     "description": "capacity < MAXIMUM_ZST_CAPACITY"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -189,7 +209,11 @@
                     "description": "capacity > 1"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -222,7 +246,11 @@
                     "description": "self needs to be refined"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -255,7 +283,11 @@
                     "description": "self needs to be refined"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -286,7 +318,11 @@
                     "description": "wrap_sub needs to preserve vec_deque invariant"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -317,7 +353,11 @@
                     "description": "wrap_add needs to preserve vec_deque invariant"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -348,7 +388,11 @@
                     "description": "wrap_sub needs to preserve vec_deque invariant"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -379,7 +423,11 @@
                     "description": "wrap_add needs to preserve vec_deque refinement"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -412,7 +460,11 @@
                     "description": "self needs to be refined"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -445,7 +497,11 @@
                     "description": "self needs to be refined"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -478,7 +534,11 @@
                     "description": "self needs to be refined"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 2,
+                    "reason": "b"
+                }
             }
         },
         {
@@ -509,7 +569,11 @@
                     "description": "real_capacity(capacity) >= capacity"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         },
         {
@@ -540,7 +604,11 @@
                     "description": "count(_, _, cap) < cap"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         }
     ],
@@ -573,7 +641,11 @@
                     "description": "count reft is <= size instead of < size"
                 },
                 "certainty": true,
-                "seen_before": false
+                "seen_before": false,
+                "error_type": {
+                    "condition": 1,
+                    "reason": "a"
+                }
             }
         }
     ]

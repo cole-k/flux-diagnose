@@ -28,6 +28,10 @@
             "description": "capacity < MAXIMUM_ZST_CAPACITY"
         },
         "certainty": true,
-        "seen_before": false
+        "seen_before": false,
+        "error_type": {
+            "condition": 2,
+            "reason": "b"
+        }
     }
 }

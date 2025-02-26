@@ -17,7 +17,7 @@ src/vec_deque.rs
 516:                     if self.is_full() {
 517:                         self.grow();
 518:                     }
-519:
+519:             
 520:                     let tail = self.tail;
 521:                     self.tail = self.wrap_sub(tail, 1);
 522:                     let tail = self.tail;
@@ -37,6 +37,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs refining
   Certainty: True
+  Error Type: 2b
 
 =======================
 ERROR: push_back-L547-0
@@ -54,7 +55,7 @@ src/vec_deque.rs
 542:                     if self.is_full() {
 543:                         self.grow();
 544:                     }
-545:
+545:             
 546:                     let head = self.head;
 547: error>              self.head = self.wrap_add(self.head, 1);
 548:                     unsafe { self.buffer_write(head, value) }
@@ -71,6 +72,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs refining
   Certainty: True
+  Error Type: 2b
 
 =======================
 ERROR: push_back-L548-0
@@ -88,7 +90,7 @@ src/vec_deque.rs
 542:                     if self.is_full() {
 543:                         self.grow();
 544:                     }
-545:
+545:             
 546:                     let head = self.head;
 547:                     self.head = self.wrap_add(self.head, 1);
 548: error>              unsafe { self.buffer_write(head, value) }
@@ -105,6 +107,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs refining
   Certainty: True
+  Error Type: 2b
 
 ========================
 ERROR: push_front-L521-0
@@ -122,7 +125,7 @@ src/vec_deque.rs
 516:                     if self.is_full() {
 517:                         self.grow();
 518:                     }
-519:
+519:             
 520:                     let tail = self.tail;
 521: error>              self.tail = self.wrap_sub(tail, 1);
 522:                     let tail = self.tail;
@@ -142,6 +145,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs refining
   Certainty: True
+  Error Type: 2b
 
 --------------------------------------------------------------------------------
 Commit Hash: 32162d8
@@ -181,6 +185,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: capacity < MAXIMUM_ZST_CAPACITY
   Certainty: True
+  Error Type: 2b
 
 ===========================
 ERROR: with_capacity-L249-1
@@ -217,6 +222,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: capacity > 1
   Certainty: True
+  Error Type: 2b
 
 ==================
 ERROR: grow-L565-2
@@ -259,6 +265,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs to be refined
   Certainty: True
+  Error Type: 2b
 
 ==================
 ERROR: grow-L563-0
@@ -307,6 +314,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs to be refined
   Certainty: True
+  Error Type: 2b
 
 ========================
 ERROR: push_front-L520-0
@@ -324,7 +332,7 @@ src/vec_deque.rs
 515:                     if self.is_full() {
 516:                         self.grow();
 517:                     }
-518:
+518:             
 519:                     let tail = self.tail;
 520: error> fix>         self.tail = self.wrap_sub(tail, 1);
 521:                     let tail = self.tail;
@@ -344,6 +352,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: wrap_sub needs to preserve vec_deque invariant
   Certainty: True
+  Error Type: 2a
 
 =======================
 ERROR: push_back-L547-0
@@ -361,7 +370,7 @@ src/vec_deque.rs
 541:                     if self.is_full() {
 542:                         self.grow();
 543:                     }
-544:
+544:             
 545:                     let head = self.head;
 546:        fix>         self.head = self.wrap_add(self.head, 1);
 547: error>              unsafe { self.buffer_write(head, value) }
@@ -378,6 +387,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: wrap_add needs to preserve vec_deque invariant
   Certainty: True
+  Error Type: 2a
 
 ========================
 ERROR: push_front-L523-0
@@ -395,7 +405,7 @@ src/vec_deque.rs
 515:                     if self.is_full() {
 516:                         self.grow();
 517:                     }
-518:
+518:             
 519:                     let tail = self.tail;
 520:        fix>         self.tail = self.wrap_sub(tail, 1);
 521:                     let tail = self.tail;
@@ -415,6 +425,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: wrap_sub needs to preserve vec_deque invariant
   Certainty: True
+  Error Type: 2a
 
 =======================
 ERROR: push_back-L546-0
@@ -432,7 +443,7 @@ src/vec_deque.rs
 541:                     if self.is_full() {
 542:                         self.grow();
 543:                     }
-544:
+544:             
 545:                     let head = self.head;
 546: error> fix>         self.head = self.wrap_add(self.head, 1);
 547:                     unsafe { self.buffer_write(head, value) }
@@ -449,6 +460,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: wrap_add needs to preserve vec_deque refinement
   Certainty: True
+  Error Type: 2a
 
 ==================
 ERROR: grow-L565-1
@@ -497,6 +509,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs to be refined
   Certainty: True
+  Error Type: 2b
 
 ==================
 ERROR: grow-L565-0
@@ -545,6 +558,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs to be refined
   Certainty: True
+  Error Type: 2b
 
 ==================
 ERROR: grow-L559-0
@@ -587,6 +601,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: self needs to be refined
   Certainty: True
+  Error Type: 2b
 
 ==============================
 ERROR: with_capacity_in-L292-0
@@ -612,7 +627,7 @@ src/vec_deque.rs
 283:                     // assert(capacity < MAXIMUM_ZST_CAPACITY);
 284:                     // +1 since the ringbuffer always leaves one space empty
 285:        fix>         let cap = real_capacity(capacity);
-286:
+286:             
 287:                     VecDeque {
 288:                         tail: 0,
 289:                         head: 0,
@@ -631,6 +646,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: real_capacity(capacity) >= capacity
   Certainty: True
+  Error Type: 1a
 
 =================
 ERROR: len-L417-0
@@ -665,6 +681,7 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: count(_, _, cap) < cap
   Certainty: True
+  Error Type: 1a
 
 --------------------------------------------------------------------------------
 Commit Hash: 456f9a5
@@ -702,4 +719,5 @@ Fix Information:
   Fix Type: additional_refinement
   Fix Description: count reft is <= size instead of < size
   Certainty: True
+  Error Type: 1a
 

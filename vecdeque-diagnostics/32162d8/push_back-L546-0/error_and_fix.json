@@ -26,6 +26,10 @@
             "description": "wrap_add needs to preserve vec_deque refinement"
         },
         "certainty": true,
-        "seen_before": false
+        "seen_before": false,
+        "error_type": {
+            "condition": 2,
+            "reason": "a"
+        }
     }
 }
