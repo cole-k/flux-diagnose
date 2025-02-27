@@ -8,64 +8,6 @@ Postcondition error
 Fix is strengthening another function used in the body
 
 
-### Ex1: dequeue
-
-```
-=====================
-ERROR: dequeue-L156-0
-=====================
-Error Message: error[E0999]: refinement type error
-   --> kernel/src/collections/ring_buffer.rs:156:13
-    |
-156 |             Some(val)
-    |             ^^^^^^^^^ a postcondition cannot be proved
-    |
-note: this is the condition that cannot be proved
-   --> kernel/src/collections/ring_buffer.rs:142:69
-    |
-142 |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]
-    |                                                                     ^^^^^^^^^^^
-
-
-ring_buffer.rs:
-    #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old]) -> Option<T>[!empty(old)]
-                   ensures self: RingBuffer<T>{new :
-                     if empty(old) {
-                       old == new
-                     } else {
-                       new.ring_len == old.ring_len && new.tl == old.tl
-                       && new.hd == next_hd(old)
-                     }
-                   }
-    )]
-    fn dequeue(&mut self) -> Option<T> {
-        if self.has_elements() {
-            let val = self.ring[self.head];
-            self.head = (self.head + 1) % self.ring.len();
-            Some(val)
-        } else {
-            None
-        }
-    }
-
-Constraint files:
-  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.sub.fluxc
-  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.fluxc
-  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.sub.fluxc
-  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.smt2
-  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/ffc30ac8a/all_constraints/kernel.collections-ring_buffer-{impl#1}-dequeue.simp.fluxc
-Fix Information:
-  Fix Line: 153
-  Helpful Message: n
-  Problem Description: 2
-  Fix Type: additional_refinement
-  Fix Description: has_elements needs a reft
-  Certainty: True
-  Error Type: 1a
-```
-
-The issue here is that `has_elements` is unrefined.
-
 ### Ex2: len
 
 ```
@@ -106,6 +48,96 @@ Fix Information:
 ```
 
 The issue here is that `count` is unrefined.
+
+### Ex2: `with_capacity_in`
+
+```
+==============================
+ERROR: with_capacity_in-L292-0
+==============================
+Error Message: error[E0999]: refinement type error
+   --> src/vec_deque.rs:292:5
+    |
+292 |     }
+    |     ^ a postcondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:279:148
+    |
+279 | ...oc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tail == 0 && capacity <= v.cap})]
+    |                                                              ^^^^^^^^^^^^^^^^^
+
+
+src/vec_deque.rs
+279:                 #[flux::sig(fn (capacity: usize{capacity < MAXIMUM_ZST_CAPACITY && capacity > 1}, alloc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tail == 0 && capacity <= v.cap})]
+280:                 fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+281:                     // FLUX-TODO: same as MAXIMUM_ZST_CAPACITY?: assert!(capacity < 1_usize << usize::BITS - 1, "capacity overflow");
+282:                     // TODO: Uncomment
+283:                     // assert(capacity < MAXIMUM_ZST_CAPACITY);
+284:                     // +1 since the ringbuffer always leaves one space empty
+285:        fix>         let cap = real_capacity(capacity);
+286:             
+287:                     VecDeque {
+288:                         tail: 0,
+289:                         head: 0,
+290:                         buf: RawVec::with_capacity_in(cap, alloc),
+291:                     }
+292: error>          }
+
+Constraint files:
+  /Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.smt2
+  /Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.fluxc
+  /Users/cole/git/flux-diagnose/vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.simp.fluxc
+Fix Information:
+  Fix Line: 285
+  Helpful Message: n
+  Problem Description: 2
+  Fix Type: additional_refinement
+  Fix Description: real_capacity(capacity) >= capacity
+  Certainty: True
+  Error Type: 1a
+```
+
+The issue here is that `real_capacity` is unrefined.
+
+### Ex3: enqueue
+
+```
+=====================
+ERROR: enqueue-L110-0
+=====================
+Error Message: error[E0999]: refinement type error
+   --> kernel/src/collections/ring_buffer.rs:110:13
+    |
+110 |             false
+    |             ^^^^^ a postcondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> kernel/src/collections/ring_buffer.rs:97:76
+    |
+97  |     #[flux_rs::sig(fn(self: &strg RingBuffer<T>[@old], val: T) -> bool{ b: b == !full(old) }
+    |                                                                            ^^^^^^^^^^^^^^^
+
+
+
+Constraint files:
+  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.sub.fluxc
+  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.sub.fluxc
+  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.simp.fluxc
+  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.fluxc
+  /Users/cole/git/flux-diagnose/ringbuffer-diagnostics/da3a5624b/all_constraints/kernel.collections-ring_buffer-{impl#1}-enqueue.smt2
+Fix Information:
+  Fix Line: 108
+  Helpful Message: n
+  Problem Description: 2
+  Fix Type: additional_refinement
+  Fix Description: is_full needs an annotation
+  Certainty: True
+  Error Type: 1a
+```
+
+The issue here is that `is_full` is unrefined.
+
 
 ## 1b
 
