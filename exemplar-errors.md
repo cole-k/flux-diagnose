@@ -443,3 +443,18 @@ Fix Information:
 
 The function new does not have a refinement on the input ring such that its
 length is greater than 1.
+
+# Smallest errors
+
+LoC Type Name
+
+17 1a `len-L417-0`
+26 1a `with_capacity_in-L292-0`
+
+12 2b `with_capacity-L249-0` 
+21 2b `dist-L13-0`
+22 2b `new-L32-0`
+39 2b `kmeans-L117-0`
+39 2b `normal-L39-0`
+
+2a and 1b are both >= 90 LoC
