@@ -449,11 +449,18 @@ length is greater than 1.
 LoC Type Name
 
 17 1a `len-L417-0`
+- [fluxc](./vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-len.fluxc)
+- [after fix fluxc](./resolved-error-logs/len-L417-0/vecdeque.vec_deque-{impl#3}-len.fluxc)
 26 1a `with_capacity_in-L292-0`
+- [fluxc](./vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#3}-with_capacity_in.fluxc)
+- [after fix fluxc](./resolved-error-logs/with_capacity-L249-0/vecdeque.raw_vec-{impl#0}-with_capacity.fluxc)
 
 12 2b `with_capacity-L249-0` 
+- [fluxc](./vecdeque-diagnostics/32162d8/all_constraints/vecdeque.vec_deque-{impl#2}-with_capacity.fluxc)
 21 2b `dist-L13-0`
+- [fluxc](./kmeans-diagnostics/5db4630/all_constraints/fluxtests.kmeans-dist.fluxc)
 22 2b `new-L32-0`
+- [fluxc](./ringbuffer-diagnostics/8d22afa18/all_constraints/kernel.collections-ring_buffer-{impl#0}-new.fluxc)
 39 2b `kmeans-L117-0`
 39 2b `normal-L39-0`
 
