@@ -210,7 +210,11 @@ note: related variable `a4` defined here with originator `CallReturn`
 ```
 
 ### Conclusion
-I checked the constraint and these appear to be bogus relations.
+I checked the constraint and these appear to be bogus related variables except for `a3`.
+
+```
+(a0: FnArg(Some(\"value\"))), (a1: No provenance), (a2: CallReturn), (a4: CallReturn), (a3: No provenance)
+```
 
 The failing constraint in question is essentially a requirement that the return
 value of `self.wrap_sub(tail, 1)` meet the vecdeque invariant. Note that
@@ -267,6 +271,12 @@ note: related variable `a5` defined here with originator `Sub(Call)`
 
 I'm pretty sure that the `a2` variable here is bogus, like above.
 
+Here are the other related variables
+
+```
+`"(a0: FnArg(Some(\"value\"))), (a1: No provenance), (a2: CallReturn), (a5: Sub(Call)), (a3: No provenance)"`
+```
+
 I honestly don't know what's going on here. I'm pretty sure the issue is caused
 by `self.buffer_write()` not being refined. 
 
@@ -292,13 +302,15 @@ There are two identical errors to `push_front` here.
 
 ---
 
+# Uninvestigated errors
+```
 error[E0999]: type invariant may not hold (when place is folded)
    --> src/vec_deque.rs:559:9
     |
 559 |         self.buf.reserve_exact(old_cap, old_cap);
     |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-error[E0999]: there is an error with related variables
+error[E0999]: there is an error with related variables `"(a0: No provenance), (a2: No provenance), (a1: CallReturn)"`
    --> src/vec_deque.rs:559:9
     |
 559 |         self.buf.reserve_exact(old_cap, old_cap);
@@ -322,7 +334,7 @@ note: this is the condition that cannot be proved
 598 | #[flux::sig(fn(bool[true]))]
     |                     ^^^^
 
-error[E0999]: there is an error with related variables
+error[E0999]: there is an error with related variables `"(a2: No provenance), (a0: No provenance), (a4: CallReturn), (a1: CallReturn)"`
    --> src/vec_deque.rs:563:9
     |
 563 |         assert(new_cap == old_cap * 2);
@@ -351,7 +363,7 @@ note: this is the condition that cannot be proved
 171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && s.tail < v}) ensures self: VecDeque<T, A>)]
     |                                                                           ^^^^^^^^^^^^^^
 
-error[E0999]: there is an error with related variables
+error[E0999]: there is an error with related variables `"(a4: CallReturn), (a0: No provenance), (a2: No provenance), (a1: CallReturn)"`
    --> src/vec_deque.rs:565:13
     |
 565 |             self.handle_capacity_increase(old_cap);
@@ -375,12 +387,12 @@ error[E0999]: refinement type error
     |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
     |
 note: this is the condition that cannot be proved
-   --> src/vec_deque.rs:171:93
+   --> src/vec_deque.rs:171:94
     |
 171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && s.tail < v}) ensures self: VecDeque<T, A>)]
-    |                                                                                             ^^^^^^^^^^
+    |                                                                                              ^^^^^^^^^
 
-error[E0999]: there is an error with related variables
+error[E0999]: there is an error with related variables `"(a0: No provenance), (a4: CallReturn), (a1: CallReturn), (a2: No provenance)"`
    --> src/vec_deque.rs:565:13
     |
 565 |             self.handle_capacity_increase(old_cap);
@@ -396,7 +408,6 @@ note: related variable `a1` defined here with originator `CallReturn`
     |
 558 |         let old_cap = self.cap();
     |                       ^^^^^^^^^^
-    = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
 
 error[E0999]: type invariant may not hold (when place is folded)
    --> src/vec_deque.rs:565:13
@@ -404,7 +415,7 @@ error[E0999]: type invariant may not hold (when place is folded)
 565 |             self.handle_capacity_increase(old_cap);
     |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-error[E0999]: there is an error with related variables
+error[E0999]: there is an error with related variables `"(a4: CallReturn), (a6: AssumeEnsures), (a2: No provenance)"`
    --> src/vec_deque.rs:565:13
     |
 565 |             self.handle_capacity_increase(old_cap);
@@ -420,4 +431,4 @@ note: related variable `a6` defined here with originator `AssumeEnsures`
     |
 565 |             self.handle_capacity_increase(old_cap);
     |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+```
