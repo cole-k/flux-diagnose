@@ -1,0 +1,5 @@
+∀ .  
+  ∀ a0: VecDeque ~ FnArg(Some("self")) at 363:21: 363:26.  
+    ∀ a1: T::sort ~ Sub(Call) at 364:9: 364:19. $k0(a1) ~ Call at 364:9: 364:19
+    ∀ a1: int ~ CallReturn at 364:9: 364:19.  
+      (a1 = a0.2 ∧ pow2(a1) ∧ 1 ≤ a1 ∧ a1 ≥ 0) => (a1 - 1 ≥ 0) ~ Overflow at 364:9: 364:23

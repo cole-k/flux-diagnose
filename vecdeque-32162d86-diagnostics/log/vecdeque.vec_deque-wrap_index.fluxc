@@ -1,0 +1,8 @@
+∀ .  
+  ∀ a0: int ~ FnArg(Some("index")) at 574:15: 574:20.  
+    (a0 ≥ 0) =>  
+      ∀ a1: int ~ FnArg(Some("size")) at 574:29: 574:33.  
+        (pow2(a1) ∧ 1 ≤ a1 ∧ a1 ≥ 0) =>  
+          (a1 - 1 ≥ 0) ~ Overflow at 578:13: 578:23
+          ∀ a2: int.  
+            (a2 ≥ 0) => (a2 = a2) ~ Ret at 578:5: 578:23

@@ -1,0 +1,23 @@
+∀ .  
+  ∀ a0: T::sort ~ FnArg(Some("value")) at 514:34: 514:39.  
+    ∀ a1: VecDeque.  
+      ∀ a2: T::sort ~ Sub(Call) at 515:12: 515:26. $k2(a2) ~ Call at 515:12: 515:26
+      ∀ a2: bool ~ CallReturn at 515:12: 515:26.  
+        ¬a2 =>  
+          $k0() ~ Goto(bb5) at 517:10: 517:10
+          ∀ a3: VecDeque ~ Sub(Goto(bb5)) at 517:10: 517:10. $k1(a3.0, a3.1, a3.2) ~ Goto(bb5) at 517:10: 517:10
+        a2 =>  
+          ∀ a3: VecDeque ~ Sub(Call) at 516:13: 516:24.  
+            ∀ a4: T::sort ~ Sub(Call) at 516:13: 516:24. $k3(a4) ~ Call at 516:13: 516:24
+          $k0() ~ Goto(bb5) at 515:27: 517:10
+          ∀ a3: VecDeque ~ Sub(Goto(bb5)) at 515:27: 517:10. $k1(a3.0, a3.1, a3.2) ~ Goto(bb5) at 515:27: 517:10
+        $k0() =>  
+          ∀ a3: VecDeque.  
+            ($k1(a3.0, a3.1, a3.2) ∧ a3.1 < a3.2 ∧ a3.1 ≥ 0 ∧ a3.0 < a3.2 ∧ a3.0 ≥ 0 ∧ pow2(a3.2) ∧ 1 ≤ a3.2) =>  
+              ∀ a4: T::sort ~ Sub(Call) at 520:21: 520:43. $k4(a4) ~ Call at 520:21: 520:43
+              ∀ a4: int ~ CallReturn at 520:21: 520:43.  
+                (a4 ≥ 0 ∧ a3.1 < a3.2 ∧ a3.1 ≥ 0 ∧ a3.0 < a3.2 ∧ a3.0 ≥ 0 ∧ pow2(a3.2) ∧ 1 ≤ a3.2) =>  
+                  (a4 = a3.1) ~ Assign at 520:9: 520:43
+                  ∀ a5: T::sort ~ Sub(Call) at 523:13: 523:43. $k5(a5) ~ Call at 523:13: 523:43
+                  ∀ a5: VecDeque ~ Sub(Call) at 523:13: 523:43. (a5 = a3) ~ Call at 523:13: 523:43
+                  $k5(a0) ~ Call at 523:13: 523:43

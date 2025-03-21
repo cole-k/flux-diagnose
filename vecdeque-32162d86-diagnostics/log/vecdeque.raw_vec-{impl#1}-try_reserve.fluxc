@@ -1,0 +1,32 @@
+∀ .  
+  ∀ a0: int ~ FnArg(Some("len")) at 321:35: 321:38.  
+    (a0 ≥ 0) =>  
+      ∀ a1: int ~ FnArg(Some("additional")) at 321:47: 321:57.  
+        (a1 ≥ 0) =>  
+          ∀ a2: RawVec.  
+            ∀ a3: T::sort ~ Sub(Call) at 322:12: 322:47.  
+              $k0(a3) ~ Call at 322:12: 322:47
+              (a3 = a3) ~ Call at 322:12: 322:47
+            ∀ a3: A::sort ~ Sub(Call) at 322:12: 322:47. (a3 = a3) ~ Call at 322:12: 322:47
+            (a2 = a2) ~ Call at 322:12: 322:47
+            (a0 = a0) ~ Call at 322:12: 322:47
+            (a1 = a1) ~ Call at 322:12: 322:47
+            ∀ a3: bool ~ CallReturn at 322:12: 322:47.  
+              ¬a3 =>  
+                $k1() ~ Call at 325:13: 325:19
+                $k1() => true
+                $k2() => true
+              a3 =>  
+                ∀ a4: RawVec ~ Sub(Call) at 323:13: 323:49.  
+                  ∀ a5: T::sort ~ Sub(Call) at 323:13: 323:49.  
+                    $k3(a5) ~ Call at 323:13: 323:49
+                    (a5 = a5) ~ Call at 323:13: 323:49
+                  ∀ a5: A::sort ~ Sub(Call) at 323:13: 323:49. (a5 = a5) ~ Call at 323:13: 323:49
+                  (a4 = a4) ~ Call at 323:13: 323:49
+                ∀ a4: RawVec ~ Sub(Call) at 323:13: 323:49.  
+                  ∀ a5: T::sort ~ Sub(Call) at 323:13: 323:49.  
+                    $k3(a5) => (a5 = a5) ~ Call at 323:13: 323:49
+                  ∀ a5: A::sort ~ Sub(Call) at 323:13: 323:49. (a5 = a5) ~ Call at 323:13: 323:49
+                  (a4 = a4) ~ Call at 323:13: 323:49
+                (a0 = a0) ~ Call at 323:13: 323:49
+                (a1 = a1) ~ Call at 323:13: 323:49

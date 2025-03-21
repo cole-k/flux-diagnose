@@ -1,0 +1,5 @@
+∀ .  
+  ∀ a0: int ~ FnArg(Some("len")) at 316:40: 316:43.  
+    (a0 ≥ 0) =>  
+      ∀ a1: RawVec ~ Sub(Call) at 317:24: 317:51.  
+        ∀ a2: T::sort ~ Sub(Call) at 317:24: 317:51. $k0(a2) ~ Call at 317:24: 317:51

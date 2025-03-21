@@ -1,0 +1,18 @@
+∀ .  
+  ∀ a0: VecDeque ~ Sub(Call) at 478:9: 478:24.  
+    ∀ a1: T::sort ~ Sub(Call) at 478:9: 478:24.  
+      $k0(a1) ~ Call at 478:9: 478:24
+      (a1 = a1) ~ Call at 478:9: 478:24
+    ∀ a1: A::sort ~ Sub(Call) at 478:9: 478:24. (a1 = a1) ~ Call at 478:9: 478:24
+    (a0 = a0) ~ Call at 478:9: 478:24
+  ∀ a0: VecDeque ~ Sub(Call) at 478:9: 478:24.  
+    ∀ a1: T::sort ~ Sub(Call) at 478:9: 478:24.  
+      $k0(a1) => (a1 = a1) ~ Call at 478:9: 478:24
+    ∀ a1: A::sort ~ Sub(Call) at 478:9: 478:24. (a1 = a1) ~ Call at 478:9: 478:24
+    (a0 = a0) ~ Call at 478:9: 478:24
+  true ~ Call at 478:9: 478:24
+  ∀ a0: T::sort ~ Sub(Ret) at 478:9: 478:13.  
+    $k0(a0) => (a0 = a0) ~ Ret at 478:9: 478:13
+  ∀ a0: T::sort ~ Sub(Ret) at 478:9: 478:13.  
+    $k0(a0) ~ Ret at 478:9: 478:13
+    (a0 = a0) ~ Ret at 478:9: 478:13

@@ -1,0 +1,5 @@
+∀ .  
+  ∀ a0: VecDeque ~ CallReturn at 234:9: 234:33.  
+    ∀ a1: T::sort ~ Sub(Ret) at 234:26: 234:32.  
+      $k0(a1) => (a1 = a1) ~ Ret at 234:26: 234:32
+    (a0 = a0) ~ Ret at 234:26: 234:32

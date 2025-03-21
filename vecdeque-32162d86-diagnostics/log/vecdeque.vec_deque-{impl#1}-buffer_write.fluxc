@@ -1,0 +1,13 @@
+∀ .  
+  ∀ a0: int ~ FnArg(Some("off")) at 114:39: 114:42.  
+    (a0 ≥ 0) =>  
+      ∀ a1: T::sort ~ FnArg(Some("value")) at 114:51: 114:56.  
+        ∀ a2: VecDeque.  
+          ∀ a3: T::sort ~ Sub(Call) at 116:24: 116:34.  
+            $k0(a3) ~ Call at 116:24: 116:34
+            (a3 = a3) ~ Call at 116:24: 116:34
+          ∀ a3: A::sort ~ Sub(Call) at 116:24: 116:34. (a3 = a3) ~ Call at 116:24: 116:34
+          (a2 = a2) ~ Call at 116:24: 116:34
+          (a0 = a0) ~ Call at 116:24: 116:43
+          $k2(a1) ~ Call at 116:13: 116:51
+          (a1 = a1) ~ Call at 116:13: 116:51

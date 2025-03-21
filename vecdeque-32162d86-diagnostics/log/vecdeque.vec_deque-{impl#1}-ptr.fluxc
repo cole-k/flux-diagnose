@@ -1,0 +1,8 @@
+∀ .  
+  ∀ a0: VecDeque ~ FnArg(Some("self")) at 93:12: 93:17.  
+    (a0.1 < a0.2 ∧ a0.1 ≥ 0 ∧ a0.0 < a0.2 ∧ a0.0 ≥ 0 ∧ pow2(a0.2) ∧ 1 ≤ a0.2) =>  
+      ∀ a1: T::sort ~ Sub(Call) at 94:9: 94:23.  
+        $k0(a1) ~ Call at 94:9: 94:23
+        (a1 = a1) ~ Call at 94:9: 94:23
+      ∀ a1: A::sort ~ Sub(Call) at 94:9: 94:23. (a1 = a1) ~ Call at 94:9: 94:23
+      (a0.2 = RawVec { a0.2 }.0) ~ Call at 94:9: 94:23

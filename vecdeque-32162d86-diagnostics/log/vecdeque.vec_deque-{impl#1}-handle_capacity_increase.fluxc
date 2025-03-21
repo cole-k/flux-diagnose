@@ -1,0 +1,179 @@
+∀ self: loc, s: VecDeque.  
+  ∀ a0: int ~ FnArg(Some("old_capacity")) at 172:51: 172:63.  
+    (a0 * 2 ≤ s.2 ∧ s.1 < a0 ∧ a0 ≥ 0) =>  
+      ∀ a1: T::sort ~ Sub(Call) at 173:28: 173:38.  
+        $k9(a1) ~ Call at 173:28: 173:38
+        (a1 = a1) ~ Call at 173:28: 173:38
+      ∀ a1: A::sort ~ Sub(Call) at 173:28: 173:38. (a1 = a1) ~ Call at 173:28: 173:38
+      (s = s) ~ Call at 173:28: 173:38
+      ∀ a1: int ~ CallReturn at 173:28: 173:38.  
+        (a1 = s.2 ∧ pow2(a1) ∧ 1 ≤ a1 ∧ a1 ≥ 0 ∧ s.1 < s.2 ∧ s.1 ≥ 0 ∧ s.0 < s.2 ∧ s.0 ≥ 0 ∧ pow2(s.2) ∧ 1 ≤ s.2) =>  
+          ¬(s.1 ≤ s.0) =>  
+            (a0 - s.1 ≥ 0) ~ Overflow at 192:31: 192:55
+            ¬(s.0 < a0 - s.1) =>  
+              (a0 - s.1 ≥ 0) ~ Overflow at 202:43: 202:69
+              (a1 - a0 - s.1 ≥ 0) ~ Overflow at 202:28: 202:69
+              (s.1 < s.2) ~ Fold at 205:17: 205:21
+              (s.1 = s.1) ~ Fold at 205:17: 205:21
+              (s.0 < s.2) ~ Fold at 205:17: 205:21
+              (s.0 = s.0) ~ Fold at 205:17: 205:21
+              (pow2(s.2) ∧ 1 ≤ s.2) ~ Fold at 205:17: 205:21
+              ∀ a2: T::sort ~ Sub(Fold) at 205:17: 205:21.  
+                $k10(a2) ~ Fold at 205:17: 205:21
+                (a2 = a2) ~ Fold at 205:17: 205:21
+              ∀ a2: A::sort ~ Sub(Fold) at 205:17: 205:21.  
+                $k11(a2) ~ Fold at 205:17: 205:21
+                (a2 = a2) ~ Fold at 205:17: 205:21
+              (s.2 = s.2) ~ Fold at 205:17: 205:21
+              (a0 - s.1 ≥ 0) ~ Overflow at 205:58: 205:77
+              ∀ a2: T::sort ~ Sub(Call) at 205:17: 205:78.  
+                $k10(a2) =>  
+                  $k12(a2) ~ Call at 205:17: 205:78
+                  (a2 = a2) ~ Call at 205:17: 205:78
+              ∀ a2: A::sort ~ Sub(Call) at 205:17: 205:78.  
+                $k11(a2) => (a2 = a2) ~ Call at 205:17: 205:78
+              (s.0 = VecDeque { s.0, s.1, s.2 }.0) ~ Call at 205:17: 205:78
+              (s.1 = VecDeque { s.0, s.1, s.2 }.1) ~ Call at 205:17: 205:78
+              (s.2 = VecDeque { s.0, s.1, s.2 }.2) ~ Call at 205:17: 205:78
+              (a1 - a0 - s.1 = a1 - a0 - s.1) ~ Call at 205:17: 205:78
+              (s.1 = s.1) ~ Call at 205:17: 205:78
+              (a0 - s.1 = a0 - s.1) ~ Call at 205:17: 205:78
+              (s.1 < s.2 ∧ s.1 ≥ 0 ∧ s.0 < s.2 ∧ s.0 ≥ 0 ∧ pow2(s.2) ∧ 1 ≤ s.2) =>  
+                false =>  
+                  $k3() ~ Goto(bb17) at 388:10: 388:10
+                  ∀ a2: T::sort ~ Sub(Goto(bb17)) at 388:10: 388:10.  
+                    $k10(a2) =>  
+                      $k4(a2) ~ Goto(bb17) at 388:10: 388:10
+                      (a2 = a2) ~ Goto(bb17) at 388:10: 388:10
+                  ∀ a2: A::sort ~ Sub(Goto(bb17)) at 388:10: 388:10.  
+                    $k11(a2) =>  
+                      $k5(a2) ~ Goto(bb17) at 388:10: 388:10
+                      (a2 = a2) ~ Goto(bb17) at 388:10: 388:10
+                true =>  
+                  ¬(s.0 < a1 - a0 - s.1) => true ~ Call at 387:13: 387:38
+                  (s.0 < a1 - a0 - s.1) =>  
+                    $k3() ~ Goto(bb17) at 386:43: 388:10
+                    ∀ a2: T::sort ~ Sub(Goto(bb17)) at 386:43: 388:10.  
+                      $k10(a2) =>  
+                        $k4(a2) ~ Goto(bb17) at 386:43: 388:10
+                        (a2 = a2) ~ Goto(bb17) at 386:43: 388:10
+                    ∀ a2: A::sort ~ Sub(Goto(bb17)) at 386:43: 388:10.  
+                      $k11(a2) =>  
+                        $k5(a2) ~ Goto(bb17) at 386:43: 388:10
+                        (a2 = a2) ~ Goto(bb17) at 386:43: 388:10
+                $k3() =>  
+                  $k6(a1 - a0 - s.1, s.0) ~ Goto(bb18) at 200:16: 209:10
+                  (a1 - a0 - s.1 = a1 - a0 - s.1) ~ Goto(bb18) at 200:16: 209:10
+                  (s.0 = s.0) ~ Goto(bb18) at 200:16: 209:10
+                  ∀ a2: T::sort ~ Sub(Goto(bb18)) at 200:16: 209:10.  
+                    $k4(a2) =>  
+                      $k7(a2) ~ Goto(bb18) at 200:16: 209:10
+                      (a2 = a2) ~ Goto(bb18) at 200:16: 209:10
+                  ∀ a2: A::sort ~ Sub(Goto(bb18)) at 200:16: 209:10.  
+                    $k5(a2) =>  
+                      $k8(a2) ~ Goto(bb18) at 200:16: 209:10
+                      (a2 = a2) ~ Goto(bb18) at 200:16: 209:10
+            (s.0 < a0 - s.1) =>  
+              (s.1 < s.2) ~ Fold at 196:17: 196:21
+              (s.1 = s.1) ~ Fold at 196:17: 196:21
+              (s.0 < s.2) ~ Fold at 196:17: 196:21
+              (s.0 = s.0) ~ Fold at 196:17: 196:21
+              (pow2(s.2) ∧ 1 ≤ s.2) ~ Fold at 196:17: 196:21
+              ∀ a2: T::sort ~ Sub(Fold) at 196:17: 196:21.  
+                $k13(a2) ~ Fold at 196:17: 196:21
+                (a2 = a2) ~ Fold at 196:17: 196:21
+              ∀ a2: A::sort ~ Sub(Fold) at 196:17: 196:21.  
+                $k14(a2) ~ Fold at 196:17: 196:21
+                (a2 = a2) ~ Fold at 196:17: 196:21
+              (s.2 = s.2) ~ Fold at 196:17: 196:21
+              ∀ a2: T::sort ~ Sub(Call) at 196:17: 196:64.  
+                $k13(a2) =>  
+                  $k15(a2) ~ Call at 196:17: 196:64
+                  (a2 = a2) ~ Call at 196:17: 196:64
+              ∀ a2: A::sort ~ Sub(Call) at 196:17: 196:64.  
+                $k14(a2) => (a2 = a2) ~ Call at 196:17: 196:64
+              (s.0 = VecDeque { s.0, s.1, s.2 }.0) ~ Call at 196:17: 196:64
+              (s.1 = VecDeque { s.0, s.1, s.2 }.1) ~ Call at 196:17: 196:64
+              (s.2 = VecDeque { s.0, s.1, s.2 }.2) ~ Call at 196:17: 196:64
+              (a0 = a0) ~ Call at 196:17: 196:64
+              true ~ Call at 196:17: 196:64
+              (s.0 = s.0) ~ Call at 196:17: 196:64
+              (s.1 < s.2 ∧ s.1 ≥ 0 ∧ s.0 < s.2 ∧ s.0 ≥ 0 ∧ pow2(s.2) ∧ 1 ≤ s.2) =>  
+                false =>  
+                  $k0() ~ Goto(bb10) at 388:10: 388:10
+                  ∀ a2: T::sort ~ Sub(Goto(bb10)) at 388:10: 388:10.  
+                    $k13(a2) =>  
+                      $k1(a2) ~ Goto(bb10) at 388:10: 388:10
+                      (a2 = a2) ~ Goto(bb10) at 388:10: 388:10
+                  ∀ a2: A::sort ~ Sub(Goto(bb10)) at 388:10: 388:10.  
+                    $k14(a2) =>  
+                      $k2(a2) ~ Goto(bb10) at 388:10: 388:10
+                      (a2 = a2) ~ Goto(bb10) at 388:10: 388:10
+                true =>  
+                  ¬(s.0 + a0 > s.1) => true ~ Call at 387:13: 387:38
+                  (s.0 + a0 > s.1) =>  
+                    $k0() ~ Goto(bb10) at 386:43: 388:10
+                    ∀ a2: T::sort ~ Sub(Goto(bb10)) at 386:43: 388:10.  
+                      $k13(a2) =>  
+                        $k1(a2) ~ Goto(bb10) at 386:43: 388:10
+                        (a2 = a2) ~ Goto(bb10) at 386:43: 388:10
+                    ∀ a2: A::sort ~ Sub(Goto(bb10)) at 386:43: 388:10.  
+                      $k14(a2) =>  
+                        $k2(a2) ~ Goto(bb10) at 386:43: 388:10
+                        (a2 = a2) ~ Goto(bb10) at 386:43: 388:10
+                $k0() =>  
+                  $k6(s.1, s.0 + a0) ~ Goto(bb18) at 192:56: 200:10
+                  (s.1 = s.1) ~ Goto(bb18) at 192:56: 200:10
+                  (s.0 + a0 = s.0 + a0) ~ Goto(bb18) at 192:56: 200:10
+                  ∀ a2: T::sort ~ Sub(Goto(bb18)) at 192:56: 200:10.  
+                    $k1(a2) =>  
+                      $k7(a2) ~ Goto(bb18) at 192:56: 200:10
+                      (a2 = a2) ~ Goto(bb18) at 192:56: 200:10
+                  ∀ a2: A::sort ~ Sub(Goto(bb18)) at 192:56: 200:10.  
+                    $k2(a2) =>  
+                      $k8(a2) ~ Goto(bb18) at 192:56: 200:10
+                      (a2 = a2) ~ Goto(bb18) at 192:56: 200:10
+            ∀ a2: int.  
+              ∀ a3: int.  
+                $k6(a2, a3) =>  
+                  (a2 < s.2) ~ Fold at 189:9: 209:10
+                  (a2 = a2) ~ Fold at 189:9: 209:10
+                  (a3 < s.2) ~ Fold at 189:9: 209:10
+                  (a3 = a3) ~ Fold at 189:9: 209:10
+                  (pow2(s.2) ∧ 1 ≤ s.2) ~ Fold at 189:9: 209:10
+                  ∀ a4: T::sort ~ Sub(Fold) at 189:9: 209:10.  
+                    $k7(a4) =>  
+                      $k18(a4) ~ Fold at 189:9: 209:10
+                      (a4 = a4) ~ Fold at 189:9: 209:10
+                  ∀ a4: A::sort ~ Sub(Fold) at 189:9: 209:10.  
+                    $k8(a4) =>  
+                      $k19(a4) ~ Fold at 189:9: 209:10
+                      (a4 = a4) ~ Fold at 189:9: 209:10
+                  (s.2 = s.2) ~ Fold at 189:9: 209:10
+                  ∀ a4: T::sort ~ Sub(Ret) at 189:9: 209:10.  
+                    $k18(a4) => (a4 = a4) ~ Ret at 189:9: 209:10
+                  ∀ a4: A::sort ~ Sub(Ret) at 189:9: 209:10.  
+                    $k19(a4) => (a4 = a4) ~ Ret at 189:9: 209:10
+                  (a3 = VecDeque { a3, a2, s.2 }.0) ~ Ret at 189:9: 209:10
+                  (a2 = VecDeque { a3, a2, s.2 }.1) ~ Ret at 189:9: 209:10
+                  (s.2 = VecDeque { a3, a2, s.2 }.2) ~ Ret at 189:9: 209:10
+          (s.1 ≤ s.0) =>  
+            (s.1 < s.2) ~ Fold at 189:35: 192:10
+            (s.1 = s.1) ~ Fold at 189:35: 192:10
+            (s.0 < s.2) ~ Fold at 189:35: 192:10
+            (s.0 = s.0) ~ Fold at 189:35: 192:10
+            (pow2(s.2) ∧ 1 ≤ s.2) ~ Fold at 189:35: 192:10
+            ∀ a2: T::sort ~ Sub(Fold) at 189:35: 192:10.  
+              $k16(a2) ~ Fold at 189:35: 192:10
+              (a2 = a2) ~ Fold at 189:35: 192:10
+            ∀ a2: A::sort ~ Sub(Fold) at 189:35: 192:10.  
+              $k17(a2) ~ Fold at 189:35: 192:10
+              (a2 = a2) ~ Fold at 189:35: 192:10
+            (s.2 = s.2) ~ Fold at 189:35: 192:10
+            ∀ a2: T::sort ~ Sub(Ret) at 189:35: 192:10.  
+              $k16(a2) => (a2 = a2) ~ Ret at 189:35: 192:10
+            ∀ a2: A::sort ~ Sub(Ret) at 189:35: 192:10.  
+              $k17(a2) => (a2 = a2) ~ Ret at 189:35: 192:10
+            (s.0 = VecDeque { s.0, s.1, s.2 }.0) ~ Ret at 189:35: 192:10
+            (s.1 = VecDeque { s.0, s.1, s.2 }.1) ~ Ret at 189:35: 192:10
+            (s.2 = VecDeque { s.0, s.1, s.2 }.2) ~ Ret at 189:35: 192:10

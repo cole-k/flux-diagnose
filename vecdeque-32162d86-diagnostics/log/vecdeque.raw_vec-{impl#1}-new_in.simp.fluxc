@@ -1,0 +1,4 @@
+∀ .  
+  ∀ a0: A::sort ~ FnArg(Some("alloc")) at 123:25: 123:30.  
+    ∀ a1: T::sort ~ Sub(Call) at 125:9: 129:10.  
+      $k0(a1) => $k1(a1) ~ Call at 125:9: 129:10

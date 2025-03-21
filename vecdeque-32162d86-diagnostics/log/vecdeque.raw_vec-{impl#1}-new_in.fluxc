@@ -1,0 +1,12 @@
+∀ .  
+  ∀ a0: A::sort ~ FnArg(Some("alloc")) at 123:25: 123:30.  
+    ∀ a1: T::sort ~ Sub(Call) at 125:9: 129:10.  
+      $k0(a1) =>  
+        $k1(a1) ~ Call at 125:9: 129:10
+        (a1 = a1) ~ Call at 125:9: 129:10
+    true ~ Call at 125:9: 129:10
+    (a0 = a0) ~ Call at 125:9: 129:10
+    ∀ a1: T::sort ~ Sub(Ret) at 130:5: 130:6.  
+      $k1(a1) => (a1 = a1) ~ Ret at 130:5: 130:6
+    ∀ a1: A::sort ~ Sub(Ret) at 130:5: 130:6. (a1 = a1) ~ Ret at 130:5: 130:6
+    (0 = RawVec { 0 }.0) ~ Ret at 130:5: 130:6

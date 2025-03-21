@@ -1,0 +1,70 @@
+∀ .  
+  ∀ a0: T::sort ~ FnArg(Some("value")) at 540:33: 540:38.  
+    ∀ a1: VecDeque.  
+      ∀ a2: T::sort ~ Sub(Call) at 541:12: 541:26.  
+        $k2(a2) ~ Call at 541:12: 541:26
+        (a2 = a2) ~ Call at 541:12: 541:26
+      ∀ a2: A::sort ~ Sub(Call) at 541:12: 541:26. (a2 = a2) ~ Call at 541:12: 541:26
+      (a1 = a1) ~ Call at 541:12: 541:26
+      ∀ a2: bool ~ CallReturn at 541:12: 541:26.  
+        ¬a2 =>  
+          $k0() ~ Goto(bb5) at 543:10: 543:10
+          ∀ a3: VecDeque ~ Sub(Goto(bb5)) at 543:10: 543:10.  
+            $k1(a3.0, a3.1, a3.2) ~ Goto(bb5) at 543:10: 543:10
+            ∀ a4: T::sort ~ Sub(Goto(bb5)) at 543:10: 543:10. (a4 = a4) ~ Goto(bb5) at 543:10: 543:10
+            ∀ a4: A::sort ~ Sub(Goto(bb5)) at 543:10: 543:10. (a4 = a4) ~ Goto(bb5) at 543:10: 543:10
+            (a3 = a3) ~ Goto(bb5) at 543:10: 543:10
+          ∀ a3: VecDeque ~ Sub(Goto(bb5)) at 543:10: 543:10.  
+            $k1(a3.0, a3.1, a3.2) =>  
+              ∀ a4: T::sort ~ Sub(Goto(bb5)) at 543:10: 543:10. (a4 = a4) ~ Goto(bb5) at 543:10: 543:10
+              ∀ a4: A::sort ~ Sub(Goto(bb5)) at 543:10: 543:10. (a4 = a4) ~ Goto(bb5) at 543:10: 543:10
+              (a3 = a3) ~ Goto(bb5) at 543:10: 543:10
+        a2 =>  
+          ∀ a3: VecDeque ~ Sub(Call) at 542:13: 542:24.  
+            ∀ a4: T::sort ~ Sub(Call) at 542:13: 542:24.  
+              $k3(a4) ~ Call at 542:13: 542:24
+              (a4 = a4) ~ Call at 542:13: 542:24
+            ∀ a4: A::sort ~ Sub(Call) at 542:13: 542:24. (a4 = a4) ~ Call at 542:13: 542:24
+            (a3 = a3) ~ Call at 542:13: 542:24
+          ∀ a3: VecDeque ~ Sub(Call) at 542:13: 542:24.  
+            ∀ a4: T::sort ~ Sub(Call) at 542:13: 542:24.  
+              $k3(a4) => (a4 = a4) ~ Call at 542:13: 542:24
+            ∀ a4: A::sort ~ Sub(Call) at 542:13: 542:24. (a4 = a4) ~ Call at 542:13: 542:24
+            (a3 = a3) ~ Call at 542:13: 542:24
+          $k0() ~ Goto(bb5) at 541:27: 543:10
+          ∀ a3: VecDeque ~ Sub(Goto(bb5)) at 541:27: 543:10.  
+            $k1(a3.0, a3.1, a3.2) ~ Goto(bb5) at 541:27: 543:10
+            ∀ a4: T::sort ~ Sub(Goto(bb5)) at 541:27: 543:10. (a4 = a4) ~ Goto(bb5) at 541:27: 543:10
+            ∀ a4: A::sort ~ Sub(Goto(bb5)) at 541:27: 543:10. (a4 = a4) ~ Goto(bb5) at 541:27: 543:10
+            (a3 = a3) ~ Goto(bb5) at 541:27: 543:10
+          ∀ a3: VecDeque ~ Sub(Goto(bb5)) at 541:27: 543:10.  
+            $k1(a3.0, a3.1, a3.2) =>  
+              ∀ a4: T::sort ~ Sub(Goto(bb5)) at 541:27: 543:10. (a4 = a4) ~ Goto(bb5) at 541:27: 543:10
+              ∀ a4: A::sort ~ Sub(Goto(bb5)) at 541:27: 543:10. (a4 = a4) ~ Goto(bb5) at 541:27: 543:10
+              (a3 = a3) ~ Goto(bb5) at 541:27: 543:10
+        $k0() =>  
+          ∀ a3: VecDeque.  
+            ($k1(a3.0, a3.1, a3.2) ∧ a3.1 < a3.2 ∧ a3.1 ≥ 0 ∧ a3.0 < a3.2 ∧ a3.0 ≥ 0 ∧ pow2(a3.2) ∧ 1 ≤ a3.2 ∧ a3.1 < a3.2 ∧ a3.1 ≥ 0 ∧ a3.0 < a3.2 ∧ a3.0 ≥ 0 ∧ pow2(a3.2) ∧ 1 ≤ a3.2) =>  
+              ∀ a4: T::sort ~ Sub(Call) at 546:21: 546:48.  
+                $k4(a4) ~ Call at 546:21: 546:48
+                (a4 = a4) ~ Call at 546:21: 546:48
+              ∀ a4: A::sort ~ Sub(Call) at 546:21: 546:48. (a4 = a4) ~ Call at 546:21: 546:48
+              (a3 = a3) ~ Call at 546:21: 546:48
+              (a3.0 = a3.0) ~ Call at 546:21: 546:48
+              true ~ Call at 546:21: 546:48
+              ∀ a4: int ~ CallReturn at 546:21: 546:48.  
+                (a4 ≥ 0) =>  
+                  (a4 = a3.0) ~ Assign at 546:9: 546:48
+                  ∀ a5: T::sort ~ Sub(Call) at 547:18: 547:48.  
+                    $k5(a5) ~ Call at 547:18: 547:48
+                    (a5 = a5) ~ Call at 547:18: 547:48
+                  ∀ a5: A::sort ~ Sub(Call) at 547:18: 547:48. (a5 = a5) ~ Call at 547:18: 547:48
+                  (a3 = a3) ~ Call at 547:18: 547:48
+                  ∀ a5: VecDeque ~ Sub(Call) at 547:18: 547:48.  
+                    ∀ a6: T::sort ~ Sub(Call) at 547:18: 547:48.  
+                      $k5(a6) => (a6 = a6) ~ Call at 547:18: 547:48
+                    ∀ a6: A::sort ~ Sub(Call) at 547:18: 547:48. (a6 = a6) ~ Call at 547:18: 547:48
+                    (a5 = a3) ~ Call at 547:18: 547:48
+                  (a3.0 = a3.0) ~ Call at 547:18: 547:48
+                  $k5(a0) ~ Call at 547:18: 547:48
+                  (a0 = a0) ~ Call at 547:18: 547:48

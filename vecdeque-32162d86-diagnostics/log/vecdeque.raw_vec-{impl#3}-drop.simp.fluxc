@@ -1,0 +1,6 @@
+∀ .  
+  ∀ a0: RawVec.  
+    ∀ a1: T::sort ~ Sub(Call) at 523:38: 523:59. $k0(a1) ~ Call at 523:38: 523:59
+    ∀ a1: RawVec.  
+      (a1.0 ≥ 0) =>  
+        ∀ a2: A::sort. $k1() ~ Fold at 523:9: 525:10

@@ -1,0 +1,100 @@
+∀ .  
+  false =>  
+    $k0() ~ Goto(bb6) at 388:10: 388:10
+    ∀ a0: VecDeque ~ Sub(Goto(bb6)) at 388:10: 388:10.  
+      $k1(a0.0, a0.1, a0.2) ~ Goto(bb6) at 388:10: 388:10
+      ∀ a1: T::sort ~ Sub(Goto(bb6)) at 388:10: 388:10. (a1 = a1) ~ Goto(bb6) at 388:10: 388:10
+      ∀ a1: A::sort ~ Sub(Goto(bb6)) at 388:10: 388:10. (a1 = a1) ~ Goto(bb6) at 388:10: 388:10
+      (a0 = a0) ~ Goto(bb6) at 388:10: 388:10
+    ∀ a0: VecDeque ~ Sub(Goto(bb6)) at 388:10: 388:10.  
+      $k1(a0.0, a0.1, a0.2) =>  
+        ∀ a1: T::sort ~ Sub(Goto(bb6)) at 388:10: 388:10. (a1 = a1) ~ Goto(bb6) at 388:10: 388:10
+        ∀ a1: A::sort ~ Sub(Goto(bb6)) at 388:10: 388:10. (a1 = a1) ~ Goto(bb6) at 388:10: 388:10
+        (a0 = a0) ~ Goto(bb6) at 388:10: 388:10
+  true =>  
+    ∀ a0: VecDeque.  
+      ∀ a1: T::sort ~ Sub(Call) at 557:23: 557:37.  
+        $k3(a1) ~ Call at 557:23: 557:37
+        (a1 = a1) ~ Call at 557:23: 557:37
+      ∀ a1: A::sort ~ Sub(Call) at 557:23: 557:37. (a1 = a1) ~ Call at 557:23: 557:37
+      (a0 = a0) ~ Call at 557:23: 557:37
+      ∀ a1: bool ~ CallReturn at 557:23: 557:37.  
+        ¬a1 => true ~ Call at 387:13: 387:38
+        a1 =>  
+          $k0() ~ Goto(bb6) at 386:43: 388:10
+          ∀ a2: VecDeque ~ Sub(Goto(bb6)) at 386:43: 388:10.  
+            $k1(a2.0, a2.1, a2.2) ~ Goto(bb6) at 386:43: 388:10
+            ∀ a3: T::sort ~ Sub(Goto(bb6)) at 386:43: 388:10. (a3 = a3) ~ Goto(bb6) at 386:43: 388:10
+            ∀ a3: A::sort ~ Sub(Goto(bb6)) at 386:43: 388:10. (a3 = a3) ~ Goto(bb6) at 386:43: 388:10
+            (a2 = a2) ~ Goto(bb6) at 386:43: 388:10
+          ∀ a2: VecDeque ~ Sub(Goto(bb6)) at 386:43: 388:10.  
+            $k1(a2.0, a2.1, a2.2) =>  
+              ∀ a3: T::sort ~ Sub(Goto(bb6)) at 386:43: 388:10. (a3 = a3) ~ Goto(bb6) at 386:43: 388:10
+              ∀ a3: A::sort ~ Sub(Goto(bb6)) at 386:43: 388:10. (a3 = a3) ~ Goto(bb6) at 386:43: 388:10
+              (a2 = a2) ~ Goto(bb6) at 386:43: 388:10
+  $k0() =>  
+    ∀ a0: VecDeque.  
+      $k1(a0.0, a0.1, a0.2) =>  
+        ∀ a1: T::sort ~ Sub(Call) at 558:23: 558:33.  
+          $k4(a1) ~ Call at 558:23: 558:33
+          (a1 = a1) ~ Call at 558:23: 558:33
+        ∀ a1: A::sort ~ Sub(Call) at 558:23: 558:33. (a1 = a1) ~ Call at 558:23: 558:33
+        (a0 = a0) ~ Call at 558:23: 558:33
+        ∀ a1: int ~ CallReturn at 558:23: 558:33.  
+          (a1 = a0.2 ∧ pow2(a1) ∧ 1 ≤ a1 ∧ a1 ≥ 0) =>  
+            ∀ a2: VecDeque.  
+              ($k1(a2.0, a2.1, a2.2) ∧ a2.1 < a2.2 ∧ a2.1 ≥ 0 ∧ a2.0 < a2.2 ∧ a2.0 ≥ 0 ∧ pow2(a2.2) ∧ 1 ≤ a2.2) =>  
+                ∀ a3: loc.  
+                  ∀ a4: T::sort ~ Sub(Call) at 559:9: 559:49.  
+                    $k5(a4) ~ Call at 559:9: 559:49
+                    (a4 = a4) ~ Call at 559:9: 559:49
+                  ∀ a4: A::sort ~ Sub(Call) at 559:9: 559:49. (a4 = a4) ~ Call at 559:9: 559:49
+                  (a2.2 = RawVec { a2.2 }.0) ~ Call at 559:9: 559:49
+                  (a1 = a1) ~ Call at 559:9: 559:49
+                  (a1 = a1) ~ Call at 559:9: 559:49
+                  ∀ a4: T::sort ~ Sub(FoldLocal) at 559:9: 559:49.  
+                    $k5(a4) => (a4 = a4) ~ FoldLocal at 559:9: 559:49
+                  ∀ a4: A::sort ~ Sub(FoldLocal) at 559:9: 559:49. (a4 = a4) ~ FoldLocal at 559:9: 559:49
+                  (a1 + a1 = a2.2) ~ FoldLocal at 559:9: 559:49
+                  ∀ a4: T::sort ~ Sub(Call) at 561:23: 561:33.  
+                    $k6(a4) ~ Call at 561:23: 561:33
+                    (a4 = a4) ~ Call at 561:23: 561:33
+                  ∀ a4: A::sort ~ Sub(Call) at 561:23: 561:33. (a4 = a4) ~ Call at 561:23: 561:33
+                  (a2 = a2) ~ Call at 561:23: 561:33
+                  ∀ a4: int ~ CallReturn at 561:23: 561:33.  
+                    (a4 = a2.2 ∧ pow2(a4) ∧ 1 ≤ a4 ∧ a4 ≥ 0) =>  
+                      ((a4 = a1 * 2) = true) ~ Call at 563:9: 563:39
+                      ∀ a5: loc.  
+                        ∀ a6: T::sort ~ Sub(Call) at 565:13: 565:51.  
+                          $k7(a6) ~ Call at 565:13: 565:51
+                          (a6 = a6) ~ Call at 565:13: 565:51
+                        ∀ a6: A::sort ~ Sub(Call) at 565:13: 565:51. (a6 = a6) ~ Call at 565:13: 565:51
+                        (a2 = a2) ~ Call at 565:13: 565:51
+                        (a1 * 2 ≤ a2.2 ∧ a2.1 < a1) ~ Call at 565:13: 565:51
+                        (a1 = a1) ~ Call at 565:13: 565:51
+                        ∀ a6: VecDeque ~ AssumeEnsures at 565:13: 565:51.  
+                          ∀ a7: T::sort ~ Sub(FoldLocal) at 565:13: 565:51.  
+                            $k7(a7) => (a7 = a7) ~ FoldLocal at 565:13: 565:51
+                          ∀ a7: A::sort ~ Sub(FoldLocal) at 565:13: 565:51. (a7 = a7) ~ FoldLocal at 565:13: 565:51
+                          (a6 = a2) ~ FoldLocal at 565:13: 565:51
+                          false =>  
+                            $k2() ~ Goto(bb17) at 388:10: 388:10
+                            ∀ a7: T::sort ~ Sub(Goto(bb17)) at 388:10: 388:10. (a7 = a7) ~ Goto(bb17) at 388:10: 388:10
+                            ∀ a7: A::sort ~ Sub(Goto(bb17)) at 388:10: 388:10. (a7 = a7) ~ Goto(bb17) at 388:10: 388:10
+                            ∀ a7: T::sort ~ Sub(Goto(bb17)) at 388:10: 388:10. (a7 = a7) ~ Goto(bb17) at 388:10: 388:10
+                            ∀ a7: A::sort ~ Sub(Goto(bb17)) at 388:10: 388:10. (a7 = a7) ~ Goto(bb17) at 388:10: 388:10
+                          true =>  
+                            ∀ a7: T::sort ~ Sub(Call) at 567:24: 567:38.  
+                              $k8(a7) ~ Call at 567:24: 567:38
+                              (a7 = a7) ~ Call at 567:24: 567:38
+                            ∀ a7: A::sort ~ Sub(Call) at 567:24: 567:38. (a7 = a7) ~ Call at 567:24: 567:38
+                            (a2 = a2) ~ Call at 567:24: 567:38
+                            ∀ a7: bool ~ CallReturn at 567:24: 567:38.  
+                              ¬a7 =>  
+                                $k2() ~ Goto(bb17) at 386:43: 388:10
+                                ∀ a8: T::sort ~ Sub(Goto(bb17)) at 386:43: 388:10. (a8 = a8) ~ Goto(bb17) at 386:43: 388:10
+                                ∀ a8: A::sort ~ Sub(Goto(bb17)) at 386:43: 388:10. (a8 = a8) ~ Goto(bb17) at 386:43: 388:10
+                                ∀ a8: T::sort ~ Sub(Goto(bb17)) at 386:43: 388:10. (a8 = a8) ~ Goto(bb17) at 386:43: 388:10
+                                ∀ a8: A::sort ~ Sub(Goto(bb17)) at 386:43: 388:10. (a8 = a8) ~ Goto(bb17) at 386:43: 388:10
+                              a7 => true ~ Call at 387:13: 387:38
+                          $k2() => true

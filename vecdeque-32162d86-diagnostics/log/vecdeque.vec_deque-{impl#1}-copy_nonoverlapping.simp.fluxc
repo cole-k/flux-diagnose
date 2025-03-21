@@ -1,0 +1,10 @@
+∀ .  
+  ∀ a0: VecDeque ~ FnArg(Some("self")) at 142:35: 142:40.  
+    ∀ a1: int ~ FnArg(Some("dst")) at 142:42: 142:45.  
+      (a1 ≥ 0) =>  
+        ∀ a2: int ~ FnArg(Some("src")) at 142:54: 142:57.  
+          (a2 ≥ 0) =>  
+            ∀ a3: int ~ FnArg(Some("len")) at 142:66: 142:69.  
+              (a3 ≥ 0) =>  
+                ∀ a4: T::sort ~ Sub(Call) at 164:38: 164:48. $k0(a4) ~ Call at 164:38: 164:48
+                ∀ a4: T::sort ~ Sub(Call) at 164:59: 164:69. $k2(a4) ~ Call at 164:59: 164:69

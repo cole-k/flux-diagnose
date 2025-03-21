@@ -1,0 +1,5 @@
+∀ .  
+  ∀ a0: RawVec ~ CallReturn at 74:9: 74:29.  
+    ∀ a1: T::sort ~ Sub(Ret) at 74:22: 74:28.  
+      $k0(a1) => (a1 = a1) ~ Ret at 74:22: 74:28
+    (a0 = a0) ~ Ret at 74:22: 74:28

@@ -1,0 +1,2 @@
+∀ .  
+  ∀ a0: A::sort ~ FnArg(Some("alloc")) at 265:15: 265:20. (7 < vec_deque::MAXIMUM_ZST_CAPACITY) ~ Call at 266:9: 266:60

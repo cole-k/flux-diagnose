@@ -1,0 +1,4 @@
+∀ .  
+  ∀ a0: RawVec ~ FnArg(Some("self")) at 255:22: 255:27.  
+    (a0.0 ≥ 0) =>  
+      ∀ a1: A::sort. (a1 = a1) ~ Ret at 256:9: 256:20

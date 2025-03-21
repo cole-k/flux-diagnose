@@ -1,0 +1,9 @@
+∀ .  
+  ∀ a0: int ~ FnArg(Some("tail")) at 583:10: 583:14.  
+    (a0 ≥ 0) =>  
+      ∀ a1: int ~ FnArg(Some("head")) at 583:23: 583:27.  
+        (a1 ≥ 0) =>  
+          ∀ a2: int ~ FnArg(Some("size")) at 583:36: 583:40.  
+            (pow2(a2) ∧ 1 ≤ a2 ∧ a2 ≥ 0) =>  
+              ∀ a3: int ~ CallReturn at 586:16: 586:39.  
+                (a3 ≥ 0) => (pow2(a2) ∧ 1 ≤ a2) ~ Call at 586:5: 586:46

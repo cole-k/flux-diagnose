@@ -1,0 +1,4 @@
+∀ .  
+  ∀ a0: VecDeque ~ Sub(Subtype(Output)) at 85:5: 85:32.  
+    ∀ a1: T::sort ~ Sub(Subtype(Output)) at 85:5: 85:32. (a1 = a1) ~ Subtype(Output) at 85:5: 85:32
+    (a0 = a0) ~ Subtype(Output) at 85:5: 85:32

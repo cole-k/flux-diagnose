@@ -1,0 +1,10 @@
+∀ .  
+  ∀ a0: int ~ FnArg(Some("alloc_size")) at 551:16: 551:26.  
+    (a0 ≥ 0) =>  
+      true => $k0() ~ Goto(bb5) at 552:8: 552:24
+      false =>  
+        ∀ a1: int.  
+          (a1 ≥ 0) =>  
+            ¬(a0 > a1) => $k0() ~ Goto(bb5) at 1:1: 1:1
+            (a0 > a1) => $k2() ~ Call at 553:9: 553:37
+      $k0() => $k3() ~ Call at 555:9: 555:15

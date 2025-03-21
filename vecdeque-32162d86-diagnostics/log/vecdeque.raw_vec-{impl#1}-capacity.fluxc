@@ -1,0 +1,14 @@
+∀ .  
+  ∀ a0: RawVec ~ FnArg(Some("self")) at 246:21: 246:26.  
+    ∀ a1: int ~ CallReturn at 247:12: 247:31.  
+      (a1 ≥ 0) =>  
+        (a1 ≠ 0 ∧ a0.0 ≥ 0) =>  
+          ∀ a2: A::sort.  
+            ∀ a3: T::sort ~ Sub(Fold) at 250:13: 250:21.  
+              $k1(a3) ~ Fold at 250:13: 250:21
+              (a3 = a3) ~ Fold at 250:13: 250:21
+            (a0.0 = a0.0) ~ Fold at 250:13: 250:21
+            $k2(a2) ~ Fold at 250:13: 250:21
+            (a2 = a2) ~ Fold at 250:13: 250:21
+            (a0.0 = a0.0) ~ Ret at 250:13: 250:21
+        ¬(a1 ≠ 0) => true ~ Ret at 248:13: 248:23

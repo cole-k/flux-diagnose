@@ -1,0 +1,18 @@
+∀ .  
+  ∀ a0: int ~ FnArg(Some("len")) at 301:13: 301:16.  
+    (a0 ≥ 0) =>  
+      ∀ a1: int ~ FnArg(Some("additional")) at 302:13: 302:23.  
+        (a1 ≥ 0) =>  
+          ∀ a2: RawVec ~ Sub(Call) at 304:28: 304:63.  
+            ∀ a3: T::sort ~ Sub(Call) at 304:28: 304:63.  
+              $k0(a3) ~ Call at 304:28: 304:63
+              (a3 = a3) ~ Call at 304:28: 304:63
+            ∀ a3: A::sort ~ Sub(Call) at 304:28: 304:63. (a3 = a3) ~ Call at 304:28: 304:63
+            (a2 = a2) ~ Call at 304:28: 304:63
+          ∀ a2: RawVec ~ Sub(Call) at 304:28: 304:63.  
+            ∀ a3: T::sort ~ Sub(Call) at 304:28: 304:63.  
+              $k0(a3) => (a3 = a3) ~ Call at 304:28: 304:63
+            ∀ a3: A::sort ~ Sub(Call) at 304:28: 304:63. (a3 = a3) ~ Call at 304:28: 304:63
+            (a2 = a2) ~ Call at 304:28: 304:63
+          (a0 = a0) ~ Call at 304:28: 304:63
+          (a1 = a1) ~ Call at 304:28: 304:63

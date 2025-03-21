@@ -1,0 +1,22 @@
+∀ .  
+  ∀ a0: VecDeque ~ FnArg(Some("self")) at 136:17: 136:22.  
+    ∀ a1: int ~ FnArg(Some("idx")) at 136:24: 136:27.  
+      (a1 ≥ 0) =>  
+        ∀ a2: int ~ FnArg(Some("subtrahend")) at 136:36: 136:46.  
+          (a2 ≥ 0) =>  
+            (a1 = a1) ~ Call at 137:20: 137:48
+            (a2 = a2) ~ Call at 137:20: 137:48
+            ∀ a3: int ~ CallReturn at 137:20: 137:48.  
+              (a3 ≥ 0) =>  
+                ∀ a4: T::sort ~ Sub(Call) at 137:50: 137:60.  
+                  $k0(a4) ~ Call at 137:50: 137:60
+                  (a4 = a4) ~ Call at 137:50: 137:60
+                ∀ a4: A::sort ~ Sub(Call) at 137:50: 137:60. (a4 = a4) ~ Call at 137:50: 137:60
+                (a0 = a0) ~ Call at 137:50: 137:60
+                ∀ a4: int ~ CallReturn at 137:50: 137:60.  
+                  (a4 = a0.2 ∧ pow2(a4) ∧ 1 ≤ a4 ∧ a4 ≥ 0) =>  
+                    (a3 = a3) ~ Call at 137:9: 137:61
+                    (pow2(a4) ∧ 1 ≤ a4) ~ Call at 137:9: 137:61
+                    (a4 = a4) ~ Call at 137:9: 137:61
+                    ∀ a5: int ~ CallReturn at 137:9: 137:61.  
+                      (a5 ≥ 0) => (a5 = a5) ~ Ret at 137:9: 137:61

@@ -1,0 +1,26 @@
+∀ capacity: int.  
+  (capacity < vec_deque::MAXIMUM_ZST_CAPACITY ∧ capacity > 1 ∧ capacity ≥ 0) =>  
+    ∀ a0: A::sort ~ FnArg(Some("alloc")) at 280:42: 280:47.  
+      (capacity = capacity) ~ Call at 285:19: 285:42
+      ∀ a1: int ~ CallReturn at 285:19: 285:42.  
+        (a1 ≥ 1 ∧ pow2(a1) ∧ a1 ≥ 0) =>  
+          (a1 = a1) ~ Call at 290:18: 290:54
+          (a0 = a0) ~ Call at 290:18: 290:54
+          (0 < a1) ~ Call at 287:9: 291:10
+          true ~ Call at 287:9: 291:10
+          (0 < a1) ~ Call at 287:9: 291:10
+          true ~ Call at 287:9: 291:10
+          (pow2(a1) ∧ 1 ≤ a1) ~ Call at 287:9: 291:10
+          ∀ a2: T::sort ~ Sub(Call) at 287:9: 291:10.  
+            $k0(a2) =>  
+              $k1(a2) ~ Call at 287:9: 291:10
+              (a2 = a2) ~ Call at 287:9: 291:10
+          ∀ a2: A::sort ~ Sub(Call) at 287:9: 291:10. (a2 = a2) ~ Call at 287:9: 291:10
+          (a1 = a1) ~ Call at 287:9: 291:10
+          (VecDeque { 0, 0, a1 }.0 = 0 ∧ VecDeque { 0, 0, a1 }.1 = 0 ∧ capacity ≤ VecDeque { 0, 0, a1 }.2) ~ Ret at 292:5: 292:6
+          ∀ a2: T::sort ~ Sub(Ret) at 292:5: 292:6.  
+            $k1(a2) => (a2 = a2) ~ Ret at 292:5: 292:6
+          ∀ a2: A::sort ~ Sub(Ret) at 292:5: 292:6. (a2 = a2) ~ Ret at 292:5: 292:6
+          (0 = VecDeque { 0, 0, a1 }.0) ~ Ret at 292:5: 292:6
+          (0 = VecDeque { 0, 0, a1 }.1) ~ Ret at 292:5: 292:6
+          (a1 = VecDeque { 0, 0, a1 }.2) ~ Ret at 292:5: 292:6

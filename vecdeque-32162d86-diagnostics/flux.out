@@ -1,0 +1,338 @@
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:249:9
+    |
+249 |         Self::with_capacity_in(capacity, Global)
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:279:37
+    |
+279 |     #[flux::sig(fn (capacity: usize{capacity < MAXIMUM_ZST_CAPACITY && capacity > 1}, alloc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tail == 0 && capacity <= v.cap})]
+    |                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:249:9
+    |
+249 |         Self::with_capacity_in(capacity, Global)
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a0` defined here with originator `FnArg(Some("capacity"))`
+   --> src/vec_deque.rs:248:26
+    |
+248 |     pub fn with_capacity(capacity: usize) -> VecDeque<T> {
+    |                          ^^^^^^^^
+
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:249:9
+    |
+249 |         Self::with_capacity_in(capacity, Global)
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:279:72
+    |
+279 |     #[flux::sig(fn (capacity: usize{capacity < MAXIMUM_ZST_CAPACITY && capacity > 1}, alloc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tail == 0 && capacity <= v.cap})]
+    |                                                                        ^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:249:9
+    |
+249 |         Self::with_capacity_in(capacity, Global)
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a0` defined here with originator `FnArg(Some("capacity"))`
+   --> src/vec_deque.rs:248:26
+    |
+248 |     pub fn with_capacity(capacity: usize) -> VecDeque<T> {
+    |                          ^^^^^^^^
+    = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:292:5
+    |
+292 |     }
+    |     ^ a postcondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:279:148
+    |
+279 |     #[flux::sig(fn (capacity: usize{capacity < MAXIMUM_ZST_CAPACITY && capacity > 1}, alloc: A) -> VecDeque<T, A>{v: v.head == 0 && v.tail == 0 && capacity <= v.cap})]
+    |                                                                                                                                                    ^^^^^^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:292:5
+    |
+292 |     }
+    |     ^
+    |
+note: related variable `a1` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:285:19
+    |
+285 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:417:9
+    |
+417 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:415:56
+    |
+415 |     #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]
+    |                                                        ^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:417:9
+    |
+417 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a1` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:417:9
+    |
+417 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: assignment might be unsafe
+   --> src/vec_deque.rs:520:9
+    |
+520 |         self.tail = self.wrap_sub(tail, 1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:520:9
+    |
+520 |         self.tail = self.wrap_sub(tail, 1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a2` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:515:12
+    |
+515 |         if self.is_full() {
+    |            ^^^^^^^^^^^^^^
+note: related variable `a0` defined here with originator `FnArg(Some("value"))`
+   --> src/vec_deque.rs:514:34
+    |
+514 |     pub fn push_front(&mut self, value: T) {
+    |                                  ^^^^^
+note: related variable `a4` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:520:21
+    |
+520 |         self.tail = self.wrap_sub(tail, 1);
+    |                     ^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:523:13
+    |
+523 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:523:13
+    |
+523 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a2` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:515:12
+    |
+515 |         if self.is_full() {
+    |            ^^^^^^^^^^^^^^
+note: related variable `a0` defined here with originator `FnArg(Some("value"))`
+   --> src/vec_deque.rs:514:34
+    |
+514 |     pub fn push_front(&mut self, value: T) {
+    |                                  ^^^^^
+note: related variable `a5` defined here with originator `Sub(Call)`
+   --> src/vec_deque.rs:523:13
+    |
+523 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: assignment might be unsafe
+   --> src/vec_deque.rs:546:9
+    |
+546 |         self.head = self.wrap_add(self.head, 1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:546:9
+    |
+546 |         self.head = self.wrap_add(self.head, 1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a2` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:541:12
+    |
+541 |         if self.is_full() {
+    |            ^^^^^^^^^^^^^^
+note: related variable `a0` defined here with originator `FnArg(Some("value"))`
+   --> src/vec_deque.rs:540:33
+    |
+540 |     pub fn push_back(&mut self, value: T) {
+    |                                 ^^^^^
+note: related variable `a4` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:546:21
+    |
+546 |         self.head = self.wrap_add(self.head, 1);
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:547:18
+    |
+547 |         unsafe { self.buffer_write(head, value) }
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:547:18
+    |
+547 |         unsafe { self.buffer_write(head, value) }
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a2` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:541:12
+    |
+541 |         if self.is_full() {
+    |            ^^^^^^^^^^^^^^
+note: related variable `a0` defined here with originator `FnArg(Some("value"))`
+   --> src/vec_deque.rs:540:33
+    |
+540 |     pub fn push_back(&mut self, value: T) {
+    |                                 ^^^^^
+note: related variable `a5` defined here with originator `Sub(Call)`
+   --> src/vec_deque.rs:547:18
+    |
+547 |         unsafe { self.buffer_write(head, value) }
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: type invariant may not hold (when place is folded)
+   --> src/vec_deque.rs:559:9
+    |
+559 |         self.buf.reserve_exact(old_cap, old_cap);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:559:9
+    |
+559 |         self.buf.reserve_exact(old_cap, old_cap);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a1` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:558:23
+    |
+558 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:563:9
+    |
+563 |         assert(new_cap == old_cap * 2);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:598:21
+    |
+598 | #[flux::sig(fn(bool[true]))]
+    |                     ^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:563:9
+    |
+563 |         assert(new_cap == old_cap * 2);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:561:23
+    |
+561 |         let new_cap = self.cap();
+    |                       ^^^^^^^^^^
+note: related variable `a1` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:558:23
+    |
+558 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:565:13
+    |
+565 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:171:75
+    |
+171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && s.tail < v}) ensures self: VecDeque<T, A>)]
+    |                                                                           ^^^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:565:13
+    |
+565 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:561:23
+    |
+561 |         let new_cap = self.cap();
+    |                       ^^^^^^^^^^
+note: related variable `a1` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:558:23
+    |
+558 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:565:13
+    |
+565 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:171:93
+    |
+171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && s.tail < v}) ensures self: VecDeque<T, A>)]
+    |                                                                                             ^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:565:13
+    |
+565 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:561:23
+    |
+561 |         let new_cap = self.cap();
+    |                       ^^^^^^^^^^
+note: related variable `a1` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:558:23
+    |
+558 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+    = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+error[E0999]: type invariant may not hold (when place is folded)
+   --> src/vec_deque.rs:565:13
+    |
+565 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: there is an error with related variables
+   --> src/vec_deque.rs:565:13
+    |
+565 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:561:23
+    |
+561 |         let new_cap = self.cap();
+    |                       ^^^^^^^^^^
+note: related variable `a6` defined here with originator `AssumeEnsures`
+   --> src/vec_deque.rs:565:13
+    |
+565 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+

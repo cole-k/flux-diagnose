@@ -1,0 +1,11 @@
+∀ .  
+  ∀ a0: A::sort ~ FnArg(Some("alloc")) at 265:15: 265:20.  
+    (7 < vec_deque::MAXIMUM_ZST_CAPACITY) ~ Call at 266:9: 266:60
+    true ~ Call at 266:9: 266:60
+    (a0 = a0) ~ Call at 266:9: 266:60
+    ∀ a1: VecDeque ~ CallReturn at 266:9: 266:60.  
+      (a1.0 = 0 ∧ a1.1 = 0 ∧ 7 ≤ a1.2) =>  
+        ∀ a2: T::sort ~ Sub(Ret) at 267:5: 267:6.  
+          $k0(a2) => (a2 = a2) ~ Ret at 267:5: 267:6
+        ∀ a2: A::sort ~ Sub(Ret) at 267:5: 267:6. (a2 = a2) ~ Ret at 267:5: 267:6
+        (a1 = a1) ~ Ret at 267:5: 267:6

@@ -1,0 +1,9 @@
+∀ .  
+  ∀ a0: RawVec ~ Sub(Subtype(Input)) at 522:5: 522:23.  
+    ∀ a1: T::sort ~ Sub(Subtype(Input)) at 522:5: 522:23. (a1 = a1) ~ Subtype(Input) at 522:5: 522:23
+    ∀ a1: A::sort ~ Sub(Subtype(Input)) at 522:5: 522:23. (a1 = a1) ~ Subtype(Input) at 522:5: 522:23
+    (a0 = a0) ~ Subtype(Input) at 522:5: 522:23
+  ∀ a0: RawVec ~ Sub(Subtype(Input)) at 522:5: 522:23.  
+    ∀ a1: T::sort ~ Sub(Subtype(Input)) at 522:5: 522:23. (a1 = a1) ~ Subtype(Input) at 522:5: 522:23
+    ∀ a1: A::sort ~ Sub(Subtype(Input)) at 522:5: 522:23. (a1 = a1) ~ Subtype(Input) at 522:5: 522:23
+    (a0 = a0) ~ Subtype(Input) at 522:5: 522:23

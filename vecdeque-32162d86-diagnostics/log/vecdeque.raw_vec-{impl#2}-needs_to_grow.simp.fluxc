@@ -1,0 +1,7 @@
+∀ .  
+  ∀ a0: RawVec ~ FnArg(Some("self")) at 385:22: 385:27.  
+    ∀ a1: int ~ FnArg(Some("len")) at 385:29: 385:32.  
+      (a1 ≥ 0) =>  
+        ∀ a2: int ~ FnArg(Some("additional")) at 385:41: 385:51.  
+          (a2 ≥ 0) =>  
+            ∀ a3: T::sort ~ Sub(Call) at 386:22: 386:37. $k0(a3) ~ Call at 386:22: 386:37

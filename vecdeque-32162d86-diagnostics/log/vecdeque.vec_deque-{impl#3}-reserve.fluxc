@@ -1,0 +1,64 @@
+∀ self: loc, s: VecDeque.  
+  ∀ a0: int ~ FnArg(Some("additional")) at 385:31: 385:41.  
+    (a0 ≥ 0) =>  
+      ∀ a1: T::sort ~ Sub(Call) at 386:23: 386:33.  
+        $k0(a1) ~ Call at 386:23: 386:33
+        (a1 = a1) ~ Call at 386:23: 386:33
+      ∀ a1: A::sort ~ Sub(Call) at 386:23: 386:33. (a1 = a1) ~ Call at 386:23: 386:33
+      (s = s) ~ Call at 386:23: 386:33
+      ∀ a1: int ~ CallReturn at 386:23: 386:33.  
+        (a1 = s.2 ∧ pow2(a1) ∧ 1 ≤ a1 ∧ a1 ≥ 0) =>  
+          ∀ a2: T::sort ~ Sub(Call) at 387:24: 387:34.  
+            $k1(a2) ~ Call at 387:24: 387:34
+            (a2 = a2) ~ Call at 387:24: 387:34
+          ∀ a2: A::sort ~ Sub(Call) at 387:24: 387:34. (a2 = a2) ~ Call at 387:24: 387:34
+          (s = s) ~ Call at 387:24: 387:34
+          ∀ a2: int ~ CallReturn at 387:24: 387:34.  
+            (a2 < s.2 ∧ a2 ≥ 0) =>  
+              (a1 = a1) ~ Call at 388:23: 388:66
+              (a2 + 1 = a2 + 1) ~ Call at 388:23: 388:66
+              (a0 = a0) ~ Call at 388:23: 388:66
+              ∀ a3: int ~ CallReturn at 388:23: 388:66.  
+                (a2 + 1 + a0 ≤ a3 ∧ pow2(a3) ∧ (a1 < a3 ⇒ 2 * a1 ≤ a3) ∧ a3 ≥ 0) =>  
+                  ¬(a3 > a1) =>  
+                    ∀ a4: T::sort ~ Sub(Ret) at 399:10: 399:10. (a4 = a4) ~ Ret at 399:10: 399:10
+                    ∀ a4: A::sort ~ Sub(Ret) at 399:10: 399:10. (a4 = a4) ~ Ret at 399:10: 399:10
+                    (s = s) ~ Ret at 399:10: 399:10
+                  (a3 > a1 ∧ s.1 < s.2 ∧ s.1 ≥ 0 ∧ s.0 < s.2 ∧ s.0 ≥ 0 ∧ pow2(s.2) ∧ 1 ≤ s.2) =>  
+                    (a3 - a2 + 1 ≥ 0) ~ Overflow at 394:46: 394:64
+                    ∀ a4: T::sort ~ Sub(Call) at 394:13: 394:65.  
+                      $k2(a4) ~ Call at 394:13: 394:65
+                      (a4 = a4) ~ Call at 394:13: 394:65
+                    ∀ a4: A::sort ~ Sub(Call) at 394:13: 394:65. (a4 = a4) ~ Call at 394:13: 394:65
+                    (s.2 = RawVec { s.2 }.0) ~ Call at 394:13: 394:65
+                    (a2 + 1 = a2 + 1) ~ Call at 394:13: 394:65
+                    (a3 - a2 + 1 = a3 - a2 + 1) ~ Call at 394:13: 394:65
+                    (s.1 < a2 + 1 + a3 - a2 + 1) ~ Fold at 397:17: 397:21
+                    (s.1 = s.1) ~ Fold at 397:17: 397:21
+                    (s.0 < a2 + 1 + a3 - a2 + 1) ~ Fold at 397:17: 397:21
+                    (s.0 = s.0) ~ Fold at 397:17: 397:21
+                    (pow2(a2 + 1 + a3 - a2 + 1) ∧ 1 ≤ a2 + 1 + a3 - a2 + 1) ~ Fold at 397:17: 397:21
+                    ∀ a4: T::sort ~ Sub(Fold) at 397:17: 397:21.  
+                      $k2(a4) =>  
+                        $k3(a4) ~ Fold at 397:17: 397:21
+                        (a4 = a4) ~ Fold at 397:17: 397:21
+                    ∀ a4: A::sort ~ Sub(Fold) at 397:17: 397:21.  
+                      $k4(a4) ~ Fold at 397:17: 397:21
+                      (a4 = a4) ~ Fold at 397:17: 397:21
+                    (a2 + 1 + a3 - a2 + 1 = a2 + 1 + a3 - a2 + 1) ~ Fold at 397:17: 397:21
+                    ∀ a4: T::sort ~ Sub(Call) at 397:17: 397:55.  
+                      $k3(a4) =>  
+                        $k5(a4) ~ Call at 397:17: 397:55
+                        (a4 = a4) ~ Call at 397:17: 397:55
+                    ∀ a4: A::sort ~ Sub(Call) at 397:17: 397:55.  
+                      $k4(a4) => (a4 = a4) ~ Call at 397:17: 397:55
+                    (s.0 = VecDeque { s.0, s.1, a2 + 1 + a3 - a2 + 1 }.0) ~ Call at 397:17: 397:55
+                    (s.1 = VecDeque { s.0, s.1, a2 + 1 + a3 - a2 + 1 }.1) ~ Call at 397:17: 397:55
+                    (a2 + 1 + a3 - a2 + 1 = VecDeque { s.0, s.1, a2 + 1 + a3 - a2 + 1 }.2) ~ Call at 397:17: 397:55
+                    (a1 * 2 ≤ VecDeque { s.0, s.1, a2 + 1 + a3 - a2 + 1 }.2 ∧ VecDeque { s.0, s.1, a2 + 1 + a3 - a2 + 1 }.1 < a1) ~ Call at 397:17: 397:55
+                    (a1 = a1) ~ Call at 397:17: 397:55
+                    ∀ a4: VecDeque ~ AssumeEnsures at 397:17: 397:55.  
+                      ∀ a5: T::sort ~ Sub(Ret) at 396:13: 398:14.  
+                        $k5(a5) => (a5 = a5) ~ Ret at 396:13: 398:14
+                      ∀ a5: A::sort ~ Sub(Ret) at 396:13: 398:14. (a5 = a5) ~ Ret at 396:13: 398:14
+                      (a4 = a4) ~ Ret at 396:13: 398:14
