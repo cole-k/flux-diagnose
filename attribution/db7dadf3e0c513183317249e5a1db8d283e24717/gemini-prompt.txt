@@ -1,0 +1,79 @@
+flux-diagnose.py is a tool for generating human evaluations of error messages
+from our tool flux.
+
+I have updated the way that error messages are generated.
+
+The most salient part is that every error has two separate messages associated
+with it. This is a hack, but I can't easily fix it.
+
+Let me show you an example error message.
+
+```
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:619:5
+    |
+619 |     arg
+    |     ^^^ a postcondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:617:41
+    |
+617 | #[flux::sig(fn(test: usize) -> usize{v: v >= 1})]
+    |                                         ^^^^^^
+
+error[E0999]: failed to verfy predicate: "a0 ≥ 1"
+              blamed variable: "Some(a0)"
+              related variables: [{"name": "a0", "depth": 0, "origin": "FnArg(Some(\"arg\"))"}]
+   --> src/vec_deque.rs:619:5
+    |
+619 |     arg
+    |     ^^^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"arg\"))`
+   --> src/vec_deque.rs:618:9
+    |
+618 | fn test(arg: usize) -> usize {
+    |         ^^^
+```
+
+These are the two JSON objects associated with it (note that they aren't in a
+list, just separated by newlines). I have trimmed the unrelated
+compiler outputs (you can refer to how flux-diagnose.py ignores them).
+
+```
+{"reason":"compiler-message","package_id":"path+file:///Users/cole/git/flux-examples/kani-vecdeque#vecdeque@0.1.0","manifest_path":"/Users/cole/git/flux-examples/kani-vecdeque/Cargo.toml","target":{"kind":["dylib","rlib"],"crate_types":["dylib","rlib"],"name":"vecdeque","src_path":"/Users/cole/git/flux-examples/kani-vecdeque/src/lib.rs","edition":"2021","doc":true,"doctest":true,"test":true},"message":{"rendered":"error[E0999]: refinement type error\n   --> src/vec_deque.rs:619:5\n    |\n619 |     arg\n    |     ^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:617:41\n    |\n617 | #[flux::sig(fn(test: usize) -> usize{v: v >= 1})]\n    |                                         ^^^^^^\n\n","$message_type":"diagnostic","children":[{"children":[],"code":null,"level":"note","message":"this is the condition that cannot be proved","rendered":null,"spans":[{"byte_end":19378,"byte_start":19372,"column_end":47,"column_start":41,"expansion":null,"file_name":"src/vec_deque.rs","is_primary":true,"label":null,"line_end":617,"line_start":617,"suggested_replacement":null,"suggestion_applicability":null,"text":[{"highlight_end":47,"highlight_start":41,"text":"#[flux::sig(fn(test: usize) -> usize{v: v >= 1})]"}]}]}],"code":{"code":"E0999","explanation":null},"level":"error","message":"refinement type error","spans":[{"byte_end":19420,"byte_start":19417,"column_end":8,"column_start":5,"expansion":null,"file_name":"src/vec_deque.rs","is_primary":true,"label":"a postcondition cannot be proved","line_end":619,"line_start":619,"suggested_replacement":null,"suggestion_applicability":null,"text":[{"highlight_end":8,"highlight_start":5,"text":"    arg"}]}]}}
+{"reason":"compiler-message","package_id":"path+file:///Users/cole/git/flux-examples/kani-vecdeque#vecdeque@0.1.0","manifest_path":"/Users/cole/git/flux-examples/kani-vecdeque/Cargo.toml","target":{"kind":["dylib","rlib"],"crate_types":["dylib","rlib"],"name":"vecdeque","src_path":"/Users/cole/git/flux-examples/kani-vecdeque/src/lib.rs","edition":"2021","doc":true,"doctest":true,"test":true},"message":{"rendered":"error[E0999]: failed to verfy predicate: \"a0 ≥ 1\"\n              blamed variable: \"Some(a0)\"\n              related variables: [{\"name\": \"a0\", \"depth\": 0, \"origin\": \"FnArg(Some(\"arg\"))\"}]\n   --> src/vec_deque.rs:619:5\n    |\n619 |     arg\n    |     ^^^\n    |\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"arg\"))`\n   --> src/vec_deque.rs:618:9\n    |\n618 | fn test(arg: usize) -> usize {\n    |         ^^^\n\n","$message_type":"diagnostic","children":[{"children":[],"code":null,"level":"note","message":"related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"arg\"))`","rendered":null,"spans":[{"byte_end":19393,"byte_start":19390,"column_end":12,"column_start":9,"expansion":null,"file_name":"src/vec_deque.rs","is_primary":true,"label":null,"line_end":618,"line_start":618,"suggested_replacement":null,"suggestion_applicability":null,"text":[{"highlight_end":12,"highlight_start":9,"text":"fn test(arg: usize) -> usize {"}]}]}],"code":{"code":"E0999","explanation":null},"level":"error","message":"failed to verfy predicate: \"a0 ≥ 1\"\nblamed variable: \"Some(a0)\"\nrelated variables: [{\"name\": \"a0\", \"depth\": 0, \"origin\": \"FnArg(Some(\"arg\"))\"}]","spans":[{"byte_end":19420,"byte_start":19417,"column_end":8,"column_start":5,"expansion":null,"file_name":"src/vec_deque.rs","is_primary":true,"label":null,"line_end":619,"line_start":619,"suggested_replacement":null,"suggestion_applicability":null,"text":[{"highlight_end":8,"highlight_start":5,"text":"    arg"}]}]}}
+```
+
+---
+
+I want you to write a new diagnostic tool flux-diagnose-new-errors.py, using
+flux-diagnose.py as inspiration (rewriting or fixing parts that are poorly
+written or buggy), to satisfy the following constraints:
+
+1. Handle the new way of emitting error messages. This means that you should
+treat the first error message the same way flux-diagnose.py was treating it and
+collect new information from the second error message. All that you need to take
+from it is in the message itself: the "failed to verify predicate" (formatted as a string), the "blamed
+variable" (formatted as a string), and the "related variables" (formatted as a
+list of JSON objects with the keys "name", "depth", and "origin"). You can
+ignore the rest, they're just formatting. Also don't worry about character
+escaping in any of these. I fixed some bugs but the original messages many not
+escape strings properly.
+
+2. Change the data we collect from the user. I _only_ want to know the following
+from the user: [a] Whether the blamed variable is correct (boolean) [b] Which related variable(s) need to be changed to fix the
+program (selection from a list) [c] Whether anything is missing (boolean) and if
+so, what (string) [d] What the fix is (string) [e] Additional notes (string)
+
+3. Still collect the constraints as before.
+
+4. Include code in flux-diagnose-new-errors.py that replicates the functionality
+of make-summary.py. I only had make-summary.py be separate because I had already
+run the tool once.
+
+Make your best attempt at creating flux-diagnose-new-errors.py if anything is
+unclear, but document your assumptions in a manner that will allow us to revisit
+and fix or clarify them. Give me just the code for flux-diagnose-new-errors.py
+and a summary of anything unclear in my instructions along with your
+assumptions.

@@ -21,3 +21,4 @@ Runs Flux on a project and interactively prompts the user to identify where the 
 # Notes
 
 Written at least partially using GPT-4o-mini.
+Rewritten using gemini-2.5-pro (see attribution folder).
