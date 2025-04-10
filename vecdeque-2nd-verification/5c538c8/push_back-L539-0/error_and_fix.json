@@ -1,0 +1,59 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:539:18\n    |\n539 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a5 = a3\"\n              blamed variable: \"Some(a5)\"\n              related variables: [{\"name\": \"a5\", \"depth\": 5, \"origin\": \"(Sub(Call), Some(src/vec_deque.rs:539:18: 539:48 (#0)))\"}, {\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:539:18\n    |\n539 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a5 (depth 5)` defined here with originator `Sub(Call)`\n   --> src/vec_deque.rs:539:18\n    |\n539 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 539,
+    "col": 18,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:539:18\n    |\n539 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a5 = a3\"\n              blamed variable: \"Some(a5)\"\n              related variables: [{\"name\": \"a5\", \"depth\": 5, \"origin\": \"(Sub(Call), Some(src/vec_deque.rs:539:18: 539:48 (#0)))\"}, {\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:539:18\n    |\n539 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a5 (depth 5)` defined here with originator `Sub(Call)`\n   --> src/vec_deque.rs:539:18\n    |\n539 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a5 = a3",
+    "blamed_variable": "Some(a5)",
+    "related_variables": [
+      {
+        "name": "a5",
+        "depth": 5,
+        "origin": "(Sub(Call), Some(src/vec_deque.rs:539:18: 539:48 (#0)))"
+      },
+      {
+        "name": "a3",
+        "depth": 3,
+        "origin": "No provenance"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 531,
+      "end": 540,
+      "name": "push_back",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:531-540):\nFunction name: push_back\n---------------------------------------------------------------------------------------------\n 531:            //#[stable(feature = \"rust1\", since = \"1.0.0\")]\n 532:            pub fn push_back(&mut self, value: T) {\n 533:                if self.is_full() {\n 534:                    self.grow();\n 535:                }\n 536:        \n 537:                let head = self.head;\n 538:                self.head = self.wrap_add(self.head, 1);\n 539: error>         unsafe { self.buffer_write(head, value) }\n 540:            }\n"
+    },
+    "unique_name": "push_back-L539-0"
+  },
+  "fix": {
+    "certainty": false,
+    "err_type": "2a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "I think it's because self.wrap_add isn't refined"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": false,
+    "variables_to_change": [
+      {
+        "name": "a5",
+        "depth": 5,
+        "origin": "(Sub(Call), Some(src/vec_deque.rs:539:18: 539:48 (#0)))"
+      },
+      {
+        "name": "a3",
+        "depth": 3,
+        "origin": "No provenance"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

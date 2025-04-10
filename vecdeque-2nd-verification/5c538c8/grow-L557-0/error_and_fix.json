@@ -1,0 +1,48 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:557:13\n    |\n557 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a6 = a2\"\n              blamed variable: \"Some(a6)\"\n              related variables: [{\"name\": \"a6\", \"depth\": 5, \"origin\": \"(Sub(Call), Some(src/vec_deque.rs:557:13: 557:51 (#0)))\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:557:13\n    |\n557 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a6 (depth 5)` defined here with originator `Sub(Call)`\n   --> src/vec_deque.rs:557:13\n    |\n557 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 557,
+    "col": 13,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:557:13\n    |\n557 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a6 = a2\"\n              blamed variable: \"Some(a6)\"\n              related variables: [{\"name\": \"a6\", \"depth\": 5, \"origin\": \"(Sub(Call), Some(src/vec_deque.rs:557:13: 557:51 (#0)))\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:557:13\n    |\n557 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a6 (depth 5)` defined here with originator `Sub(Call)`\n   --> src/vec_deque.rs:557:13\n    |\n557 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a6 = a2",
+    "blamed_variable": "Some(a6)",
+    "related_variables": [
+      {
+        "name": "a6",
+        "depth": 5,
+        "origin": "(Sub(Call), Some(src/vec_deque.rs:557:13: 557:51 (#0)))"
+      },
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "No provenance"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 545,
+      "end": 560,
+      "name": "grow",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:545-560):\nFunction name: grow\n---------------------------------------------------------------------------------------------\n 545:            #[inline(never)]\n 546:            fn grow(&mut self) {\n 547:                // Extend or possibly remove this assertion when valid use-cases for growing the\n 548:                // buffer without it being full emerge\n 549:                debug_assert!(self.is_full());\n 550:                let old_cap = self.cap();\n 551:                self.buf.reserve_exact(old_cap, old_cap);\n 552:                let _ = lem_power_two(old_cap);\n 553:                let new_cap = self.cap();\n 554:                // TODO: Uncomment\n 555:                // assert(new_cap == old_cap * 2);\n 556:                unsafe {\n 557: error>             self.handle_capacity_increase(old_cap);\n 558:                }\n 559:                debug_assert!(!self.is_full());\n 560:            }\n"
+    },
+    "unique_name": "grow-L557-0"
+  },
+  "fix": {
+    "certainty": false,
+    "err_type": "2a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "I think it's because self.cap() is unrefined"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": false,
+    "variables_to_change": [],
+    "anything_missing": true,
+    "missing_info": "self.cap()?",
+    "additional_notes": null
+  }
+}

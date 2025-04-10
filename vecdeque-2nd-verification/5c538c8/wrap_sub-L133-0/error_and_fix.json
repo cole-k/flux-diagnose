@@ -1,0 +1,32 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:133:9\n    |\n133 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:30:40\n    |\n30  | #[flux::alias(type Size = usize{v: pow2(v) && 1<=v })]\n    |                                        ^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"pow2(a4)\"\n              blamed variable: \"Some(a4)\"\n              related variables: [{\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:133:50: 133:60 (#0)))\"}]\n   --> src/vec_deque.rs:133:9\n    |\n133 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:133:50\n    |\n133 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |                                                  ^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 133,
+    "col": 9,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:133:9\n    |\n133 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:30:40\n    |\n30  | #[flux::alias(type Size = usize{v: pow2(v) && 1<=v })]\n    |                                        ^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"pow2(a4)\"\n              blamed variable: \"Some(a4)\"\n              related variables: [{\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:133:50: 133:60 (#0)))\"}]\n   --> src/vec_deque.rs:133:9\n    |\n133 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:133:50\n    |\n133 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |                                                  ^^^^^^^^^^\n\n",
+    "predicate": "pow2(a4)",
+    "blamed_variable": "Some(a4)",
+    "related_variables": [
+      {
+        "name": "a4",
+        "depth": 4,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:133:50: 133:60 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 131,
+      "end": 134,
+      "name": "wrap_sub",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:131-134):\nFunction name: wrap_sub\n---------------------------------------------------------------------------------------------\n 131:            #[inline]\n 132:            fn wrap_sub(&self, idx: usize, subtrahend: usize) -> usize {\n 133: error>         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n 134:            }\n"
+    },
+    "unique_name": "wrap_sub-L133-0"
+  },
+  "fix": {
+    "seen_before": true
+  }
+}

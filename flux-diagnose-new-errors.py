@@ -306,75 +306,69 @@ def extract_function_context(file_path_str, error_line, log_directory, output_di
     metadata_start = None
     function_name = None
 
-    # Go backwards to find the function definition
-    start_search_line = min(error_line - 1, len(lines) - 1) # Ensure index is valid
-    for i in range(start_search_line, -1, -1):
+    # Define the regex pattern to find Rust function definitions and capture the name
+    # ^                 - Start of the string (line)
+    # \s*               - Optional leading whitespace (though strip() mostly handles this)
+    # (?:pub\s+)?       - Optional non-capturing group for "pub " followed by whitespace
+    # (?:unsafe\s+)?    - Optional non-capturing group for "unsafe " followed by whitespace
+    # fn\s+             - The literal "fn" followed by one or more whitespace characters
+    # ([a-zA-Z_][a-zA-Z0-9_]*) - Capturing group 1: the function name
+    #                           (starts with letter/underscore, followed by alphanumeric/underscore)
+    #                           This pattern implicitly stops before '<' or '('
+    FUNC_DEF_PATTERN = re.compile(r"^\s*(?:pub\s+)?(?:unsafe\s+)?fn\s+([a-zA-Z_][a-zA-Z0-9_]*)")
+    
+    # Go backwards from the line before the error to find the function definition
+    for i in range(error_line - 1, -1, -1):
+        # Strip leading/trailing whitespace just in case
         line = lines[i].strip()
-        # Basic function detection - might need refinement for complex cases (macros, traits)
-        if line.startswith("fn ") or line.startswith("pub fn "):
-            function_start = i + 1  # Store the line number (1-based)
-            try:
-                # Attempt to extract name robustly (handles generics, etc.)
-                sig_part = line.split("fn")[1].lstrip()
-                function_name = sig_part.split('(')[0].split('<')[0].strip() # Get name before '(' or '<'
-            except IndexError:
-                function_name = "parse_error_fn_name"
+    
+        # Try to match the function definition pattern at the beginning of the line
+        match = FUNC_DEF_PATTERN.match(line)
+    
+        if match:
+            function_start = i + 1      # Store the line number (1-based)
+            function_name = match.group(1) # Extract the captured function name (Group 1)
+            break # Found the function definition, no need to search further back
+    
+    metadata_start = function_start
+    for i in range(function_start - 1, -1, -1):
+        line = lines[i].lstrip()
+        if line.startswith("#") or line.startswith("//") or not line:
+            metadata_start = i + 1  # Update metadata start line
             break
 
+    # If we found the function start, now find the end
     if function_start is not None:
-        # Look for annotations immediately preceding the function
-        metadata_start = function_start
-        # Go back further to capture attributes/docs starting with # or //
-        for i in range(function_start - 2, -1, -1):
-            line = lines[i].lstrip()
-            if line.startswith("#") or line.startswith("//") or not line.strip():
-                metadata_start = i + 1  # Update metadata start line
-            else:
-                # Stop if we hit code that's not an attribute/comment/blank
-                 break # Corrected: was break inside the 'if' block before
-
-        # Find function end by brace matching
         brace_count = 0
-        in_block = False
         for i in range(function_start - 1, len(lines)):
             line = lines[i]
-            if '{' in line:
-                in_block = True
-                brace_count += line.count('{')
-            if '}' in line:
-                brace_count -= line.count('}')
-
-            if in_block and brace_count == 0:
+            brace_count += line.count('{')
+            brace_count -= line.count('}')
+            if brace_count == 0:
                 function_end = i + 1  # Store the line number (1-based)
                 break
-        # If braces didn't close by end of file, estimate end
-        if function_end is None and function_start is not None:
-             function_end = len(lines)
 
     # Find constraint files in the log directory
     destination_log_dir = output_directory / "all_constraints"
-    os.makedirs(destination_log_dir, exist_ok=True)
+    os.makedirs(destination_log_dir, exist_ok=True)  # Create the log directory if it doesn't exist
     constraint_files = []
-    if function_name and log_directory.exists():
-        # Be specific about file naming: func_name.whatever.log / func_name.whatever.smt2 etc
-        # Allows for things like func_name.checks.log, func_name.qualifiers.smt2
-        pattern = f"{function_name}.*.*"
-        for item in log_directory.glob(pattern):
-             if item.is_file():
-                 # Copy the file to the output directory
-                 destination_path = destination_log_dir / item.name
-                 try:
-                     shutil.copy(item, destination_path)
-                     constraint_files.append(str(destination_path.resolve()))
-                 except Exception as e:
-                      print(f"Warning: Could not copy constraint file {item} to {destination_path}: {e}", file=sys.stderr)
-
+    if function_name:
+        for root, dirs, files in os.walk(log_directory):
+            for file in files:
+                if (function_name + "." in file):
+                    # Copy the file to the output directory
+                    source_path = Path(root) / file
+                    destination_path = destination_log_dir / file
+                    shutil.copy(source_path, destination_path)  # Copy the file
+                    constraint_files.append(destination_path)  # Add the new path to the list
+                    # print(f"Copied {source_path} to {destination_path}")
 
     return {
         "start": metadata_start if metadata_start else function_start,
         "end": function_end,
         "name": function_name,
-        "constraint_files": constraint_files # Keep as resolved strings
+        # Convert constraint files to strings for rendering. If we need the actual paths, we can fix this later.
+        "constraint_files": [str(file) for file in constraint_files]
     }
 
 def render_function_context(error):
@@ -458,6 +452,36 @@ def gather_fix_info_from_user(error):
     if seen_before:
         return { "seen_before": True }
 
+    certainty = input(" Do you know for sure where the error is? (y/n): ").strip().lower().startswith("y")
+
+    err_type = ''
+    while err_type not in ['1a', '1b', '2a', '2b']:
+	    err_type = input(" What kind of type failure is this?\n  1: postcondition failed for outer function\n  2: precondition on a function call fails\n\n  a: because some other function needs postcondition \n  b: because outer function needs precondition\n")
+
+    problem_choice = input(" What is the problem? (1: Code is wrong, 2: Refinement not specific enough, 3: Incorrect refinement, 4: Other): ")
+
+    fix_description = {}
+    if problem_choice == '1':
+        fix_description = {
+            "fix_type": "code_change",
+            "description": input(" Please describe the fix: ")
+        }
+    elif problem_choice == '2':
+        fix_description = {
+            "fix_type": "additional_refinement",
+            "description": input(" Please describe the additional refinement needed: ")
+        }
+    elif problem_choice == '3':
+        fix_description = {
+            "fix_type": "new_refinement",
+            "description": input(" Please describe the correct refinement: ")
+        }
+    elif problem_choice == '4':
+        fix_description = {
+            "fix_type": "other",
+            "description": input(" Please describe the issue: ")
+        }
+
     # [a] Blamed variable correct?
     blamed_var = error.get("blamed_variable", "N/A")
     blamed_correct_input = input(f" [a] Is the blamed variable '{blamed_var}' correct? (y/n): ").strip().lower()
@@ -507,9 +531,6 @@ def gather_fix_info_from_user(error):
     if anything_missing:
         missing_info = input("     What is missing? ").strip()
 
-    # [d] What is the fix?
-    fix_description = input("\n [d] Please describe the fix needed (code or refinement changes): ").strip()
-
     # [e] Additional notes
     additional_notes = input("\n [e] Any additional notes? (Optional): ").strip()
 
@@ -517,12 +538,14 @@ def gather_fix_info_from_user(error):
 
     # Record the information
     fix_info = {
+        "certainty": certainty,
+        "err_type": err_type,
+        "fix_description": fix_description,
         "seen_before": False,
         "blamed_variable_correct": blamed_variable_correct,
         "variables_to_change": variables_to_change, # List of variable dicts
         "anything_missing": anything_missing,
         "missing_info": missing_info if anything_missing else None,
-        "fix_description": fix_description,
         "additional_notes": additional_notes if additional_notes else None,
     }
 
@@ -788,6 +811,7 @@ def generate_summary(output_directory, flux_run_dir=None):
                     f.write(f" Anything Missing:    {fix_info.get('anything_missing', 'N/A')}\n")
                     if fix_info.get('anything_missing'):
                         f.write(f"  -> Missing Info: {fix_info.get('missing_info', 'N/A')}\n")
+                    f.write(f" Certainty:   {fix_info.get('certainty', 'N/A')}\n")
                     f.write(f" Fix Description:   {fix_info.get('fix_description', 'N/A')}\n")
                     f.write(f" Additional Notes:  {fix_info.get('additional_notes', 'N/A')}\n")
                     f.write("\n")

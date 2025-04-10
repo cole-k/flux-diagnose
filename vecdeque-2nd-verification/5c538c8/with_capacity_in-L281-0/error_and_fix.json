@@ -1,0 +1,49 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:281:9\n    |\n281 | /         VecDeque {\n282 | |             tail: 0,\n283 | |             head: 0,\n284 | |             buf: RawVec::with_capacity_in(cap, alloc),\n285 | |         }\n    | |_________^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:73:35\n    |\n73  |     #[flux::field({ usize[tail] | tail < cap })]\n    |                                   ^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"0 < a2\"\n              blamed variable: \"Some(a2)\"\n              related variables: [{\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0)))\"}]\n   --> src/vec_deque.rs:281:9\n    |\n281 | /         VecDeque {\n282 | |             tail: 0,\n283 | |             head: 0,\n284 | |             buf: RawVec::with_capacity_in(cap, alloc),\n285 | |         }\n    | |_________^\n    |\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:279:19\n    |\n279 |         let cap = real_capacity(capacity);\n    |                   ^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 281,
+    "col": 9,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:281:9\n    |\n281 | /         VecDeque {\n282 | |             tail: 0,\n283 | |             head: 0,\n284 | |             buf: RawVec::with_capacity_in(cap, alloc),\n285 | |         }\n    | |_________^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:73:35\n    |\n73  |     #[flux::field({ usize[tail] | tail < cap })]\n    |                                   ^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"0 < a2\"\n              blamed variable: \"Some(a2)\"\n              related variables: [{\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0)))\"}]\n   --> src/vec_deque.rs:281:9\n    |\n281 | /         VecDeque {\n282 | |             tail: 0,\n283 | |             head: 0,\n284 | |             buf: RawVec::with_capacity_in(cap, alloc),\n285 | |         }\n    | |_________^\n    |\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:279:19\n    |\n279 |         let cap = real_capacity(capacity);\n    |                   ^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "0 < a2",
+    "blamed_variable": "Some(a2)",
+    "related_variables": [
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 273,
+      "end": 286,
+      "name": "with_capacity_in",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:273-286):\nFunction name: with_capacity_in\n---------------------------------------------------------------------------------------------\n 273:            //#[unstable(feature = \"allocator_api\", issue = \"32838\")]\n 274:            fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {\n 275:                // FLUX-TODO: same as MAXIMUM_ZST_CAPACITY?: assert!(capacity < 1_usize << usize::BITS - 1, \"capacity overflow\");\n 276:                // TODO: Uncomment\n 277:                // assert(capacity < MAXIMUM_ZST_CAPACITY);\n 278:                // +1 since the ringbuffer always leaves one space empty\n 279:                let cap = real_capacity(capacity);\n 280:        \n 281: error>         VecDeque {\n 282:                    tail: 0,\n 283:                    head: 0,\n 284:                    buf: RawVec::with_capacity_in(cap, alloc),\n 285:                }\n 286:            }\n"
+    },
+    "unique_name": "with_capacity_in-L281-0"
+  },
+  "fix": {
+    "certainty": true,
+    "err_type": "1a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "real_capacity needs output to be >= input cap"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": true,
+    "variables_to_change": [
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0)))"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

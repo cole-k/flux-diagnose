@@ -1,0 +1,2623 @@
+Flux Error Diagnostics Summary
+Generated from: /home/cole/research/flux-diagnose/vecdeque-2nd-verification
+Total errors summarized: 49
+================================================================================
+
+--- Commit: 5c538c8 (24 errors) ---
+--------------------------------------------------------------------------------
+
+Error: wrap_add-L126-1
+~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:126
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:126:9
+    |
+126 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:30:47
+    |
+30  | #[flux::alias(type Size = usize{v: pow2(v) && 1<=v })]
+    |                                               ^^^^
+
+error[E0999]: failed to verify predicate: "1 ≤ a4"
+              blamed variable: "Some(a4)"
+              related variables: [{"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:126:46: 126:56 (#0)))"}]
+   --> src/vec_deque.rs:126:9
+    |
+126 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:126:46
+    |
+126 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |                                              ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         1 ≤ a4
+ Blamed Variable:   Some(a4)
+ Related Variables:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:126:46: 126:56 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:126:46: 126:56 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'cap needs 1 >= on output'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: len-L409-0
+~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:409
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:409:9
+    |
+409 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:30:40
+    |
+30  | #[flux::alias(type Size = usize{v: pow2(v) && 1<=v })]
+    |                                        ^^^
+
+error[E0999]: failed to verify predicate: "pow2(a1)"
+              blamed variable: "Some(a1)"
+              related variables: [{"name": "a1", "depth": 1, "origin": "(CallReturn, Some(src/vec_deque.rs:409:37: 409:47 (#0)))"}]
+   --> src/vec_deque.rs:409:9
+    |
+409 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a1 (depth 1)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:409:37
+    |
+409 |         count(self.tail, self.head, self.cap())
+    |                                     ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         pow2(a1)
+ Blamed Variable:   Some(a1)
+ Related Variables:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:409:37: 409:47 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:409:37: 409:47 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'self.cap() needs pow2 on output'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: reserve-L387-1
+~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:387
+
+= Messages =
+error[E0999]: type invariant may not hold (when place is folded)
+   --> src/vec_deque.rs:387:13
+    |
+387 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a4 + 1 + a5 - a4 + 1 = a6.2"
+              blamed variable: "Some(a6)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:379:23: 379:33 (#0)))"}, {"name": "a6", "depth": 6, "origin": "No provenance"}, {"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:380:24: 380:34 (#0)))"}, {"name": "a5", "depth": 5, "origin": "(CallReturn, Some(src/vec_deque.rs:381:23: 381:66 (#0)))"}]
+   --> src/vec_deque.rs:387:13
+    |
+387 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:379:23
+    |
+379 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:380:24
+    |
+380 |         let used_cap = self.len() + 1;
+    |                        ^^^^^^^^^^
+note: related variable `a5 (depth 5)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:381:23
+    |
+381 |         let new_cap = new_capacity(old_cap, used_cap, additional);
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a4 + 1 + a5 - a4 + 1 = a6.2
+ Blamed Variable:   Some(a6)
+ Related Variables:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:379:23: 379:33 (#0))))
+  - a6 (depth 6, origin: No provenance)
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:380:24: 380:34 (#0))))
+  - a5 (depth 5, origin: (CallReturn, Some(src/vec_deque.rs:381:23: 381:66 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:379:23: 379:33 (#0))))
+  - a6 (depth 6, origin: No provenance)
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:380:24: 380:34 (#0))))
+  - a5 (depth 5, origin: (CallReturn, Some(src/vec_deque.rs:381:23: 381:66 (#0))))
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'several functions (cap, len, new_capacity) need refinement'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: handle_capacity_increase-L193-0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:193
+
+= Messages =
+error[E0999]: assignment might be unsafe
+   --> src/vec_deque.rs:193:13
+    |
+193 |             self.head += old_capacity;
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a3.0 + a0 = a3.0"
+              blamed variable: "Some(a3)"
+              related variables: [{"name": "a3", "depth": 3, "origin": "No provenance"}, {"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}]
+   --> src/vec_deque.rs:193:13
+    |
+193 |             self.head += old_capacity;
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a3.0 + a0 = a3.0
+ Blamed Variable:   Some(a3)
+ Related Variables:
+  - a3 (depth 3, origin: No provenance)
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a3 (depth 3, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'old_capacity needs to relate to self.cap()'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: with_capacity_in-L281-1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:281
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:281:9
+    |
+281 | /         VecDeque {
+282 | |             tail: 0,
+283 | |             head: 0,
+284 | |             buf: RawVec::with_capacity_in(cap, alloc),
+285 | |         }
+    | |_________^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:75:35
+    |
+75  |     #[flux::field({ usize[head] | head < cap })]
+    |                                   ^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "0 < a2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0)))"}]
+   --> src/vec_deque.rs:281:9
+    |
+281 | /         VecDeque {
+282 | |             tail: 0,
+283 | |             head: 0,
+284 | |             buf: RawVec::with_capacity_in(cap, alloc),
+285 | |         }
+    | |_________^
+    |
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:279:19
+    |
+279 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+    = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+
+= Extracted Details =
+ Predicate:         0 < a2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'real_capacity needs output to be >= input cap'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: reserve-L390-0
+~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:390
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:390:17
+    |
+390 |                 self.handle_capacity_increase(old_cap);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+
+error[E0999]: failed to verify predicate: "a8 = a6"
+              blamed variable: "Some(a8)"
+              related variables: [{"name": "a8", "depth": 7, "origin": "(Sub(Call), Some(src/vec_deque.rs:390:17: 390:55 (#0)))"}, {"name": "a6", "depth": 6, "origin": "No provenance"}]
+   --> src/vec_deque.rs:390:17
+    |
+390 |                 self.handle_capacity_increase(old_cap);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a8 (depth 7)` defined here with originator `Sub(Call)`
+   --> src/vec_deque.rs:390:17
+    |
+390 |                 self.handle_capacity_increase(old_cap);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a8 = a6
+ Blamed Variable:   Some(a8)
+ Related Variables:
+  - a8 (depth 7, origin: (Sub(Call), Some(src/vec_deque.rs:390:17: 390:55 (#0))))
+  - a6 (depth 6, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a8 (depth 7, origin: (Sub(Call), Some(src/vec_deque.rs:390:17: 390:55 (#0))))
+  - a6 (depth 6, origin: No provenance)
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'old_cap needs to have a refinement, probably from self.cap()'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: push_front-L515-0
+~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:515
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:515:13
+    |
+515 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+
+error[E0999]: failed to verify predicate: "a5 = a3"
+              blamed variable: "Some(a5)"
+              related variables: [{"name": "a5", "depth": 5, "origin": "(Sub(Call), Some(src/vec_deque.rs:515:13: 515:43 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}]
+   --> src/vec_deque.rs:515:13
+    |
+515 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a5 (depth 5)` defined here with originator `Sub(Call)`
+   --> src/vec_deque.rs:515:13
+    |
+515 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a5 = a3
+ Blamed Variable:   Some(a5)
+ Related Variables:
+  - a5 (depth 5, origin: (Sub(Call), Some(src/vec_deque.rs:515:13: 515:43 (#0))))
+  - a3 (depth 3, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a5 (depth 5, origin: (Sub(Call), Some(src/vec_deque.rs:515:13: 515:43 (#0))))
+  - a3 (depth 3, origin: No provenance)
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': "self.wrap_sub doesn't admit any refinement information?"}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: handle_capacity_increase-L202-0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:202
+
+= Messages =
+error[E0999]: assignment might be unsafe
+   --> src/vec_deque.rs:202:13
+    |
+202 |             self.tail = new_tail;
+    |             ^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a2 - a0 - a3.1 = a3.1"
+              blamed variable: "Some(a3)"
+              related variables: [{"name": "a3", "depth": 3, "origin": "No provenance"}, {"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}, {"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:168:28: 168:38 (#0)))"}]
+   --> src/vec_deque.rs:202:13
+    |
+202 |             self.tail = new_tail;
+    |             ^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:168:28
+    |
+168 |         let new_capacity = self.cap();
+    |                            ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a2 - a0 - a3.1 = a3.1
+ Blamed Variable:   Some(a3)
+ Related Variables:
+  - a3 (depth 3, origin: No provenance)
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a3 (depth 3, origin: No provenance)
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:168:28: 168:38 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'old_capacity needs to relate to self.cap()'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: with_capacity_in-L281-0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:281
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:281:9
+    |
+281 | /         VecDeque {
+282 | |             tail: 0,
+283 | |             head: 0,
+284 | |             buf: RawVec::with_capacity_in(cap, alloc),
+285 | |         }
+    | |_________^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:73:35
+    |
+73  |     #[flux::field({ usize[tail] | tail < cap })]
+    |                                   ^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "0 < a2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0)))"}]
+   --> src/vec_deque.rs:281:9
+    |
+281 | /         VecDeque {
+282 | |             tail: 0,
+283 | |             head: 0,
+284 | |             buf: RawVec::with_capacity_in(cap, alloc),
+285 | |         }
+    | |_________^
+    |
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:279:19
+    |
+279 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         0 < a2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'real_capacity needs output to be >= input cap'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: push_back-L538-0
+~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:538
+
+= Messages =
+error[E0999]: assignment might be unsafe
+   --> src/vec_deque.rs:538:9
+    |
+538 |         self.head = self.wrap_add(self.head, 1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a4 = a3.0"
+              blamed variable: "Some(a4)"
+              related variables: [{"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:538:21: 538:48 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}]
+   --> src/vec_deque.rs:538:9
+    |
+538 |         self.head = self.wrap_add(self.head, 1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:538:21
+    |
+538 |         self.head = self.wrap_add(self.head, 1);
+    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a4 = a3.0
+ Blamed Variable:   Some(a4)
+ Related Variables:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:538:21: 538:48 (#0))))
+  - a3 (depth 3, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:538:21: 538:48 (#0))))
+  - a3 (depth 3, origin: No provenance)
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'self.wrap_add needs a refinement'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: handle_capacity_increase-L197-1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:197
+
+= Messages =
+error[E0999]: arithmetic operation may overflow
+   --> src/vec_deque.rs:197:28
+    |
+197 |             let new_tail = new_capacity - (old_capacity - self.tail);
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a2 - a0 - a3.1 ≥ 0"
+              blamed variable: "Some(a3)"
+              related variables: [{"name": "a3", "depth": 3, "origin": "No provenance"}, {"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}, {"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:168:28: 168:38 (#0)))"}]
+   --> src/vec_deque.rs:197:28
+    |
+197 |             let new_tail = new_capacity - (old_capacity - self.tail);
+    |                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:168:28
+    |
+168 |         let new_capacity = self.cap();
+    |                            ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a2 - a0 - a3.1 ≥ 0
+ Blamed Variable:   Some(a3)
+ Related Variables:
+  - a3 (depth 3, origin: No provenance)
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a3 (depth 3, origin: No provenance)
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:168:28: 168:38 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'old_capacity needs to relate to self.cap()'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: len-L409-1
+~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:409
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:409:9
+    |
+409 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:30:47
+    |
+30  | #[flux::alias(type Size = usize{v: pow2(v) && 1<=v })]
+    |                                               ^^^^
+
+error[E0999]: failed to verify predicate: "1 ≤ a1"
+              blamed variable: "Some(a1)"
+              related variables: [{"name": "a1", "depth": 1, "origin": "(CallReturn, Some(src/vec_deque.rs:409:37: 409:47 (#0)))"}]
+   --> src/vec_deque.rs:409:9
+    |
+409 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a1 (depth 1)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:409:37
+    |
+409 |         count(self.tail, self.head, self.cap())
+    |                                     ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         1 ≤ a1
+ Blamed Variable:   Some(a1)
+ Related Variables:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:409:37: 409:47 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:409:37: 409:47 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'self.cap() needs pow2 on output'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: grow-L551-0
+~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:551
+
+= Messages =
+error[E0999]: type invariant may not hold (when place is folded)
+   --> src/vec_deque.rs:551:9
+    |
+551 |         self.buf.reserve_exact(old_cap, old_cap);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a1 + a1 = a2.2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "No provenance"}, {"name": "a1", "depth": 1, "origin": "(CallReturn, Some(src/vec_deque.rs:550:23: 550:33 (#0)))"}]
+   --> src/vec_deque.rs:551:9
+    |
+551 |         self.buf.reserve_exact(old_cap, old_cap);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a1 (depth 1)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:550:23
+    |
+550 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a1 + a1 = a2.2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a2 (depth 2, origin: No provenance)
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:550:23: 550:33 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:550:23: 550:33 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': "self.cap() doesn't have any refinement"}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: wrap_add-L126-0
+~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:126
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:126:9
+    |
+126 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:30:40
+    |
+30  | #[flux::alias(type Size = usize{v: pow2(v) && 1<=v })]
+    |                                        ^^^
+
+error[E0999]: failed to verify predicate: "pow2(a4)"
+              blamed variable: "Some(a4)"
+              related variables: [{"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:126:46: 126:56 (#0)))"}]
+   --> src/vec_deque.rs:126:9
+    |
+126 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:126:46
+    |
+126 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |                                              ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         pow2(a4)
+ Blamed Variable:   Some(a4)
+ Related Variables:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:126:46: 126:56 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:126:46: 126:56 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'cap needs pow2 on output'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: with_capacity_in-L281-2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:281
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:281:9
+    |
+281 | /         VecDeque {
+282 | |             tail: 0,
+283 | |             head: 0,
+284 | |             buf: RawVec::with_capacity_in(cap, alloc),
+285 | |         }
+    | |_________^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:77:45
+    |
+77  |     #[flux::field({ RawVec<T, A>[cap] | pow2(cap) && 1 <= cap } )]
+    |                                             ^^^^^
+
+error[E0999]: failed to verify predicate: "pow2(a2)"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0)))"}]
+   --> src/vec_deque.rs:281:9
+    |
+281 | /         VecDeque {
+282 | |             tail: 0,
+283 | |             head: 0,
+284 | |             buf: RawVec::with_capacity_in(cap, alloc),
+285 | |         }
+    | |_________^
+    |
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:279:19
+    |
+279 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         pow2(a2)
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'real_capacity needs to return a pow2'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: is_full-L119-0
+~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:119
+
+= Messages =
+error[E0999]: arithmetic operation may overflow
+   --> src/vec_deque.rs:119:9
+    |
+119 |         self.cap() - self.len() == 1
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a1 - a2 ≥ 0"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:119:22: 119:32 (#0)))"}, {"name": "a1", "depth": 1, "origin": "(CallReturn, Some(src/vec_deque.rs:119:9: 119:19 (#0)))"}]
+   --> src/vec_deque.rs:119:9
+    |
+119 |         self.cap() - self.len() == 1
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:119:22
+    |
+119 |         self.cap() - self.len() == 1
+    |                      ^^^^^^^^^^
+note: related variable `a1 (depth 1)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:119:9
+    |
+119 |         self.cap() - self.len() == 1
+    |         ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a1 - a2 ≥ 0
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:119:22: 119:32 (#0))))
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:119:9: 119:19 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:119:22: 119:32 (#0))))
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:119:9: 119:19 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'cap and len need refinements'}
+ Additional Notes:  both cap and len need refinement
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: handle_capacity_increase-L197-0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:197
+
+= Messages =
+error[E0999]: arithmetic operation may overflow
+   --> src/vec_deque.rs:197:43
+    |
+197 |             let new_tail = new_capacity - (old_capacity - self.tail);
+    |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a0 - a3.1 ≥ 0"
+              blamed variable: "Some(a3)"
+              related variables: [{"name": "a3", "depth": 3, "origin": "No provenance"}, {"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}]
+   --> src/vec_deque.rs:197:43
+    |
+197 |             let new_tail = new_capacity - (old_capacity - self.tail);
+    |                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a0 - a3.1 ≥ 0
+ Blamed Variable:   Some(a3)
+ Related Variables:
+  - a3 (depth 3, origin: No provenance)
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a3 (depth 3, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'old_capacity needs to relate to self.cap()'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: with_capacity_in-L281-3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:281
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:281:9
+    |
+281 | /         VecDeque {
+282 | |             tail: 0,
+283 | |             head: 0,
+284 | |             buf: RawVec::with_capacity_in(cap, alloc),
+285 | |         }
+    | |_________^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:77:54
+    |
+77  |     #[flux::field({ RawVec<T, A>[cap] | pow2(cap) && 1 <= cap } )]
+    |                                                      ^^^^^^^^
+
+error[E0999]: failed to verify predicate: "1 ≤ a2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0)))"}]
+   --> src/vec_deque.rs:281:9
+    |
+281 | /         VecDeque {
+282 | |             tail: 0,
+283 | |             head: 0,
+284 | |             buf: RawVec::with_capacity_in(cap, alloc),
+285 | |         }
+    | |_________^
+    |
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:279:19
+    |
+279 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         1 ≤ a2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:279:19: 279:42 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'real_capacity needs to return output >= 1'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: push_front-L512-0
+~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:512
+
+= Messages =
+error[E0999]: assignment might be unsafe
+   --> src/vec_deque.rs:512:9
+    |
+512 |         self.tail = self.wrap_sub(tail, 1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a4 = a3.1"
+              blamed variable: "Some(a4)"
+              related variables: [{"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:512:21: 512:43 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}]
+   --> src/vec_deque.rs:512:9
+    |
+512 |         self.tail = self.wrap_sub(tail, 1);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:512:21
+    |
+512 |         self.tail = self.wrap_sub(tail, 1);
+    |                     ^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a4 = a3.1
+ Blamed Variable:   Some(a4)
+ Related Variables:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:512:21: 512:43 (#0))))
+  - a3 (depth 3, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:512:21: 512:43 (#0))))
+  - a3 (depth 3, origin: No provenance)
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'wrap_sub unrefined (needs to relate to tail)'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: push_back-L539-0
+~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:539
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:539:18
+    |
+539 |         unsafe { self.buffer_write(head, value) }
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+
+error[E0999]: failed to verify predicate: "a5 = a3"
+              blamed variable: "Some(a5)"
+              related variables: [{"name": "a5", "depth": 5, "origin": "(Sub(Call), Some(src/vec_deque.rs:539:18: 539:48 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}]
+   --> src/vec_deque.rs:539:18
+    |
+539 |         unsafe { self.buffer_write(head, value) }
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a5 (depth 5)` defined here with originator `Sub(Call)`
+   --> src/vec_deque.rs:539:18
+    |
+539 |         unsafe { self.buffer_write(head, value) }
+    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a5 = a3
+ Blamed Variable:   Some(a5)
+ Related Variables:
+  - a5 (depth 5, origin: (Sub(Call), Some(src/vec_deque.rs:539:18: 539:48 (#0))))
+  - a3 (depth 3, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a5 (depth 5, origin: (Sub(Call), Some(src/vec_deque.rs:539:18: 539:48 (#0))))
+  - a3 (depth 3, origin: No provenance)
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': "I think it's because self.wrap_add isn't refined"}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: capacity-L358-0
+~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:358
+
+= Messages =
+error[E0999]: arithmetic operation may overflow
+   --> src/vec_deque.rs:358:9
+    |
+358 |         self.cap() - 1
+    |         ^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a1 - 1 ≥ 0"
+              blamed variable: "Some(a1)"
+              related variables: [{"name": "a1", "depth": 1, "origin": "(CallReturn, Some(src/vec_deque.rs:358:9: 358:19 (#0)))"}]
+   --> src/vec_deque.rs:358:9
+    |
+358 |         self.cap() - 1
+    |         ^^^^^^^^^^^^^^
+    |
+note: related variable `a1 (depth 1)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:358:9
+    |
+358 |         self.cap() - 1
+    |         ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a1 - 1 ≥ 0
+ Blamed Variable:   Some(a1)
+ Related Variables:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:358:9: 358:19 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:358:9: 358:19 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'self.cap() output needs to be >= 1'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: grow-L557-0
+~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:557
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:557:13
+    |
+557 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+
+error[E0999]: failed to verify predicate: "a6 = a2"
+              blamed variable: "Some(a6)"
+              related variables: [{"name": "a6", "depth": 5, "origin": "(Sub(Call), Some(src/vec_deque.rs:557:13: 557:51 (#0)))"}, {"name": "a2", "depth": 2, "origin": "No provenance"}]
+   --> src/vec_deque.rs:557:13
+    |
+557 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a6 (depth 5)` defined here with originator `Sub(Call)`
+   --> src/vec_deque.rs:557:13
+    |
+557 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a6 = a2
+ Blamed Variable:   Some(a6)
+ Related Variables:
+  - a6 (depth 5, origin: (Sub(Call), Some(src/vec_deque.rs:557:13: 557:51 (#0))))
+  - a2 (depth 2, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change: None selected
+ Anything Missing:    True
+  -> Missing Info: self.cap()?
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': "I think it's because self.cap() is unrefined"}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: handle_capacity_increase-L187-0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:187
+
+= Messages =
+error[E0999]: arithmetic operation may overflow
+   --> src/vec_deque.rs:187:31
+    |
+187 |         } else if self.head < old_capacity - self.tail {
+    |                               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a0 - a3.1 ≥ 0"
+              blamed variable: "Some(a3)"
+              related variables: [{"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}]
+   --> src/vec_deque.rs:187:31
+    |
+187 |         } else if self.head < old_capacity - self.tail {
+    |                               ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:167:51
+    |
+167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a0 - a3.1 ≥ 0
+ Blamed Variable:   Some(a3)
+ Related Variables:
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+  - a3 (depth 3, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:167:51: 167:63 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'old_capacity needs to relate to self.cap()'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+Error: reserve-L387-0
+~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:387
+
+= Messages =
+error[E0999]: arithmetic operation may overflow
+   --> src/vec_deque.rs:387:46
+    |
+387 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);
+    |                                              ^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a5 - a4 + 1 ≥ 0"
+              blamed variable: "Some(a5)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:379:23: 379:33 (#0)))"}, {"name": "a5", "depth": 5, "origin": "(CallReturn, Some(src/vec_deque.rs:381:23: 381:66 (#0)))"}, {"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:380:24: 380:34 (#0)))"}]
+   --> src/vec_deque.rs:387:46
+    |
+387 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);
+    |                                              ^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:379:23
+    |
+379 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+note: related variable `a5 (depth 5)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:381:23
+    |
+381 |         let new_cap = new_capacity(old_cap, used_cap, additional);
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:380:24
+    |
+380 |         let used_cap = self.len() + 1;
+    |                        ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a5 - a4 + 1 ≥ 0
+ Blamed Variable:   Some(a5)
+ Related Variables:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:379:23: 379:33 (#0))))
+  - a5 (depth 5, origin: (CallReturn, Some(src/vec_deque.rs:381:23: 381:66 (#0))))
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:380:24: 380:34 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:379:23: 379:33 (#0))))
+  - a5 (depth 5, origin: (CallReturn, Some(src/vec_deque.rs:381:23: 381:66 (#0))))
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:380:24: 380:34 (#0))))
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'several refinements needed probably: cap, len, real_capacity'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+  (Failed to checkout commit 5c538c8: error: Your local changes to the following files would be overwritten by checkout:
+	kani-vecdeque/src/vec_deque.rs
+Please commit your changes or stash them before you switch branches.
+Aborting
+)
+
+------------------------------------------------------------
+
+
+--- Commit: 7d90dc6 (15 errors) ---
+--------------------------------------------------------------------------------
+
+Error: push_front-L521-0
+~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:521
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:521:13
+    |
+521 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+
+error[E0999]: failed to verify predicate: "a5 = a3"
+              blamed variable: "Some(a5)"
+              related variables: [{"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:518:21: 518:43 (#0)))"}, {"name": "a5", "depth": 5, "origin": "(Sub(Call), Some(src/vec_deque.rs:521:13: 521:43 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}]
+   --> src/vec_deque.rs:521:13
+    |
+521 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:518:21
+    |
+518 |         self.tail = self.wrap_sub(tail, 1);
+    |                     ^^^^^^^^^^^^^^^^^^^^^^
+note: related variable `a5 (depth 5)` defined here with originator `Sub(Call)`
+   --> src/vec_deque.rs:521:13
+    |
+521 |             self.buffer_write(tail, value);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a5 = a3
+ Blamed Variable:   Some(a5)
+ Related Variables:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:518:21: 518:43 (#0))))
+  - a5 (depth 5, origin: (Sub(Call), Some(src/vec_deque.rs:521:13: 521:43 (#0))))
+  - a3 (depth 3, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a3 (depth 3, origin: No provenance)
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'push_front etc need VecDeque refinement on input/output probably'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 511:            //#[stable(feature = "rust1", since = "1.0.0")]
+ 512:            #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], value: T) ensures self: VecDeque<T, A>)]
+ 513:            pub fn push_front(&mut self, value: T) {
+ 514:                if self.is_full() {
+ 515:                    self.grow();
+ 516:                }
+ 517:        
+ 518:                let tail = self.tail;
+ 519:                self.tail = self.wrap_sub(tail, 1);
+ 520:                let tail = self.tail;
+ 521: error>         unsafe {
+ 522:                    self.buffer_write(tail, value);
+ 523:                }
+
+------------------------------------------------------------
+
+Error: reserve-L395-0
+~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:395
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:395:17
+    |
+395 |                 self.handle_capacity_increase(old_cap);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:171:75
+    |
+171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && 1 <= v}) ensures self: VecDeque<T, A>)]
+    |                                                                           ^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a2 * 2 ≤ a6.2"
+              blamed variable: "Some(a6)"
+              related variables: [{"name": "a5", "depth": 5, "origin": "(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))"}, {"name": "a1", "depth": 1, "origin": "No provenance"}, {"name": "a6", "depth": 6, "origin": "No provenance"}, {"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))"}]
+   --> src/vec_deque.rs:395:17
+    |
+395 |                 self.handle_capacity_increase(old_cap);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a5 (depth 5)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:386:23
+    |
+386 |         let new_cap = new_capacity(old_cap, used_cap, additional);
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:384:23
+    |
+384 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a2 * 2 ≤ a6.2
+ Blamed Variable:   Some(a6)
+ Related Variables:
+  - a5 (depth 5, origin: (CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0))))
+  - a1 (depth 1, origin: No provenance)
+  - a6 (depth 6, origin: No provenance)
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a5 (depth 5, origin: (CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0))))
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': "We haven't established that the new capacity is 2x greater than the old capacity"}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 382:            //#[stable(feature = "rust1", since = "1.0.0")]
+ 383:            pub fn reserve(&mut self, additional: usize) {
+ 384:                let old_cap = self.cap();
+ 385:                let used_cap = self.len() + 1;
+ 386:                let new_cap = new_capacity(old_cap, used_cap, additional);
+ 387:        
+ 388:                // *** This is the issue! new_cap is related to underlying buffer, capacity() is not.
+ 389:                if new_cap > old_cap
+ 390:                /* BUG self.capacity() */
+ 391:                {
+ 392:                    self.buf.reserve_exact(used_cap, new_cap - used_cap);
+ 393:                    // new_cap <= self.cap, old_cap < new_cap => 2 * old_cap <= new_cap
+ 394:                    unsafe {
+ 395: error>                 self.handle_capacity_increase(old_cap);
+ 396:                    }
+ 397:                }
+ 398:            }
+
+------------------------------------------------------------
+
+Error: with_capacity_in-L286-3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:286
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:286:9
+    |
+286 | /         VecDeque {
+287 | |             tail: 0,
+288 | |             head: 0,
+289 | |             buf: RawVec::with_capacity_in(cap, alloc),
+290 | |         }
+    | |_________^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:77:54
+    |
+77  |     #[flux::field({ RawVec<T, A>[cap] | pow2(cap) && 1 <= cap } )]
+    |                                                      ^^^^^^^^
+
+error[E0999]: failed to verify predicate: "1 ≤ a2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"capacity\")), Some(src/vec_deque.rs:279:25: 279:33 (#0)))"}, {"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0)))"}]
+   --> src/vec_deque.rs:286:9
+    |
+286 | /         VecDeque {
+287 | |             tail: 0,
+288 | |             head: 0,
+289 | |             buf: RawVec::with_capacity_in(cap, alloc),
+290 | |         }
+    | |_________^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("capacity"))`
+   --> src/vec_deque.rs:279:25
+    |
+279 |     fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+    |                         ^^^^^^^^
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:284:19
+    |
+284 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         1 ≤ a2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a0 (depth 0, origin: (FnArg(Some("capacity")), Some(src/vec_deque.rs:279:25: 279:33 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("capacity")), Some(src/vec_deque.rs:279:25: 279:33 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'real_capacity needs >= 1'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 278:            //#[unstable(feature = "allocator_api", issue = "32838")]
+ 279:            fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+ 280:                // FLUX-TODO: same as MAXIMUM_ZST_CAPACITY?: assert!(capacity < 1_usize << usize::BITS - 1, "capacity overflow");
+ 281:                // TODO: Uncomment
+ 282:                // assert(capacity < MAXIMUM_ZST_CAPACITY);
+ 283:                // +1 since the ringbuffer always leaves one space empty
+ 284:                let cap = real_capacity(capacity);
+ 285:        
+ 286: error>         VecDeque {
+ 287:                    tail: 0,
+ 288:                    head: 0,
+ 289:                    buf: RawVec::with_capacity_in(cap, alloc),
+ 290:                }
+ 291:            }
+
+------------------------------------------------------------
+
+Error: wrap_sub-L137-0
+~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:137
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:137:9
+    |
+137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:135:90
+    |
+135 |     #[flux::sig(fn (self: &VecDeque<T,A>[@s], idx: usize, subtrahend: usize) -> usize{v: v < s.cap})]
+    |                                                                                          ^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a4 < s.2"
+              blamed variable: "Some(a4)"
+              related variables: [{"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:137:9: 137:61 (#0)))"}]
+   --> src/vec_deque.rs:137:9
+    |
+137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:137:9
+    |
+137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a4 < s.2
+ Blamed Variable:   Some(a4)
+ Related Variables:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:137:9: 137:61 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:137:9: 137:61 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'wrap_index needs > cap'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 135:            #[flux::sig(fn (self: &VecDeque<T,A>[@s], idx: usize, subtrahend: usize) -> usize{v: v < s.cap})]
+ 136:            fn wrap_sub(&self, idx: usize, subtrahend: usize) -> usize {
+ 137: error>         wrap_index(idx.wrapping_sub(subtrahend), self.cap())
+ 138:            }
+
+------------------------------------------------------------
+
+Error: reserve-L395-1
+~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:395
+
+= Messages =
+error[E0999]: type invariant may not hold (when place is folded)
+   --> src/vec_deque.rs:395:17
+    |
+395 |                 self.handle_capacity_increase(old_cap);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a9 = a6"
+              blamed variable: "Some(a9)"
+              related variables: [{"name": "a9", "depth": 7, "origin": "(AssumeEnsures, Some(src/vec_deque.rs:395:17: 395:55 (#0)))"}, {"name": "a6", "depth": 6, "origin": "No provenance"}]
+   --> src/vec_deque.rs:395:17
+    |
+395 |                 self.handle_capacity_increase(old_cap);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a9 (depth 7)` defined here with originator `AssumeEnsures`
+   --> src/vec_deque.rs:395:17
+    |
+395 |                 self.handle_capacity_increase(old_cap);
+    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a9 = a6
+ Blamed Variable:   Some(a9)
+ Related Variables:
+  - a9 (depth 7, origin: (AssumeEnsures, Some(src/vec_deque.rs:395:17: 395:55 (#0))))
+  - a6 (depth 6, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a9 (depth 7, origin: (AssumeEnsures, Some(src/vec_deque.rs:395:17: 395:55 (#0))))
+  - a6 (depth 6, origin: No provenance)
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': "guessing this is just because we haven't added enough refinements"}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 382:            //#[stable(feature = "rust1", since = "1.0.0")]
+ 383:            pub fn reserve(&mut self, additional: usize) {
+ 384:                let old_cap = self.cap();
+ 385:                let used_cap = self.len() + 1;
+ 386:                let new_cap = new_capacity(old_cap, used_cap, additional);
+ 387:        
+ 388:                // *** This is the issue! new_cap is related to underlying buffer, capacity() is not.
+ 389:                if new_cap > old_cap
+ 390:                /* BUG self.capacity() */
+ 391:                {
+ 392:                    self.buf.reserve_exact(used_cap, new_cap - used_cap);
+ 393:                    // new_cap <= self.cap, old_cap < new_cap => 2 * old_cap <= new_cap
+ 394:                    unsafe {
+ 395: error>                 self.handle_capacity_increase(old_cap);
+ 396:                    }
+ 397:                }
+ 398:            }
+
+------------------------------------------------------------
+
+Error: grow-L563-0
+~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:563
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:563:13
+    |
+563 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:171:75
+    |
+171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && 1 <= v}) ensures self: VecDeque<T, A>)]
+    |                                                                           ^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a1 * 2 ≤ a2.2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a5", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:559:23: 559:33 (#0)))"}, {"name": "a0", "depth": 0, "origin": "No provenance"}, {"name": "a2", "depth": 2, "origin": "No provenance"}, {"name": "a1", "depth": 1, "origin": "(CallReturn, Some(src/vec_deque.rs:556:23: 556:33 (#0)))"}]
+   --> src/vec_deque.rs:563:13
+    |
+563 |             self.handle_capacity_increase(old_cap);
+    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a5 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:559:23
+    |
+559 |         let new_cap = self.cap();
+    |                       ^^^^^^^^^^
+note: related variable `a1 (depth 1)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:556:23
+    |
+556 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a1 * 2 ≤ a2.2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a5 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:559:23: 559:33 (#0))))
+  - a0 (depth 0, origin: No provenance)
+  - a2 (depth 2, origin: No provenance)
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:556:23: 556:33 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a5 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:559:23: 559:33 (#0))))
+  - a0 (depth 0, origin: No provenance)
+  - a2 (depth 2, origin: No provenance)
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:556:23: 556:33 (#0))))
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'new_cap needs to be >= old_cap*2. Maybe uncomment assert?'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 551:            // be called in cold paths.
+ 552:            // This may panic or abort
+ 553:            #[inline(never)]
+ 554:            fn grow(&mut self) {
+ 555:                // Extend or possibly remove this assertion when valid use-cases for growing the
+ 556:                // buffer without it being full emerge
+ 557:                debug_assert!(self.is_full());
+ 558:                let old_cap = self.cap();
+ 559:                self.buf.reserve_exact(old_cap, old_cap);
+ 560:                let _ = lem_power_two(old_cap);
+ 561:                let new_cap = self.cap();
+ 562:                // TODO: Uncomment
+ 563: error>         // assert(new_cap == old_cap * 2);
+ 564:                unsafe {
+ 565:                    self.handle_capacity_increase(old_cap);
+ 566:                }
+
+------------------------------------------------------------
+
+Error: with_capacity_in-L286-0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:286
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:286:9
+    |
+286 | /         VecDeque {
+287 | |             tail: 0,
+288 | |             head: 0,
+289 | |             buf: RawVec::with_capacity_in(cap, alloc),
+290 | |         }
+    | |_________^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:73:35
+    |
+73  |     #[flux::field({ usize[tail] | tail < cap })]
+    |                                   ^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "0 < a2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"capacity\")), Some(src/vec_deque.rs:279:25: 279:33 (#0)))"}, {"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0)))"}]
+   --> src/vec_deque.rs:286:9
+    |
+286 | /         VecDeque {
+287 | |             tail: 0,
+288 | |             head: 0,
+289 | |             buf: RawVec::with_capacity_in(cap, alloc),
+290 | |         }
+    | |_________^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("capacity"))`
+   --> src/vec_deque.rs:279:25
+    |
+279 |     fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+    |                         ^^^^^^^^
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:284:19
+    |
+284 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         0 < a2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a0 (depth 0, origin: (FnArg(Some("capacity")), Some(src/vec_deque.rs:279:25: 279:33 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("capacity")), Some(src/vec_deque.rs:279:25: 279:33 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'real_capacity needs > 1'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 278:            //#[unstable(feature = "allocator_api", issue = "32838")]
+ 279:            fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+ 280:                // FLUX-TODO: same as MAXIMUM_ZST_CAPACITY?: assert!(capacity < 1_usize << usize::BITS - 1, "capacity overflow");
+ 281:                // TODO: Uncomment
+ 282:                // assert(capacity < MAXIMUM_ZST_CAPACITY);
+ 283:                // +1 since the ringbuffer always leaves one space empty
+ 284:                let cap = real_capacity(capacity);
+ 285:        
+ 286: error>         VecDeque {
+ 287:                    tail: 0,
+ 288:                    head: 0,
+ 289:                    buf: RawVec::with_capacity_in(cap, alloc),
+ 290:                }
+ 291:            }
+
+------------------------------------------------------------
+
+Error: len-L415-0
+~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:415
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:415:9
+    |
+415 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:413:56
+    |
+413 |     #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]
+    |                                                        ^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a1 < self.2"
+              blamed variable: "Some(a1)"
+              related variables: [{"name": "a1", "depth": 1, "origin": "(CallReturn, Some(src/vec_deque.rs:415:9: 415:48 (#0)))"}]
+   --> src/vec_deque.rs:415:9
+    |
+415 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a1 (depth 1)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:415:9
+    |
+415 |         count(self.tail, self.head, self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a1 < self.2
+ Blamed Variable:   Some(a1)
+ Related Variables:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:415:9: 415:48 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:415:9: 415:48 (#0))))
+ Anything Missing:    True
+  -> Missing Info: self.cap()'s output
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'count needs output > self.cap'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 413:            #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]
+ 414:            pub fn len(&self) -> usize {
+ 415: error>         count(self.tail, self.head, self.cap())
+ 416:            }
+
+------------------------------------------------------------
+
+Error: wrap_add-L129-0
+~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:129
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:129:9
+    |
+129 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:127:86
+    |
+127 |     #[flux::sig(fn (self: &VecDeque<T,A>[@s], idx: usize, addend: usize) -> usize{v: v < s.cap})]
+    |                                                                                      ^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a4 < s.2"
+              blamed variable: "Some(a4)"
+              related variables: [{"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:129:9: 129:57 (#0)))"}]
+   --> src/vec_deque.rs:129:9
+    |
+129 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:129:9
+    |
+129 |         wrap_index(idx.wrapping_add(addend), self.cap())
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a4 < s.2
+ Blamed Variable:   Some(a4)
+ Related Variables:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:129:9: 129:57 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:129:9: 129:57 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'wrap_index needs > cap'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 127:            #[flux::sig(fn (self: &VecDeque<T,A>[@s], idx: usize, addend: usize) -> usize{v: v < s.cap})]
+ 128:            fn wrap_add(&self, idx: usize, addend: usize) -> usize {
+ 129: error>         wrap_index(idx.wrapping_add(addend), self.cap())
+ 130:            }
+
+------------------------------------------------------------
+
+Error: with_capacity_in-L286-2
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:286
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:286:9
+    |
+286 | /         VecDeque {
+287 | |             tail: 0,
+288 | |             head: 0,
+289 | |             buf: RawVec::with_capacity_in(cap, alloc),
+290 | |         }
+    | |_________^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:77:45
+    |
+77  |     #[flux::field({ RawVec<T, A>[cap] | pow2(cap) && 1 <= cap } )]
+    |                                             ^^^^^
+
+error[E0999]: failed to verify predicate: "pow2(a2)"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"capacity\")), Some(src/vec_deque.rs:279:25: 279:33 (#0)))"}, {"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0)))"}]
+   --> src/vec_deque.rs:286:9
+    |
+286 | /         VecDeque {
+287 | |             tail: 0,
+288 | |             head: 0,
+289 | |             buf: RawVec::with_capacity_in(cap, alloc),
+290 | |         }
+    | |_________^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("capacity"))`
+   --> src/vec_deque.rs:279:25
+    |
+279 |     fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+    |                         ^^^^^^^^
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:284:19
+    |
+284 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         pow2(a2)
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a0 (depth 0, origin: (FnArg(Some("capacity")), Some(src/vec_deque.rs:279:25: 279:33 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("capacity")), Some(src/vec_deque.rs:279:25: 279:33 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'real_capacity needs pow2'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 278:            //#[unstable(feature = "allocator_api", issue = "32838")]
+ 279:            fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+ 280:                // FLUX-TODO: same as MAXIMUM_ZST_CAPACITY?: assert!(capacity < 1_usize << usize::BITS - 1, "capacity overflow");
+ 281:                // TODO: Uncomment
+ 282:                // assert(capacity < MAXIMUM_ZST_CAPACITY);
+ 283:                // +1 since the ringbuffer always leaves one space empty
+ 284:                let cap = real_capacity(capacity);
+ 285:        
+ 286: error>         VecDeque {
+ 287:                    tail: 0,
+ 288:                    head: 0,
+ 289:                    buf: RawVec::with_capacity_in(cap, alloc),
+ 290:                }
+ 291:            }
+
+------------------------------------------------------------
+
+Error: handle_capacity_increase-L192-0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:192
+
+= Messages =
+error[E0999]: arithmetic operation may overflow
+   --> src/vec_deque.rs:192:31
+    |
+192 |         } else if self.head < old_capacity - self.tail {
+    |                               ^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a0 - s.1 ≥ 0"
+              blamed variable: "Some(a0)"
+              related variables: [{"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:172:51: 172:63 (#0)))"}]
+   --> src/vec_deque.rs:192:31
+    |
+192 |         } else if self.head < old_capacity - self.tail {
+    |                               ^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("old_capacity"))`
+   --> src/vec_deque.rs:172:51
+    |
+172 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+    |                                                   ^^^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a0 - s.1 ≥ 0
+ Blamed Variable:   Some(a0)
+ Related Variables:
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:172:51: 172:63 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("old_capacity")), Some(src/vec_deque.rs:172:51: 172:63 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'old_capacity needs > self.tail'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 171:            #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && 1 <= v}) ensures self: VecDeque<T, A>)]
+ 172:            unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+ 173:                let new_capacity = self.cap();
+ 174:        
+ 175:                // Move the shortest contiguous section of the ring buffer
+ 176:                //    T             H
+ 177:                //   [o o o o o o o . ]
+ 178:                //    T             H
+ 179:                // A [o o o o o o o . . . . . . . . . ]
+ 180:                //        H T
+ 181:                //   [o o . o o o o o ]
+ 182:                //          T             H
+ 183:                // B [. . . o o o o o o o . . . . . . ]
+ 184:                //              H T
+ 185:                //   [o o o o o . o o ]
+ 186:                //              H                 T
+ 187:                // C [o o o o o . . . . . . . . . o o ]
+ 188:        
+ 189:                if self.tail <= self.head {
+ 190:                    // A
+ 191:                    // Nop
+ 192: error>         } else if self.head < old_capacity - self.tail {
+ 193:                    // B
+ 194:                    unsafe {
+ 195:                        let head = self.head;
+ 196:                        self.copy_nonoverlapping(old_capacity, 0, head); // FLUX-PANIC: self.head -> head
+ 197:                    }
+ 198:                    self.head += old_capacity;
+ 199:                    debug_assert!(self.head > self.tail);
+ 200:                } else {
+ 201:                    // C
+ 202:                    let new_tail = new_capacity - (old_capacity - self.tail);
+ 203:                    {
+ 204:                        let tail = self.tail;
+ 205:                        self.copy_nonoverlapping(new_tail, tail, old_capacity - tail); // FLUX-PANIC: self.tail -> tail
+ 206:                    }
+ 207:                    self.tail = new_tail;
+ 208:                    debug_assert!(self.head < self.tail);
+ 209:                }
+ 210:                // TODO: Uncomment
+ 211:                // // FLUX debug_assert!(self.head < self.cap());
+ 212:                // assert(self.head < self.cap());
+ 213:                // // FLUX debug_assert!(self.tail < self.cap());
+ 214:                // assert(self.tail < self.cap());
+ 215:                // // FLUX debug_assert!(self.cap().count_ones() == 1);
+ 216:                // assert(is_power_of_two(self.cap()));
+ 217:            }
+
+------------------------------------------------------------
+
+Error: with_capacity_in-L286-1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:286
+
+= Messages =
+error[E0999]: refinement type error
+   --> src/vec_deque.rs:286:9
+    |
+286 | /         VecDeque {
+287 | |             tail: 0,
+288 | |             head: 0,
+289 | |             buf: RawVec::with_capacity_in(cap, alloc),
+290 | |         }
+    | |_________^ a precondition cannot be proved
+    |
+note: this is the condition that cannot be proved
+   --> src/vec_deque.rs:75:35
+    |
+75  |     #[flux::field({ usize[head] | head < cap })]
+    |                                   ^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "0 < a2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a0", "depth": 0, "origin": "(FnArg(Some(\"capacity\")), Some(src/vec_deque.rs:279:25: 279:33 (#0)))"}, {"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0)))"}]
+   --> src/vec_deque.rs:286:9
+    |
+286 | /         VecDeque {
+287 | |             tail: 0,
+288 | |             head: 0,
+289 | |             buf: RawVec::with_capacity_in(cap, alloc),
+290 | |         }
+    | |_________^
+    |
+note: related variable `a0 (depth 0)` defined here with originator `FnArg(Some("capacity"))`
+   --> src/vec_deque.rs:279:25
+    |
+279 |     fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+    |                         ^^^^^^^^
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:284:19
+    |
+284 |         let cap = real_capacity(capacity);
+    |                   ^^^^^^^^^^^^^^^^^^^^^^^
+    = note: duplicate diagnostic emitted due to `-Z deduplicate-diagnostics=no`
+
+
+= Extracted Details =
+ Predicate:         0 < a2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a0 (depth 0, origin: (FnArg(Some("capacity")), Some(src/vec_deque.rs:279:25: 279:33 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a0 (depth 0, origin: (FnArg(Some("capacity")), Some(src/vec_deque.rs:279:25: 279:33 (#0))))
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'real_capacity needs > 1'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 278:            //#[unstable(feature = "allocator_api", issue = "32838")]
+ 279:            fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {
+ 280:                // FLUX-TODO: same as MAXIMUM_ZST_CAPACITY?: assert!(capacity < 1_usize << usize::BITS - 1, "capacity overflow");
+ 281:                // TODO: Uncomment
+ 282:                // assert(capacity < MAXIMUM_ZST_CAPACITY);
+ 283:                // +1 since the ringbuffer always leaves one space empty
+ 284:                let cap = real_capacity(capacity);
+ 285:        
+ 286: error>         VecDeque {
+ 287:                    tail: 0,
+ 288:                    head: 0,
+ 289:                    buf: RawVec::with_capacity_in(cap, alloc),
+ 290:                }
+ 291:            }
+
+------------------------------------------------------------
+
+Error: reserve-L392-0
+~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:392
+
+= Messages =
+error[E0999]: arithmetic operation may overflow
+   --> src/vec_deque.rs:392:46
+    |
+392 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);
+    |                                              ^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a5 - a4 + 1 ≥ 0"
+              blamed variable: "Some(a5)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))"}, {"name": "a3", "depth": 3, "origin": "No provenance"}, {"name": "a5", "depth": 5, "origin": "(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))"}, {"name": "a4", "depth": 4, "origin": "(CallReturn, Some(src/vec_deque.rs:385:24: 385:34 (#0)))"}]
+   --> src/vec_deque.rs:392:46
+    |
+392 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);
+    |                                              ^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a2 (depth 2)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:384:23
+    |
+384 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+note: related variable `a5 (depth 5)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:386:23
+    |
+386 |         let new_cap = new_capacity(old_cap, used_cap, additional);
+    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+note: related variable `a4 (depth 4)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:385:24
+    |
+385 |         let used_cap = self.len() + 1;
+    |                        ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a5 - a4 + 1 ≥ 0
+ Blamed Variable:   Some(a5)
+ Related Variables:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0))))
+  - a3 (depth 3, origin: No provenance)
+  - a5 (depth 5, origin: (CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0))))
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:385:24: 385:34 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: True
+ Variables to Change:
+  - a2 (depth 2, origin: (CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0))))
+  - a3 (depth 3, origin: No provenance)
+  - a5 (depth 5, origin: (CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0))))
+  - a4 (depth 4, origin: (CallReturn, Some(src/vec_deque.rs:385:24: 385:34 (#0))))
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': "new_capacity probably needs refinement (we'll assume len and cap are right)"}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 382:            //#[stable(feature = "rust1", since = "1.0.0")]
+ 383:            pub fn reserve(&mut self, additional: usize) {
+ 384:                let old_cap = self.cap();
+ 385:                let used_cap = self.len() + 1;
+ 386:                let new_cap = new_capacity(old_cap, used_cap, additional);
+ 387:        
+ 388:                // *** This is the issue! new_cap is related to underlying buffer, capacity() is not.
+ 389:                if new_cap > old_cap
+ 390:                /* BUG self.capacity() */
+ 391:                {
+ 392: error>             self.buf.reserve_exact(used_cap, new_cap - used_cap);
+ 393:                    // new_cap <= self.cap, old_cap < new_cap => 2 * old_cap <= new_cap
+ 394:                    unsafe {
+ 395:                        self.handle_capacity_increase(old_cap);
+ 396:                    }
+ 397:                }
+ 398:            }
+
+------------------------------------------------------------
+
+Error: grow-L557-0
+~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:557
+
+= Messages =
+error[E0999]: type invariant may not hold (when place is folded)
+   --> src/vec_deque.rs:557:9
+    |
+557 |         self.buf.reserve_exact(old_cap, old_cap);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0999]: failed to verify predicate: "a1 + a1 = a2.2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a0", "depth": 0, "origin": "No provenance"}, {"name": "a2", "depth": 2, "origin": "No provenance"}, {"name": "a1", "depth": 1, "origin": "(CallReturn, Some(src/vec_deque.rs:556:23: 556:33 (#0)))"}]
+   --> src/vec_deque.rs:557:9
+    |
+557 |         self.buf.reserve_exact(old_cap, old_cap);
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+note: related variable `a1 (depth 1)` defined here with originator `CallReturn`
+   --> src/vec_deque.rs:556:23
+    |
+556 |         let old_cap = self.cap();
+    |                       ^^^^^^^^^^
+
+
+= Extracted Details =
+ Predicate:         a1 + a1 = a2.2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a0 (depth 0, origin: No provenance)
+  - a2 (depth 2, origin: No provenance)
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:556:23: 556:33 (#0))))
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a0 (depth 0, origin: No provenance)
+  - a2 (depth 2, origin: No provenance)
+  - a1 (depth 1, origin: (CallReturn, Some(src/vec_deque.rs:556:23: 556:33 (#0))))
+ Anything Missing:    False
+ Certainty:   True
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': 'needs ensures vecdeque'}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 551:            // be called in cold paths.
+ 552:            // This may panic or abort
+ 553:            #[inline(never)]
+ 554:            fn grow(&mut self) {
+ 555:                // Extend or possibly remove this assertion when valid use-cases for growing the
+ 556:                // buffer without it being full emerge
+ 557: error>         debug_assert!(self.is_full());
+ 558:                let old_cap = self.cap();
+ 559:                self.buf.reserve_exact(old_cap, old_cap);
+ 560:                let _ = lem_power_two(old_cap);
+ 561:                let new_cap = self.cap();
+ 562:                // TODO: Uncomment
+ 563:                // assert(new_cap == old_cap * 2);
+ 564:                unsafe {
+ 565:                    self.handle_capacity_increase(old_cap);
+ 566:                }
+
+------------------------------------------------------------
+
+Error: handle_capacity_increase-L189-0
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Location: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:189
+
+= Messages =
+error[E0999]: type invariant may not hold (when place is folded)
+   --> src/vec_deque.rs:189:9
+    |
+189 | /         if self.tail <= self.head {
+190 | |             // A
+191 | |             // Nop
+192 | |         } else if self.head < old_capacity - self.tail {
+...   |
+208 | |             debug_assert!(self.head < self.tail);
+209 | |         }
+    | |_________^
+
+error[E0999]: failed to verify predicate: "a2 < s.2"
+              blamed variable: "Some(a2)"
+              related variables: [{"name": "a2", "depth": 2, "origin": "No provenance"}]
+   --> src/vec_deque.rs:189:9
+    |
+189 | /         if self.tail <= self.head {
+190 | |             // A
+191 | |             // Nop
+192 | |         } else if self.head < old_capacity - self.tail {
+...   |
+208 | |             debug_assert!(self.head < self.tail);
+209 | |         }
+    | |_________^
+
+
+= Extracted Details =
+ Predicate:         a2 < s.2
+ Blamed Variable:   Some(a2)
+ Related Variables:
+  - a2 (depth 2, origin: No provenance)
+
+= User Feedback =
+ Blamed Var Correct: False
+ Variables to Change:
+  - a2 (depth 2, origin: No provenance)
+ Anything Missing:    False
+ Certainty:   False
+ Fix Description:   {'fix_type': 'additional_refinement', 'description': "I'm guessing this is because of something to do with old_capacity?"}
+ Additional Notes:  None
+
+= Constraints & Context =
+ Constraint Files: None found
+
+= Code Context =
+Context File: /home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs
+ 171:            #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && 1 <= v}) ensures self: VecDeque<T, A>)]
+ 172:            unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {
+ 173:                let new_capacity = self.cap();
+ 174:        
+ 175:                // Move the shortest contiguous section of the ring buffer
+ 176:                //    T             H
+ 177:                //   [o o o o o o o . ]
+ 178:                //    T             H
+ 179:                // A [o o o o o o o . . . . . . . . . ]
+ 180:                //        H T
+ 181:                //   [o o . o o o o o ]
+ 182:                //          T             H
+ 183:                // B [. . . o o o o o o o . . . . . . ]
+ 184:                //              H T
+ 185:                //   [o o o o o . o o ]
+ 186:                //              H                 T
+ 187:                // C [o o o o o . . . . . . . . . o o ]
+ 188:        
+ 189: error>         if self.tail <= self.head {
+ 190:                    // A
+ 191:                    // Nop
+ 192:                } else if self.head < old_capacity - self.tail {
+ 193:                    // B
+ 194:                    unsafe {
+ 195:                        let head = self.head;
+ 196:                        self.copy_nonoverlapping(old_capacity, 0, head); // FLUX-PANIC: self.head -> head
+ 197:                    }
+ 198:                    self.head += old_capacity;
+ 199:                    debug_assert!(self.head > self.tail);
+ 200:                } else {
+ 201:                    // C
+ 202:                    let new_tail = new_capacity - (old_capacity - self.tail);
+ 203:                    {
+ 204:                        let tail = self.tail;
+ 205:                        self.copy_nonoverlapping(new_tail, tail, old_capacity - tail); // FLUX-PANIC: self.tail -> tail
+ 206:                    }
+ 207:                    self.tail = new_tail;
+ 208:                    debug_assert!(self.head < self.tail);
+ 209:                }
+ 210:                // TODO: Uncomment
+ 211:                // // FLUX debug_assert!(self.head < self.cap());
+ 212:                // assert(self.head < self.cap());
+ 213:                // // FLUX debug_assert!(self.tail < self.cap());
+ 214:                // assert(self.tail < self.cap());
+ 215:                // // FLUX debug_assert!(self.cap().count_ones() == 1);
+ 216:                // assert(is_power_of_two(self.cap()));
+ 217:            }
+
+------------------------------------------------------------
+

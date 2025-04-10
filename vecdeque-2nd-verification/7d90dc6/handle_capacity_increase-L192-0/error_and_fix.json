@@ -1,0 +1,49 @@
+{
+  "error": {
+    "message1": "error[E0999]: arithmetic operation may overflow\n   --> src/vec_deque.rs:192:31\n    |\n192 |         } else if self.head < old_capacity - self.tail {\n    |                               ^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a0 - s.1 \u2265 0\"\n              blamed variable: \"Some(a0)\"\n              related variables: [{\"name\": \"a0\", \"depth\": 0, \"origin\": \"(FnArg(Some(\\\"old_capacity\\\")), Some(src/vec_deque.rs:172:51: 172:63 (#0)))\"}]\n   --> src/vec_deque.rs:192:31\n    |\n192 |         } else if self.head < old_capacity - self.tail {\n    |                               ^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"old_capacity\"))`\n   --> src/vec_deque.rs:172:51\n    |\n172 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {\n    |                                                   ^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 192,
+    "col": 31,
+    "raw1": "error[E0999]: arithmetic operation may overflow\n   --> src/vec_deque.rs:192:31\n    |\n192 |         } else if self.head < old_capacity - self.tail {\n    |                               ^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a0 - s.1 \u2265 0\"\n              blamed variable: \"Some(a0)\"\n              related variables: [{\"name\": \"a0\", \"depth\": 0, \"origin\": \"(FnArg(Some(\\\"old_capacity\\\")), Some(src/vec_deque.rs:172:51: 172:63 (#0)))\"}]\n   --> src/vec_deque.rs:192:31\n    |\n192 |         } else if self.head < old_capacity - self.tail {\n    |                               ^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"old_capacity\"))`\n   --> src/vec_deque.rs:172:51\n    |\n172 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {\n    |                                                   ^^^^^^^^^^^^\n\n",
+    "predicate": "a0 - s.1 \u2265 0",
+    "blamed_variable": "Some(a0)",
+    "related_variables": [
+      {
+        "name": "a0",
+        "depth": 0,
+        "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:172:51: 172:63 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 171,
+      "end": 217,
+      "name": "handle_capacity_increase",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:171-217):\nFunction name: handle_capacity_increase\n---------------------------------------------------------------------------------------------\n 171:            #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && 1 <= v}) ensures self: VecDeque<T, A>)]\n 172:            unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {\n 173:                let new_capacity = self.cap();\n 174:        \n 175:                // Move the shortest contiguous section of the ring buffer\n 176:                //    T             H\n 177:                //   [o o o o o o o . ]\n 178:                //    T             H\n 179:                // A [o o o o o o o . . . . . . . . . ]\n 180:                //        H T\n 181:                //   [o o . o o o o o ]\n 182:                //          T             H\n 183:                // B [. . . o o o o o o o . . . . . . ]\n 184:                //              H T\n 185:                //   [o o o o o . o o ]\n 186:                //              H                 T\n 187:                // C [o o o o o . . . . . . . . . o o ]\n 188:        \n 189:                if self.tail <= self.head {\n 190:                    // A\n 191:                    // Nop\n 192: error>         } else if self.head < old_capacity - self.tail {\n 193:                    // B\n 194:                    unsafe {\n 195:                        let head = self.head;\n 196:                        self.copy_nonoverlapping(old_capacity, 0, head); // FLUX-PANIC: self.head -> head\n 197:                    }\n 198:                    self.head += old_capacity;\n 199:                    debug_assert!(self.head > self.tail);\n 200:                } else {\n 201:                    // C\n 202:                    let new_tail = new_capacity - (old_capacity - self.tail);\n 203:                    {\n 204:                        let tail = self.tail;\n 205:                        self.copy_nonoverlapping(new_tail, tail, old_capacity - tail); // FLUX-PANIC: self.tail -> tail\n 206:                    }\n 207:                    self.tail = new_tail;\n 208:                    debug_assert!(self.head < self.tail);\n 209:                }\n 210:                // TODO: Uncomment\n 211:                // // FLUX debug_assert!(self.head < self.cap());\n 212:                // assert(self.head < self.cap());\n 213:                // // FLUX debug_assert!(self.tail < self.cap());\n 214:                // assert(self.tail < self.cap());\n 215:                // // FLUX debug_assert!(self.cap().count_ones() == 1);\n 216:                // assert(is_power_of_two(self.cap()));\n 217:            }\n"
+    },
+    "unique_name": "handle_capacity_increase-L192-0"
+  },
+  "fix": {
+    "certainty": true,
+    "err_type": "2b",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "old_capacity needs > self.tail"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": true,
+    "variables_to_change": [
+      {
+        "name": "a0",
+        "depth": 0,
+        "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:172:51: 172:63 (#0)))"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

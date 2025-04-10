@@ -1,0 +1,42 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:545:18\n    |\n545 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a5 = a3\"\n              blamed variable: \"Some(a5)\"\n              related variables: [{\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))\"}, {\"name\": \"a5\", \"depth\": 5, \"origin\": \"(Sub(Call), Some(src/vec_deque.rs:545:18: 545:48 (#0)))\"}, {\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:545:18\n    |\n545 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:544:21\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nnote: related variable `a5 (depth 5)` defined here with originator `Sub(Call)`\n   --> src/vec_deque.rs:545:18\n    |\n545 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 545,
+    "col": 18,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:545:18\n    |\n545 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a5 = a3\"\n              blamed variable: \"Some(a5)\"\n              related variables: [{\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))\"}, {\"name\": \"a5\", \"depth\": 5, \"origin\": \"(Sub(Call), Some(src/vec_deque.rs:545:18: 545:48 (#0)))\"}, {\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:545:18\n    |\n545 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:544:21\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nnote: related variable `a5 (depth 5)` defined here with originator `Sub(Call)`\n   --> src/vec_deque.rs:545:18\n    |\n545 |         unsafe { self.buffer_write(head, value) }\n    |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a5 = a3",
+    "blamed_variable": "Some(a5)",
+    "related_variables": [
+      {
+        "name": "a4",
+        "depth": 4,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))"
+      },
+      {
+        "name": "a5",
+        "depth": 5,
+        "origin": "(Sub(Call), Some(src/vec_deque.rs:545:18: 545:48 (#0)))"
+      },
+      {
+        "name": "a3",
+        "depth": 3,
+        "origin": "No provenance"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 537,
+      "end": 546,
+      "name": "push_back",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:537-546):\nFunction name: push_back\n---------------------------------------------------------------------------------------------\n 537:            /// ```\n 538:            //#[stable(feature = \"rust1\", since = \"1.0.0\")]\n 539:            #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], value: T) ensures self: VecDeque<T, A>)]\n 540:            pub fn push_back(&mut self, value: T) {\n 541:                if self.is_full() {\n 542:                    self.grow();\n 543:                }\n 544:        \n 545: error>         let head = self.head;\n 546:                self.head = self.wrap_add(self.head, 1);\n"
+    },
+    "unique_name": "push_back-L545-0"
+  },
+  "fix": {
+    "seen_before": true
+  }
+}

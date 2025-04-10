@@ -1,0 +1,49 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:137:9\n    |\n137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:135:90\n    |\n135 |     #[flux::sig(fn (self: &VecDeque<T,A>[@s], idx: usize, subtrahend: usize) -> usize{v: v < s.cap})]\n    |                                                                                          ^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a4 < s.2\"\n              blamed variable: \"Some(a4)\"\n              related variables: [{\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:137:9: 137:61 (#0)))\"}]\n   --> src/vec_deque.rs:137:9\n    |\n137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:137:9\n    |\n137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 137,
+    "col": 9,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:137:9\n    |\n137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:135:90\n    |\n135 |     #[flux::sig(fn (self: &VecDeque<T,A>[@s], idx: usize, subtrahend: usize) -> usize{v: v < s.cap})]\n    |                                                                                          ^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a4 < s.2\"\n              blamed variable: \"Some(a4)\"\n              related variables: [{\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:137:9: 137:61 (#0)))\"}]\n   --> src/vec_deque.rs:137:9\n    |\n137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:137:9\n    |\n137 |         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a4 < s.2",
+    "blamed_variable": "Some(a4)",
+    "related_variables": [
+      {
+        "name": "a4",
+        "depth": 4,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:137:9: 137:61 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 135,
+      "end": 138,
+      "name": "wrap_sub",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:135-138):\nFunction name: wrap_sub\n---------------------------------------------------------------------------------------------\n 135:            #[flux::sig(fn (self: &VecDeque<T,A>[@s], idx: usize, subtrahend: usize) -> usize{v: v < s.cap})]\n 136:            fn wrap_sub(&self, idx: usize, subtrahend: usize) -> usize {\n 137: error>         wrap_index(idx.wrapping_sub(subtrahend), self.cap())\n 138:            }\n"
+    },
+    "unique_name": "wrap_sub-L137-0"
+  },
+  "fix": {
+    "certainty": true,
+    "err_type": "1a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "wrap_index needs > cap"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": true,
+    "variables_to_change": [
+      {
+        "name": "a4",
+        "depth": 4,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:137:9: 137:61 (#0)))"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

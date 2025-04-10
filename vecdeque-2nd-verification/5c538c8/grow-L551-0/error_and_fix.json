@@ -1,0 +1,54 @@
+{
+  "error": {
+    "message1": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:551:9\n    |\n551 |         self.buf.reserve_exact(old_cap, old_cap);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a1 + a1 = a2.2\"\n              blamed variable: \"Some(a2)\"\n              related variables: [{\"name\": \"a2\", \"depth\": 2, \"origin\": \"No provenance\"}, {\"name\": \"a1\", \"depth\": 1, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:550:23: 550:33 (#0)))\"}]\n   --> src/vec_deque.rs:551:9\n    |\n551 |         self.buf.reserve_exact(old_cap, old_cap);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a1 (depth 1)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:550:23\n    |\n550 |         let old_cap = self.cap();\n    |                       ^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 551,
+    "col": 9,
+    "raw1": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:551:9\n    |\n551 |         self.buf.reserve_exact(old_cap, old_cap);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a1 + a1 = a2.2\"\n              blamed variable: \"Some(a2)\"\n              related variables: [{\"name\": \"a2\", \"depth\": 2, \"origin\": \"No provenance\"}, {\"name\": \"a1\", \"depth\": 1, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:550:23: 550:33 (#0)))\"}]\n   --> src/vec_deque.rs:551:9\n    |\n551 |         self.buf.reserve_exact(old_cap, old_cap);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a1 (depth 1)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:550:23\n    |\n550 |         let old_cap = self.cap();\n    |                       ^^^^^^^^^^\n\n",
+    "predicate": "a1 + a1 = a2.2",
+    "blamed_variable": "Some(a2)",
+    "related_variables": [
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "No provenance"
+      },
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:550:23: 550:33 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 545,
+      "end": 560,
+      "name": "grow",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:545-560):\nFunction name: grow\n---------------------------------------------------------------------------------------------\n 545:            #[inline(never)]\n 546:            fn grow(&mut self) {\n 547:                // Extend or possibly remove this assertion when valid use-cases for growing the\n 548:                // buffer without it being full emerge\n 549:                debug_assert!(self.is_full());\n 550:                let old_cap = self.cap();\n 551: error>         self.buf.reserve_exact(old_cap, old_cap);\n 552:                let _ = lem_power_two(old_cap);\n 553:                let new_cap = self.cap();\n 554:                // TODO: Uncomment\n 555:                // assert(new_cap == old_cap * 2);\n 556:                unsafe {\n 557:                    self.handle_capacity_increase(old_cap);\n 558:                }\n 559:                debug_assert!(!self.is_full());\n 560:            }\n"
+    },
+    "unique_name": "grow-L551-0"
+  },
+  "fix": {
+    "certainty": true,
+    "err_type": "1a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "self.cap() doesn't have any refinement"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": false,
+    "variables_to_change": [
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:550:23: 550:33 (#0)))"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

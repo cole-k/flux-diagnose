@@ -1,0 +1,59 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:390:17\n    |\n390 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a8 = a6\"\n              blamed variable: \"Some(a8)\"\n              related variables: [{\"name\": \"a8\", \"depth\": 7, \"origin\": \"(Sub(Call), Some(src/vec_deque.rs:390:17: 390:55 (#0)))\"}, {\"name\": \"a6\", \"depth\": 6, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:390:17\n    |\n390 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a8 (depth 7)` defined here with originator `Sub(Call)`\n   --> src/vec_deque.rs:390:17\n    |\n390 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 390,
+    "col": 17,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:390:17\n    |\n390 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a8 = a6\"\n              blamed variable: \"Some(a8)\"\n              related variables: [{\"name\": \"a8\", \"depth\": 7, \"origin\": \"(Sub(Call), Some(src/vec_deque.rs:390:17: 390:55 (#0)))\"}, {\"name\": \"a6\", \"depth\": 6, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:390:17\n    |\n390 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a8 (depth 7)` defined here with originator `Sub(Call)`\n   --> src/vec_deque.rs:390:17\n    |\n390 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a8 = a6",
+    "blamed_variable": "Some(a8)",
+    "related_variables": [
+      {
+        "name": "a8",
+        "depth": 7,
+        "origin": "(Sub(Call), Some(src/vec_deque.rs:390:17: 390:55 (#0)))"
+      },
+      {
+        "name": "a6",
+        "depth": 6,
+        "origin": "No provenance"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 377,
+      "end": 393,
+      "name": "reserve",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:377-393):\nFunction name: reserve\n---------------------------------------------------------------------------------------------\n 377:            //#[stable(feature = \"rust1\", since = \"1.0.0\")]\n 378:            pub fn reserve(&mut self, additional: usize) {\n 379:                let old_cap = self.cap();\n 380:                let used_cap = self.len() + 1;\n 381:                let new_cap = new_capacity(old_cap, used_cap, additional);\n 382:        \n 383:                // *** This is the issue! new_cap is related to underlying buffer, capacity() is not.\n 384:                if new_cap > old_cap\n 385:                /* BUG self.capacity() */\n 386:                {\n 387:                    self.buf.reserve_exact(used_cap, new_cap - used_cap);\n 388:                    // new_cap <= self.cap, old_cap < new_cap => 2 * old_cap <= new_cap\n 389:                    unsafe {\n 390: error>                 self.handle_capacity_increase(old_cap);\n 391:                    }\n 392:                }\n 393:            }\n"
+    },
+    "unique_name": "reserve-L390-0"
+  },
+  "fix": {
+    "certainty": false,
+    "err_type": "1a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "old_cap needs to have a refinement, probably from self.cap()"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": false,
+    "variables_to_change": [
+      {
+        "name": "a8",
+        "depth": 7,
+        "origin": "(Sub(Call), Some(src/vec_deque.rs:390:17: 390:55 (#0)))"
+      },
+      {
+        "name": "a6",
+        "depth": 6,
+        "origin": "No provenance"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

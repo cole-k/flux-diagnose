@@ -1,0 +1,59 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:286:9\n    |\n286 | /         VecDeque {\n287 | |             tail: 0,\n288 | |             head: 0,\n289 | |             buf: RawVec::with_capacity_in(cap, alloc),\n290 | |         }\n    | |_________^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:77:45\n    |\n77  |     #[flux::field({ RawVec<T, A>[cap] | pow2(cap) && 1 <= cap } )]\n    |                                             ^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"pow2(a2)\"\n              blamed variable: \"Some(a2)\"\n              related variables: [{\"name\": \"a0\", \"depth\": 0, \"origin\": \"(FnArg(Some(\\\"capacity\\\")), Some(src/vec_deque.rs:279:25: 279:33 (#0)))\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0)))\"}]\n   --> src/vec_deque.rs:286:9\n    |\n286 | /         VecDeque {\n287 | |             tail: 0,\n288 | |             head: 0,\n289 | |             buf: RawVec::with_capacity_in(cap, alloc),\n290 | |         }\n    | |_________^\n    |\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"capacity\"))`\n   --> src/vec_deque.rs:279:25\n    |\n279 |     fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {\n    |                         ^^^^^^^^\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:284:19\n    |\n284 |         let cap = real_capacity(capacity);\n    |                   ^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 286,
+    "col": 9,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:286:9\n    |\n286 | /         VecDeque {\n287 | |             tail: 0,\n288 | |             head: 0,\n289 | |             buf: RawVec::with_capacity_in(cap, alloc),\n290 | |         }\n    | |_________^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:77:45\n    |\n77  |     #[flux::field({ RawVec<T, A>[cap] | pow2(cap) && 1 <= cap } )]\n    |                                             ^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"pow2(a2)\"\n              blamed variable: \"Some(a2)\"\n              related variables: [{\"name\": \"a0\", \"depth\": 0, \"origin\": \"(FnArg(Some(\\\"capacity\\\")), Some(src/vec_deque.rs:279:25: 279:33 (#0)))\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0)))\"}]\n   --> src/vec_deque.rs:286:9\n    |\n286 | /         VecDeque {\n287 | |             tail: 0,\n288 | |             head: 0,\n289 | |             buf: RawVec::with_capacity_in(cap, alloc),\n290 | |         }\n    | |_________^\n    |\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"capacity\"))`\n   --> src/vec_deque.rs:279:25\n    |\n279 |     fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {\n    |                         ^^^^^^^^\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:284:19\n    |\n284 |         let cap = real_capacity(capacity);\n    |                   ^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "pow2(a2)",
+    "blamed_variable": "Some(a2)",
+    "related_variables": [
+      {
+        "name": "a0",
+        "depth": 0,
+        "origin": "(FnArg(Some(\"capacity\")), Some(src/vec_deque.rs:279:25: 279:33 (#0)))"
+      },
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 278,
+      "end": 291,
+      "name": "with_capacity_in",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:278-291):\nFunction name: with_capacity_in\n---------------------------------------------------------------------------------------------\n 278:            //#[unstable(feature = \"allocator_api\", issue = \"32838\")]\n 279:            fn with_capacity_in(capacity: usize, alloc: A) -> VecDeque<T, A> {\n 280:                // FLUX-TODO: same as MAXIMUM_ZST_CAPACITY?: assert!(capacity < 1_usize << usize::BITS - 1, \"capacity overflow\");\n 281:                // TODO: Uncomment\n 282:                // assert(capacity < MAXIMUM_ZST_CAPACITY);\n 283:                // +1 since the ringbuffer always leaves one space empty\n 284:                let cap = real_capacity(capacity);\n 285:        \n 286: error>         VecDeque {\n 287:                    tail: 0,\n 288:                    head: 0,\n 289:                    buf: RawVec::with_capacity_in(cap, alloc),\n 290:                }\n 291:            }\n"
+    },
+    "unique_name": "with_capacity_in-L286-2"
+  },
+  "fix": {
+    "certainty": true,
+    "err_type": "2a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "real_capacity needs pow2"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": true,
+    "variables_to_change": [
+      {
+        "name": "a0",
+        "depth": 0,
+        "origin": "(FnArg(Some(\"capacity\")), Some(src/vec_deque.rs:279:25: 279:33 (#0)))"
+      },
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:284:19: 284:42 (#0)))"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

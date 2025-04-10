@@ -1,0 +1,47 @@
+{
+  "error": {
+    "message1": "error[E0999]: arithmetic operation may overflow\n   --> src/vec_deque.rs:200:58\n    |\n200 |                 self.copy_nonoverlapping(new_tail, tail, old_capacity - tail); // FLUX-PANIC: self.tail -> tail\n    |                                                          ^^^^^^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a0 - a3.1 \u2265 0\"\n              blamed variable: \"Some(a3)\"\n              related variables: [{\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}, {\"name\": \"a0\", \"depth\": 0, \"origin\": \"(FnArg(Some(\\\"old_capacity\\\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))\"}, {\"name\": \"a0\", \"depth\": 0, \"origin\": \"(FnArg(Some(\\\"old_capacity\\\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))\"}, {\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:200:58\n    |\n200 |                 self.copy_nonoverlapping(new_tail, tail, old_capacity - tail); // FLUX-PANIC: self.tail -> tail\n    |                                                          ^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"old_capacity\"))`\n   --> src/vec_deque.rs:167:51\n    |\n167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {\n    |                                                   ^^^^^^^^^^^^\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"old_capacity\"))`\n   --> src/vec_deque.rs:167:51\n    |\n167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {\n    |                                                   ^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 200,
+    "col": 58,
+    "raw1": "error[E0999]: arithmetic operation may overflow\n   --> src/vec_deque.rs:200:58\n    |\n200 |                 self.copy_nonoverlapping(new_tail, tail, old_capacity - tail); // FLUX-PANIC: self.tail -> tail\n    |                                                          ^^^^^^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a0 - a3.1 \u2265 0\"\n              blamed variable: \"Some(a3)\"\n              related variables: [{\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}, {\"name\": \"a0\", \"depth\": 0, \"origin\": \"(FnArg(Some(\\\"old_capacity\\\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))\"}, {\"name\": \"a0\", \"depth\": 0, \"origin\": \"(FnArg(Some(\\\"old_capacity\\\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))\"}, {\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:200:58\n    |\n200 |                 self.copy_nonoverlapping(new_tail, tail, old_capacity - tail); // FLUX-PANIC: self.tail -> tail\n    |                                                          ^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"old_capacity\"))`\n   --> src/vec_deque.rs:167:51\n    |\n167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {\n    |                                                   ^^^^^^^^^^^^\nnote: related variable `a0 (depth 0)` defined here with originator `FnArg(Some(\"old_capacity\"))`\n   --> src/vec_deque.rs:167:51\n    |\n167 |     unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {\n    |                                                   ^^^^^^^^^^^^\n\n",
+    "predicate": "a0 - a3.1 \u2265 0",
+    "blamed_variable": "Some(a3)",
+    "related_variables": [
+      {
+        "name": "a3",
+        "depth": 3,
+        "origin": "No provenance"
+      },
+      {
+        "name": "a0",
+        "depth": 0,
+        "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"
+      },
+      {
+        "name": "a0",
+        "depth": 0,
+        "origin": "(FnArg(Some(\"old_capacity\")), Some(src/vec_deque.rs:167:51: 167:63 (#0)))"
+      },
+      {
+        "name": "a3",
+        "depth": 3,
+        "origin": "No provenance"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 166,
+      "end": 212,
+      "name": "handle_capacity_increase",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:166-212):\nFunction name: handle_capacity_increase\n---------------------------------------------------------------------------------------------\n 166:            #[inline]\n 167:            unsafe fn handle_capacity_increase(&mut self, old_capacity: usize) {\n 168:                let new_capacity = self.cap();\n 169:        \n 170:                // Move the shortest contiguous section of the ring buffer\n 171:                //    T             H\n 172:                //   [o o o o o o o . ]\n 173:                //    T             H\n 174:                // A [o o o o o o o . . . . . . . . . ]\n 175:                //        H T\n 176:                //   [o o . o o o o o ]\n 177:                //          T             H\n 178:                // B [. . . o o o o o o o . . . . . . ]\n 179:                //              H T\n 180:                //   [o o o o o . o o ]\n 181:                //              H                 T\n 182:                // C [o o o o o . . . . . . . . . o o ]\n 183:        \n 184:                if self.tail <= self.head {\n 185:                    // A\n 186:                    // Nop\n 187:                } else if self.head < old_capacity - self.tail {\n 188:                    // B\n 189:                    unsafe {\n 190:                        let head = self.head;\n 191:                        self.copy_nonoverlapping(old_capacity, 0, head); // FLUX-PANIC: self.head -> head\n 192:                    }\n 193:                    self.head += old_capacity;\n 194:                    debug_assert!(self.head > self.tail);\n 195:                } else {\n 196:                    // C\n 197:                    let new_tail = new_capacity - (old_capacity - self.tail);\n 198:                    {\n 199:                        let tail = self.tail;\n 200: error>                 self.copy_nonoverlapping(new_tail, tail, old_capacity - tail); // FLUX-PANIC: self.tail -> tail\n 201:                    }\n 202:                    self.tail = new_tail;\n 203:                    debug_assert!(self.head < self.tail);\n 204:                }\n 205:                // TODO: Uncomment\n 206:                // // FLUX debug_assert!(self.head < self.cap());\n 207:                // assert(self.head < self.cap());\n 208:                // // FLUX debug_assert!(self.tail < self.cap());\n 209:                // assert(self.tail < self.cap());\n 210:                // // FLUX debug_assert!(self.cap().count_ones() == 1);\n 211:                // assert(is_power_of_two(self.cap()));\n 212:            }\n"
+    },
+    "unique_name": "handle_capacity_increase-L200-0"
+  },
+  "fix": {
+    "seen_before": true
+  }
+}

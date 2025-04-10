@@ -1,0 +1,49 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:415:9\n    |\n415 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:413:56\n    |\n413 |     #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]\n    |                                                        ^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a1 < self.2\"\n              blamed variable: \"Some(a1)\"\n              related variables: [{\"name\": \"a1\", \"depth\": 1, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:415:9: 415:48 (#0)))\"}]\n   --> src/vec_deque.rs:415:9\n    |\n415 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a1 (depth 1)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:415:9\n    |\n415 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 415,
+    "col": 9,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:415:9\n    |\n415 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a postcondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:413:56\n    |\n413 |     #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]\n    |                                                        ^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a1 < self.2\"\n              blamed variable: \"Some(a1)\"\n              related variables: [{\"name\": \"a1\", \"depth\": 1, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:415:9: 415:48 (#0)))\"}]\n   --> src/vec_deque.rs:415:9\n    |\n415 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a1 (depth 1)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:415:9\n    |\n415 |         count(self.tail, self.head, self.cap())\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a1 < self.2",
+    "blamed_variable": "Some(a1)",
+    "related_variables": [
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:415:9: 415:48 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 413,
+      "end": 416,
+      "name": "len",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:413-416):\nFunction name: len\n---------------------------------------------------------------------------------------------\n 413:            #[flux::sig(fn (&VecDeque<T,A>[@self]) -> usize{v: v < self.cap})]\n 414:            pub fn len(&self) -> usize {\n 415: error>         count(self.tail, self.head, self.cap())\n 416:            }\n"
+    },
+    "unique_name": "len-L415-0"
+  },
+  "fix": {
+    "certainty": true,
+    "err_type": "1a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "count needs output > self.cap"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": true,
+    "variables_to_change": [
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:415:9: 415:48 (#0)))"
+      }
+    ],
+    "anything_missing": true,
+    "missing_info": "self.cap()'s output",
+    "additional_notes": null
+  }
+}

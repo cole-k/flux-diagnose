@@ -1,0 +1,42 @@
+{
+  "error": {
+    "message1": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:563:13\n    |\n563 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a7 = a2\"\n              blamed variable: \"Some(a7)\"\n              related variables: [{\"name\": \"a5\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:559:23: 559:33 (#0)))\"}, {\"name\": \"a7\", \"depth\": 5, \"origin\": \"(AssumeEnsures, Some(src/vec_deque.rs:563:13: 563:51 (#0)))\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:563:13\n    |\n563 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a5 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:559:23\n    |\n559 |         let new_cap = self.cap();\n    |                       ^^^^^^^^^^\nnote: related variable `a7 (depth 5)` defined here with originator `AssumeEnsures`\n   --> src/vec_deque.rs:563:13\n    |\n563 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 563,
+    "col": 13,
+    "raw1": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:563:13\n    |\n563 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a7 = a2\"\n              blamed variable: \"Some(a7)\"\n              related variables: [{\"name\": \"a5\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:559:23: 559:33 (#0)))\"}, {\"name\": \"a7\", \"depth\": 5, \"origin\": \"(AssumeEnsures, Some(src/vec_deque.rs:563:13: 563:51 (#0)))\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:563:13\n    |\n563 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a5 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:559:23\n    |\n559 |         let new_cap = self.cap();\n    |                       ^^^^^^^^^^\nnote: related variable `a7 (depth 5)` defined here with originator `AssumeEnsures`\n   --> src/vec_deque.rs:563:13\n    |\n563 |             self.handle_capacity_increase(old_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a7 = a2",
+    "blamed_variable": "Some(a7)",
+    "related_variables": [
+      {
+        "name": "a5",
+        "depth": 4,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:559:23: 559:33 (#0)))"
+      },
+      {
+        "name": "a7",
+        "depth": 5,
+        "origin": "(AssumeEnsures, Some(src/vec_deque.rs:563:13: 563:51 (#0)))"
+      },
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "No provenance"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 551,
+      "end": 566,
+      "name": "grow",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:551-566):\nFunction name: grow\n---------------------------------------------------------------------------------------------\n 551:            // be called in cold paths.\n 552:            // This may panic or abort\n 553:            #[inline(never)]\n 554:            fn grow(&mut self) {\n 555:                // Extend or possibly remove this assertion when valid use-cases for growing the\n 556:                // buffer without it being full emerge\n 557:                debug_assert!(self.is_full());\n 558:                let old_cap = self.cap();\n 559:                self.buf.reserve_exact(old_cap, old_cap);\n 560:                let _ = lem_power_two(old_cap);\n 561:                let new_cap = self.cap();\n 562:                // TODO: Uncomment\n 563: error>         // assert(new_cap == old_cap * 2);\n 564:                unsafe {\n 565:                    self.handle_capacity_increase(old_cap);\n 566:                }\n"
+    },
+    "unique_name": "grow-L563-1"
+  },
+  "fix": {
+    "seen_before": true
+  }
+}

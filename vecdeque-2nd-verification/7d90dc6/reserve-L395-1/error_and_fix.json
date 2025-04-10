@@ -1,0 +1,59 @@
+{
+  "error": {
+    "message1": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a9 = a6\"\n              blamed variable: \"Some(a9)\"\n              related variables: [{\"name\": \"a9\", \"depth\": 7, \"origin\": \"(AssumeEnsures, Some(src/vec_deque.rs:395:17: 395:55 (#0)))\"}, {\"name\": \"a6\", \"depth\": 6, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a9 (depth 7)` defined here with originator `AssumeEnsures`\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 395,
+    "col": 17,
+    "raw1": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a9 = a6\"\n              blamed variable: \"Some(a9)\"\n              related variables: [{\"name\": \"a9\", \"depth\": 7, \"origin\": \"(AssumeEnsures, Some(src/vec_deque.rs:395:17: 395:55 (#0)))\"}, {\"name\": \"a6\", \"depth\": 6, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a9 (depth 7)` defined here with originator `AssumeEnsures`\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a9 = a6",
+    "blamed_variable": "Some(a9)",
+    "related_variables": [
+      {
+        "name": "a9",
+        "depth": 7,
+        "origin": "(AssumeEnsures, Some(src/vec_deque.rs:395:17: 395:55 (#0)))"
+      },
+      {
+        "name": "a6",
+        "depth": 6,
+        "origin": "No provenance"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 382,
+      "end": 398,
+      "name": "reserve",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:382-398):\nFunction name: reserve\n---------------------------------------------------------------------------------------------\n 382:            //#[stable(feature = \"rust1\", since = \"1.0.0\")]\n 383:            pub fn reserve(&mut self, additional: usize) {\n 384:                let old_cap = self.cap();\n 385:                let used_cap = self.len() + 1;\n 386:                let new_cap = new_capacity(old_cap, used_cap, additional);\n 387:        \n 388:                // *** This is the issue! new_cap is related to underlying buffer, capacity() is not.\n 389:                if new_cap > old_cap\n 390:                /* BUG self.capacity() */\n 391:                {\n 392:                    self.buf.reserve_exact(used_cap, new_cap - used_cap);\n 393:                    // new_cap <= self.cap, old_cap < new_cap => 2 * old_cap <= new_cap\n 394:                    unsafe {\n 395: error>                 self.handle_capacity_increase(old_cap);\n 396:                    }\n 397:                }\n 398:            }\n"
+    },
+    "unique_name": "reserve-L395-1"
+  },
+  "fix": {
+    "certainty": false,
+    "err_type": "2a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "guessing this is just because we haven't added enough refinements"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": false,
+    "variables_to_change": [
+      {
+        "name": "a9",
+        "depth": 7,
+        "origin": "(AssumeEnsures, Some(src/vec_deque.rs:395:17: 395:55 (#0)))"
+      },
+      {
+        "name": "a6",
+        "depth": 6,
+        "origin": "No provenance"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

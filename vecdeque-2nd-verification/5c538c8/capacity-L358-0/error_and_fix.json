@@ -1,0 +1,49 @@
+{
+  "error": {
+    "message1": "error[E0999]: arithmetic operation may overflow\n   --> src/vec_deque.rs:358:9\n    |\n358 |         self.cap() - 1\n    |         ^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a1 - 1 \u2265 0\"\n              blamed variable: \"Some(a1)\"\n              related variables: [{\"name\": \"a1\", \"depth\": 1, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:358:9: 358:19 (#0)))\"}]\n   --> src/vec_deque.rs:358:9\n    |\n358 |         self.cap() - 1\n    |         ^^^^^^^^^^^^^^\n    |\nnote: related variable `a1 (depth 1)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:358:9\n    |\n358 |         self.cap() - 1\n    |         ^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 358,
+    "col": 9,
+    "raw1": "error[E0999]: arithmetic operation may overflow\n   --> src/vec_deque.rs:358:9\n    |\n358 |         self.cap() - 1\n    |         ^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a1 - 1 \u2265 0\"\n              blamed variable: \"Some(a1)\"\n              related variables: [{\"name\": \"a1\", \"depth\": 1, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:358:9: 358:19 (#0)))\"}]\n   --> src/vec_deque.rs:358:9\n    |\n358 |         self.cap() - 1\n    |         ^^^^^^^^^^^^^^\n    |\nnote: related variable `a1 (depth 1)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:358:9\n    |\n358 |         self.cap() - 1\n    |         ^^^^^^^^^^\n\n",
+    "predicate": "a1 - 1 \u2265 0",
+    "blamed_variable": "Some(a1)",
+    "related_variables": [
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:358:9: 358:19 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 356,
+      "end": 359,
+      "name": "capacity",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:356-359):\nFunction name: capacity\n---------------------------------------------------------------------------------------------\n 356:            //#[stable(feature = \"rust1\", since = \"1.0.0\")]\n 357:            pub fn capacity(&self) -> usize {\n 358: error>         self.cap() - 1\n 359:            }\n"
+    },
+    "unique_name": "capacity-L358-0"
+  },
+  "fix": {
+    "certainty": true,
+    "err_type": "2a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "self.cap() output needs to be >= 1"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": true,
+    "variables_to_change": [
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:358:9: 358:19 (#0)))"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

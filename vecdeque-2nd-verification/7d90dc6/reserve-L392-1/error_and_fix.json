@@ -1,0 +1,52 @@
+{
+  "error": {
+    "message1": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:392:13\n    |\n392 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a4 + 1 + a5 - a4 + 1 = a6.2\"\n              blamed variable: \"Some(a6)\"\n              related variables: [{\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))\"}, {\"name\": \"a6\", \"depth\": 6, \"origin\": \"No provenance\"}, {\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:385:24: 385:34 (#0)))\"}, {\"name\": \"a5\", \"depth\": 5, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))\"}]\n   --> src/vec_deque.rs:392:13\n    |\n392 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:384:23\n    |\n384 |         let old_cap = self.cap();\n    |                       ^^^^^^^^^^\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:385:24\n    |\n385 |         let used_cap = self.len() + 1;\n    |                        ^^^^^^^^^^\nnote: related variable `a5 (depth 5)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:386:23\n    |\n386 |         let new_cap = new_capacity(old_cap, used_cap, additional);\n    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 392,
+    "col": 13,
+    "raw1": "error[E0999]: type invariant may not hold (when place is folded)\n   --> src/vec_deque.rs:392:13\n    |\n392 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a4 + 1 + a5 - a4 + 1 = a6.2\"\n              blamed variable: \"Some(a6)\"\n              related variables: [{\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))\"}, {\"name\": \"a6\", \"depth\": 6, \"origin\": \"No provenance\"}, {\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:385:24: 385:34 (#0)))\"}, {\"name\": \"a5\", \"depth\": 5, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))\"}]\n   --> src/vec_deque.rs:392:13\n    |\n392 |             self.buf.reserve_exact(used_cap, new_cap - used_cap);\n    |             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:384:23\n    |\n384 |         let old_cap = self.cap();\n    |                       ^^^^^^^^^^\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:385:24\n    |\n385 |         let used_cap = self.len() + 1;\n    |                        ^^^^^^^^^^\nnote: related variable `a5 (depth 5)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:386:23\n    |\n386 |         let new_cap = new_capacity(old_cap, used_cap, additional);\n    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a4 + 1 + a5 - a4 + 1 = a6.2",
+    "blamed_variable": "Some(a6)",
+    "related_variables": [
+      {
+        "name": "a3",
+        "depth": 3,
+        "origin": "No provenance"
+      },
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))"
+      },
+      {
+        "name": "a6",
+        "depth": 6,
+        "origin": "No provenance"
+      },
+      {
+        "name": "a4",
+        "depth": 4,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:385:24: 385:34 (#0)))"
+      },
+      {
+        "name": "a5",
+        "depth": 5,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 382,
+      "end": 398,
+      "name": "reserve",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:382-398):\nFunction name: reserve\n---------------------------------------------------------------------------------------------\n 382:            //#[stable(feature = \"rust1\", since = \"1.0.0\")]\n 383:            pub fn reserve(&mut self, additional: usize) {\n 384:                let old_cap = self.cap();\n 385:                let used_cap = self.len() + 1;\n 386:                let new_cap = new_capacity(old_cap, used_cap, additional);\n 387:        \n 388:                // *** This is the issue! new_cap is related to underlying buffer, capacity() is not.\n 389:                if new_cap > old_cap\n 390:                /* BUG self.capacity() */\n 391:                {\n 392: error>             self.buf.reserve_exact(used_cap, new_cap - used_cap);\n 393:                    // new_cap <= self.cap, old_cap < new_cap => 2 * old_cap <= new_cap\n 394:                    unsafe {\n 395:                        self.handle_capacity_increase(old_cap);\n 396:                    }\n 397:                }\n 398:            }\n"
+    },
+    "unique_name": "reserve-L392-1"
+  },
+  "fix": {
+    "seen_before": true
+  }
+}

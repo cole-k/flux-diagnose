@@ -1,0 +1,69 @@
+{
+  "error": {
+    "message1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:171:75\n    |\n171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && 1 <= v}) ensures self: VecDeque<T, A>)]\n    |                                                                           ^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a2 * 2 \u2264 a6.2\"\n              blamed variable: \"Some(a6)\"\n              related variables: [{\"name\": \"a5\", \"depth\": 5, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))\"}, {\"name\": \"a1\", \"depth\": 1, \"origin\": \"No provenance\"}, {\"name\": \"a6\", \"depth\": 6, \"origin\": \"No provenance\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))\"}]\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a5 (depth 5)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:386:23\n    |\n386 |         let new_cap = new_capacity(old_cap, used_cap, additional);\n    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:384:23\n    |\n384 |         let old_cap = self.cap();\n    |                       ^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 395,
+    "col": 17,
+    "raw1": "error[E0999]: refinement type error\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ a precondition cannot be proved\n    |\nnote: this is the condition that cannot be proved\n   --> src/vec_deque.rs:171:75\n    |\n171 |     #[flux::sig(fn (self: &strg VecDeque<T,A>[@s], old_capacity: usize{v: v * 2 <= s.cap && 1 <= v}) ensures self: VecDeque<T, A>)]\n    |                                                                           ^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a2 * 2 \u2264 a6.2\"\n              blamed variable: \"Some(a6)\"\n              related variables: [{\"name\": \"a5\", \"depth\": 5, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))\"}, {\"name\": \"a1\", \"depth\": 1, \"origin\": \"No provenance\"}, {\"name\": \"a6\", \"depth\": 6, \"origin\": \"No provenance\"}, {\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))\"}]\n   --> src/vec_deque.rs:395:17\n    |\n395 |                 self.handle_capacity_increase(old_cap);\n    |                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a5 (depth 5)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:386:23\n    |\n386 |         let new_cap = new_capacity(old_cap, used_cap, additional);\n    |                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:384:23\n    |\n384 |         let old_cap = self.cap();\n    |                       ^^^^^^^^^^\n\n",
+    "predicate": "a2 * 2 \u2264 a6.2",
+    "blamed_variable": "Some(a6)",
+    "related_variables": [
+      {
+        "name": "a5",
+        "depth": 5,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))"
+      },
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "No provenance"
+      },
+      {
+        "name": "a6",
+        "depth": 6,
+        "origin": "No provenance"
+      },
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 382,
+      "end": 398,
+      "name": "reserve",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:382-398):\nFunction name: reserve\n---------------------------------------------------------------------------------------------\n 382:            //#[stable(feature = \"rust1\", since = \"1.0.0\")]\n 383:            pub fn reserve(&mut self, additional: usize) {\n 384:                let old_cap = self.cap();\n 385:                let used_cap = self.len() + 1;\n 386:                let new_cap = new_capacity(old_cap, used_cap, additional);\n 387:        \n 388:                // *** This is the issue! new_cap is related to underlying buffer, capacity() is not.\n 389:                if new_cap > old_cap\n 390:                /* BUG self.capacity() */\n 391:                {\n 392:                    self.buf.reserve_exact(used_cap, new_cap - used_cap);\n 393:                    // new_cap <= self.cap, old_cap < new_cap => 2 * old_cap <= new_cap\n 394:                    unsafe {\n 395: error>                 self.handle_capacity_increase(old_cap);\n 396:                    }\n 397:                }\n 398:            }\n"
+    },
+    "unique_name": "reserve-L395-0"
+  },
+  "fix": {
+    "certainty": false,
+    "err_type": "2a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "We haven't established that the new capacity is 2x greater than the old capacity"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": false,
+    "variables_to_change": [
+      {
+        "name": "a5",
+        "depth": 5,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:386:23: 386:66 (#0)))"
+      },
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:384:23: 384:33 (#0)))"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": null
+  }
+}

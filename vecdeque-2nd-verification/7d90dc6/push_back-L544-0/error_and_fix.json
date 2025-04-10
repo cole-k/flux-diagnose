@@ -1,0 +1,47 @@
+{
+  "error": {
+    "message1": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:544:9\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a4 = a3.0\"\n              blamed variable: \"Some(a4)\"\n              related variables: [{\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}, {\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))\"}, {\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))\"}, {\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:544:9\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:544:21\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:544:21\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 544,
+    "col": 9,
+    "raw1": "error[E0999]: assignment might be unsafe\n   --> src/vec_deque.rs:544:9\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a4 = a3.0\"\n              blamed variable: \"Some(a4)\"\n              related variables: [{\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}, {\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))\"}, {\"name\": \"a4\", \"depth\": 4, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))\"}, {\"name\": \"a3\", \"depth\": 3, \"origin\": \"No provenance\"}]\n   --> src/vec_deque.rs:544:9\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:544:21\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^\nnote: related variable `a4 (depth 4)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:544:21\n    |\n544 |         self.head = self.wrap_add(self.head, 1);\n    |                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "predicate": "a4 = a3.0",
+    "blamed_variable": "Some(a4)",
+    "related_variables": [
+      {
+        "name": "a3",
+        "depth": 3,
+        "origin": "No provenance"
+      },
+      {
+        "name": "a4",
+        "depth": 4,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))"
+      },
+      {
+        "name": "a4",
+        "depth": 4,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:544:21: 544:48 (#0)))"
+      },
+      {
+        "name": "a3",
+        "depth": 3,
+        "origin": "No provenance"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 537,
+      "end": 546,
+      "name": "push_back",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:537-546):\nFunction name: push_back\n---------------------------------------------------------------------------------------------\n 537:            //#[stable(feature = \"rust1\", since = \"1.0.0\")]\n 538:            pub fn push_back(&mut self, value: T) {\n 539:                if self.is_full() {\n 540:                    self.grow();\n 541:                }\n 542:        \n 543:                let head = self.head;\n 544: error>         self.head = self.wrap_add(self.head, 1);\n 545:                unsafe { self.buffer_write(head, value) }\n 546:            }\n"
+    },
+    "unique_name": "push_back-L544-0"
+  },
+  "fix": {
+    "seen_before": true
+  }
+}

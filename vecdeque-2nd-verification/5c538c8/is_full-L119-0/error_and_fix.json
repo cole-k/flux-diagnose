@@ -1,0 +1,59 @@
+{
+  "error": {
+    "message1": "error[E0999]: arithmetic operation may overflow\n   --> src/vec_deque.rs:119:9\n    |\n119 |         self.cap() - self.len() == 1\n    |         ^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "message2": "error[E0999]: failed to verify predicate: \"a1 - a2 \u2265 0\"\n              blamed variable: \"Some(a2)\"\n              related variables: [{\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:119:22: 119:32 (#0)))\"}, {\"name\": \"a1\", \"depth\": 1, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:119:9: 119:19 (#0)))\"}]\n   --> src/vec_deque.rs:119:9\n    |\n119 |         self.cap() - self.len() == 1\n    |         ^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:119:22\n    |\n119 |         self.cap() - self.len() == 1\n    |                      ^^^^^^^^^^\nnote: related variable `a1 (depth 1)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:119:9\n    |\n119 |         self.cap() - self.len() == 1\n    |         ^^^^^^^^^^\n\n",
+    "file": "/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs",
+    "row": 119,
+    "col": 9,
+    "raw1": "error[E0999]: arithmetic operation may overflow\n   --> src/vec_deque.rs:119:9\n    |\n119 |         self.cap() - self.len() == 1\n    |         ^^^^^^^^^^^^^^^^^^^^^^^\n\n",
+    "raw2": "error[E0999]: failed to verify predicate: \"a1 - a2 \u2265 0\"\n              blamed variable: \"Some(a2)\"\n              related variables: [{\"name\": \"a2\", \"depth\": 2, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:119:22: 119:32 (#0)))\"}, {\"name\": \"a1\", \"depth\": 1, \"origin\": \"(CallReturn, Some(src/vec_deque.rs:119:9: 119:19 (#0)))\"}]\n   --> src/vec_deque.rs:119:9\n    |\n119 |         self.cap() - self.len() == 1\n    |         ^^^^^^^^^^^^^^^^^^^^^^^\n    |\nnote: related variable `a2 (depth 2)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:119:22\n    |\n119 |         self.cap() - self.len() == 1\n    |                      ^^^^^^^^^^\nnote: related variable `a1 (depth 1)` defined here with originator `CallReturn`\n   --> src/vec_deque.rs:119:9\n    |\n119 |         self.cap() - self.len() == 1\n    |         ^^^^^^^^^^\n\n",
+    "predicate": "a1 - a2 \u2265 0",
+    "blamed_variable": "Some(a2)",
+    "related_variables": [
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:119:22: 119:32 (#0)))"
+      },
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:119:9: 119:19 (#0)))"
+      }
+    ],
+    "parsing_error": null,
+    "function_context": {
+      "start": 117,
+      "end": 120,
+      "name": "is_full",
+      "constraint_files": [],
+      "rendered_context": "\nFunction context (/home/cole/research/flux-examples/kani-vecdeque/src/vec_deque.rs:117-120):\nFunction name: is_full\n---------------------------------------------------------------------------------------------\n 117:            #[inline]\n 118:            fn is_full(&self) -> bool {\n 119: error>         self.cap() - self.len() == 1\n 120:            }\n"
+    },
+    "unique_name": "is_full-L119-0"
+  },
+  "fix": {
+    "certainty": true,
+    "err_type": "2a",
+    "fix_description": {
+      "fix_type": "additional_refinement",
+      "description": "cap and len need refinements"
+    },
+    "seen_before": false,
+    "blamed_variable_correct": true,
+    "variables_to_change": [
+      {
+        "name": "a2",
+        "depth": 2,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:119:22: 119:32 (#0)))"
+      },
+      {
+        "name": "a1",
+        "depth": 1,
+        "origin": "(CallReturn, Some(src/vec_deque.rs:119:9: 119:19 (#0)))"
+      }
+    ],
+    "anything_missing": false,
+    "missing_info": null,
+    "additional_notes": "both cap and len need refinement"
+  }
+}
